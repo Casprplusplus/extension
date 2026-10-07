@@ -1,0 +1,431 @@
+#caspr-dashboard-widgets {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 30px;
+  font-family: system-ui, sans-serif;
+}
+#caspr-dashboard-widgets article {
+  background: var(--d-card);
+  color: var(--d-text);
+  border: 1px solid var(--d-line);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 8px 28px #00000008;
+}
+#caspr-dashboard-widgets span {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  font-weight: 750;
+  color: var(--d-accent);
+}
+#caspr-dashboard-widgets h2 {
+  font-size: 25px;
+  color: inherit;
+  margin: 12px 0;
+}
+#caspr-dashboard-widgets p {
+  color: var(--d-muted);
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 10px 0 0;
+}
+#caspr-dashboard-widgets time {
+  display: block;
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+#caspr-dashboard-widgets h3 {
+  font-size: 14px;
+  margin: 0 0 12px;
+}
+#caspr-dashboard-widgets a {
+  display: block;
+  color: var(--d-accent);
+  font-size: 13px;
+  padding: 5px 0;
+}
+@media (max-width: 1200px) {
+  #caspr-dashboard-widgets {
+    grid-template-columns: 1fr 1fr;
+  }
+  #caspr-dashboard-widgets article:first-child {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 575px) {
+  #caspr-dashboard-widgets {
+    grid-template-columns: 1fr;
+  }
+  html[data-caspr-dashboard] .leerlingAppTile {
+    min-height: 100px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-caspr-dashboard] .leerlingAppTile {
+    transition: none;
+  }
+  html[data-caspr-dashboard] .leerlingAppTile:hover {
+    transform: none;
+  }
+}
+
+#caspr-dashboard-widgets .caspr-seconds {
+  display: block;
+  font-size: clamp(19px, 2vw, 28px);
+  color: var(--d-accent);
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+/* Balanced widget rows, including individually hidden widgets. */
+#caspr-dashboard-widgets {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: stretch;
+}
+#caspr-dashboard-widgets article {
+  grid-column: span 6;
+  min-width: 0;
+}
+#caspr-dashboard-widgets .caspr-welcome-widget {
+  grid-column: span 6;
+}
+#caspr-dashboard-widgets .caspr-clock-widget,
+#caspr-dashboard-widgets .caspr-shortcuts-widget {
+  grid-column: span 3;
+}
+#caspr-dashboard-widgets .caspr-shortcuts-widget a {
+  margin: 5px 0;
+  padding: 8px 12px;
+  border-radius: 9px;
+  background: var(--d-soft);
+  text-decoration: none;
+}
+#caspr-dashboard-widgets .caspr-shortcuts-widget a:hover {
+  box-shadow: inset 0 0 0 1px var(--d-accent);
+}
+#caspr-dashboard-widgets .caspr-countdown-widget .caspr-seconds {
+  font-size: clamp(24px, 2.6vw, 36px);
+  letter-spacing: -0.03em;
+}
+#caspr-dashboard-widgets .caspr-next-lesson-widget > strong {
+  display: block;
+  font-size: 24px;
+  color: var(--d-accent);
+  margin-top: 15px;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 1200px) {
+  #caspr-dashboard-widgets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  #caspr-dashboard-widgets article,
+  #caspr-dashboard-widgets .caspr-clock-widget,
+  #caspr-dashboard-widgets .caspr-shortcuts-widget {
+    grid-column: span 1;
+  }
+  #caspr-dashboard-widgets .caspr-welcome-widget {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 575px) {
+  #caspr-dashboard-widgets {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #caspr-dashboard-widgets article,
+  #caspr-dashboard-widgets .caspr-welcome-widget {
+    grid-column: 1;
+    padding: 20px;
+  }
+}
+#caspr-dashboard-widgets {
+  width: 100%;
+  box-sizing: border-box;
+}
+#caspr-dashboard-widgets article {
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+}
+#caspr-dashboard-widgets h2 {
+  font-size: clamp(21px, 2vw, 27px);
+  line-height: 1.35;
+}
+#caspr-dashboard-widgets .caspr-emoji {
+  font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+  font-size: 1em;
+  letter-spacing: normal;
+  color: inherit;
+  font-weight: normal;
+}
+#caspr-dashboard-widgets .caspr-next-lesson-widget > strong {
+  font-size: clamp(18px, 1.8vw, 25px);
+  line-height: 1.4;
+}
+#caspr-dashboard-widgets article p {
+  max-width: 100%;
+}
+#caspr-dashboard-widgets .caspr-refresh-schedule {
+  margin-top: 12px;
+  padding: 7px 12px;
+  border: 1px solid var(--d-line);
+  border-radius: 9px;
+  background: var(--d-soft);
+  color: var(--d-text);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+#caspr-dashboard-widgets .caspr-refresh-schedule:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+#caspr-dashboard-widgets .caspr-refresh-schedule:focus-visible {
+  outline: 2px solid var(--d-accent);
+  outline-offset: 3px;
+}
+.caspr-pomodoro-time {
+  font-size: 36px;
+  font-weight: 750;
+  color: var(--d-accent);
+  font-variant-numeric: tabular-nums;
+}
+#caspr-dashboard-widgets {
+  align-items: start;
+  gap: 16px;
+}
+#caspr-dashboard-widgets .caspr-welcome-widget,
+#caspr-dashboard-widgets .caspr-clock-widget,
+#caspr-dashboard-widgets .caspr-shortcuts-widget,
+#caspr-dashboard-widgets .caspr-countdown-widget,
+#caspr-dashboard-widgets .caspr-next-lesson-widget {
+  align-self: stretch;
+  padding: 20px;
+  border-radius: 16px;
+}
+#caspr-dashboard-widgets .caspr-today-widget {
+  padding: 20px;
+  border-radius: 16px;
+}
+#caspr-dashboard-widgets .caspr-shortcuts-widget a {
+  padding: 6px 10px;
+  margin: 4px 0;
+}
+#caspr-dashboard-widgets .caspr-next-lesson-widget > strong {
+  margin-top: 8px;
+}
+#caspr-dashboard-widgets .caspr-pomodoro,
+#caspr-dashboard-widgets .caspr-progression {
+  grid-column: span 3;
+  padding: 20px;
+  border-radius: 16px;
+}
+#caspr-dashboard-widgets .caspr-pomodoro {
+  text-align: center;
+}
+.caspr-pomodoro-dial {
+  --timer-progress: 360deg;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 128px;
+  height: 128px;
+  margin: 12px auto;
+  border-radius: 50%;
+  background: conic-gradient(var(--d-accent) var(--timer-progress), var(--d-line) 0);
+  isolation: isolate;
+}
+.caspr-pomodoro-dial::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border-radius: inherit;
+  background: var(--d-card);
+  z-index: -1;
+}
+.caspr-pomodoro-dial small {
+  color: var(--d-muted);
+  font-size: 12px;
+}
+.caspr-pomodoro .caspr-pomodoro-controls {
+  justify-content: center;
+  margin-top: 14px;
+}
+.caspr-pomodoro details {
+  text-align: left;
+  border-top: 1px solid var(--d-line);
+  padding-top: 12px;
+}
+.caspr-pomodoro summary {
+  cursor: pointer;
+  color: var(--d-muted);
+  font-size: 12px;
+}
+.caspr-pomodoro input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--d-accent);
+}
+.caspr-pomodoro-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.caspr-pomodoro button {
+  border: 1px solid var(--d-line);
+  border-radius: 9px;
+  background: var(--d-soft);
+  color: var(--d-text);
+  padding: 8px 12px;
+}
+.caspr-pomodoro label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+.caspr-pomodoro input {
+  width: 70px;
+  border: 1px solid var(--d-line);
+  border-radius: 8px;
+  padding: 6px;
+  background: var(--d-card);
+  color: var(--d-text);
+}
+.caspr-pomodoro [hidden] {
+  display: none !important;
+}
+.caspr-today-widget {
+  grid-column: span 2;
+}
+.caspr-today-lessons {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  margin-top: 16px;
+}
+.caspr-today-lessons li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--d-soft);
+  border: 1px solid var(--d-line);
+}
+.caspr-today-lessons li > strong,
+.caspr-today-lessons li > time {
+  grid-column: 1 / -1;
+}
+#caspr-dashboard-widgets .caspr-today-lessons time {
+  font-size: 12px;
+  letter-spacing: normal;
+  font-weight: 500;
+}
+.caspr-today-lessons strong {
+  font-size: 14px;
+}
+.caspr-today-lessons small {
+  border-radius: 999px;
+  padding: 3px 6px;
+  background: var(--d-card);
+}
+.caspr-today-lessons li[data-state='current'] {
+  outline: 2px solid var(--d-accent);
+}
+.caspr-today-lessons li[data-state='done'] {
+  opacity: 0.85;
+}
+.caspr-today-lessons li[data-state='current'] small {
+  background: var(--d-accent);
+  color: var(--d-button-text);
+}
+#caspr-dashboard-widgets .caspr-today-lessons span {
+  font-size: 12px;
+  letter-spacing: normal;
+}
+.caspr-today-lessons time,
+.caspr-today-lessons small {
+  font-size: 12px;
+  color: var(--d-muted);
+}
+.caspr-progression-level {
+  font-size: 28px;
+  color: var(--d-accent);
+}
+.caspr-progression progress {
+  width: 100%;
+  height: 10px;
+  accent-color: var(--d-accent);
+}
+.caspr-progression button {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--d-line);
+  background: var(--d-soft);
+  color: var(--d-text);
+}
+#caspr-dashboard-widgets .caspr-progression .caspr-badge {
+  letter-spacing: normal;
+  font-size: 12px;
+}
+.caspr-reward-badges {
+  margin-top: 12px;
+}
+#caspr-dashboard-widgets .caspr-groupwork-widget {
+  grid-column: span 6;
+  padding: 20px;
+  border-radius: 16px;
+}
+.caspr-groupwork-list {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0;
+}
+.caspr-groupwork-widget button {
+  border: 1px solid var(--d-line);
+  background: var(--d-soft);
+  color: var(--d-text);
+  padding: 9px 12px;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+.caspr-groupwork-list button {
+  display: grid;
+  gap: 4px;
+}
+.caspr-groupwork-list small {
+  color: var(--d-muted);
+}
+.caspr-groupwork-list button[data-overdue='true'] {
+  border-left: 3px solid #dd8460;
+}
+@media (max-width: 1200px) {
+  #caspr-dashboard-widgets .caspr-groupwork-widget {
+    grid-column: span 1;
+  }
+}
+@media (max-width: 700px) {
+  .caspr-today-widget {
+    grid-column: auto;
+  }
+  .caspr-today-lessons li {
+    grid-template-columns: 1fr auto;
+  }
+}
+@media (max-width: 1200px) {
+  #caspr-dashboard-widgets .caspr-pomodoro,
+  #caspr-dashboard-widgets .caspr-progression {
+    grid-column: span 1;
+  }
+}

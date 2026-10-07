@@ -1,0 +1,10 @@
+@import './dashboard/palette.css';
+@import './dashboard/base.css';
+@import './dashboard/widgets.css';
+@import './dashboard/glass.css';
+@import './dashboard/navigation.css';
+@import './dashboard/pages.css';
+@import './dashboard/contrast.css';
+@import './dashboard/game.css';
+@import './dashboard/community.css';
+@import './dashboard/chat-appearance.css';

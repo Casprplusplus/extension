@@ -1,0 +1,451 @@
+/* Shared surfaces for Agenda, Uurrooster and Puntenboek. */
+html[data-caspr-dashboard] .main-content .au-card,
+html[data-caspr-dashboard] .main-content .card {
+  background: var(--d-card);
+  color: var(--d-text);
+  border: 1px solid var(--d-line);
+  border-radius: 18px;
+  box-shadow: 0 8px 28px #0000000c;
+}
+html[data-caspr-dashboard][data-caspr-glass='true'] .main-content .au-card,
+html[data-caspr-dashboard][data-caspr-glass='true'] .main-content .card {
+  background: color-mix(in srgb, var(--d-surface) var(--d-card-alpha, 65%), transparent);
+  backdrop-filter: blur(18px) saturate(125%);
+}
+html[data-caspr-dashboard] .main-content .card-header,
+html[data-caspr-dashboard] .main-content .card-footer {
+  background: var(--d-soft);
+  color: var(--d-text);
+  border-color: var(--d-line);
+}
+html[data-caspr-dashboard] .main-content label,
+html[data-caspr-dashboard] .main-content h4,
+html[data-caspr-dashboard] .main-content h5 {
+  color: var(--d-text);
+}
+html[data-caspr-dashboard] .main-content .form-control,
+html[data-caspr-dashboard] .main-content select {
+  background-color: var(--d-surface);
+  color: var(--d-text);
+  border-color: var(--d-line);
+  border-radius: 10px;
+}
+html[data-caspr-dashboard] .main-content .form-control::placeholder {
+  color: var(--d-muted);
+}
+html[data-caspr-dashboard] .main-content .btn-primary {
+  background-color: var(--d-accent);
+  border-color: var(--d-accent);
+  color: var(--d-button-text);
+  border-radius: 10px;
+}
+html[data-caspr-dashboard] .main-content .table {
+  color: var(--d-text);
+  background-color: var(--d-card);
+  --bs-table-color: var(--d-text);
+  --bs-table-bg: var(--d-card);
+  --bs-table-border-color: var(--d-line);
+  --bs-table-striped-bg: var(--d-soft);
+  --bs-table-striped-color: var(--d-text);
+  --bs-table-hover-color: var(--d-text);
+  --bs-table-hover-bg: var(--d-soft);
+}
+html[data-caspr-dashboard] .main-content .table thead th {
+  background: var(--d-soft);
+  color: var(--d-text);
+  border-color: var(--d-line);
+}
+html[data-caspr-dashboard] .main-content .table td,
+html[data-caspr-dashboard] .main-content .table th {
+  border-color: var(--d-line);
+}
+html[data-caspr-dashboard] .main-content .dataTables_wrapper,
+html[data-caspr-dashboard] .main-content .dataTables_info,
+html[data-caspr-dashboard] .main-content .dataTables_length,
+html[data-caspr-dashboard] .main-content .dataTables_filter {
+  color: var(--d-text);
+}
+html[data-caspr-dashboard] .page-link {
+  background: var(--d-surface);
+  color: var(--d-accent);
+  border-color: var(--d-line);
+}
+html[data-caspr-dashboard] .page-item.active .page-link {
+  background: var(--d-accent);
+  color: var(--d-button-text);
+}
+html[data-caspr-dashboard] .fc {
+  color: var(--d-text);
+  --fc-border-color: var(--d-line);
+  --fc-page-bg-color: var(--d-surface);
+  --fc-neutral-bg-color: var(--d-soft);
+  --fc-neutral-text-color: var(--d-muted);
+  --fc-today-bg-color: color-mix(in srgb, var(--d-accent) 12%, transparent);
+  --fc-button-bg-color: var(--d-soft);
+  --fc-button-border-color: var(--d-line);
+  --fc-button-text-color: var(--d-text);
+  --fc-button-hover-bg-color: var(--d-accent);
+  --fc-button-hover-border-color: var(--d-accent);
+  --fc-button-active-bg-color: var(--d-accent);
+  --fc-button-active-border-color: var(--d-accent);
+}
+html[data-caspr-dashboard] .fc .fc-toolbar-title {
+  color: var(--d-text);
+  font-size: 21px;
+}
+html[data-caspr-dashboard] .fc .fc-col-header-cell-cushion,
+html[data-caspr-dashboard] .fc .fc-daygrid-day-number,
+html[data-caspr-dashboard] .fc .fc-timegrid-slot-label {
+  color: var(--d-text);
+}
+html[data-caspr-dashboard] .fc .fc-button {
+  border-radius: 9px;
+}
+html[data-caspr-dashboard] .fc .fc-timegrid-event {
+  border-radius: 7px;
+}
+html[data-caspr-dashboard] .fc .fc-event-main a {
+  color: inherit;
+}
+html[data-caspr-dashboard] .fc .fc-col-header {
+  background: var(--d-soft);
+}
+html[data-caspr-dashboard] .fc .fc-scrollgrid {
+  border-radius: 12px;
+}
+html[data-caspr-dashboard] .navbar-sidebar a[data-caspr-current],
+html[data-caspr-dashboard] .navbar-mobile a[data-caspr-current] {
+  color: var(--d-accent) !important;
+  background: var(--d-soft) !important;
+  border-color: var(--d-line);
+}
+@media (max-width: 575px) {
+  html[data-caspr-dashboard] .fc .fc-toolbar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  html[data-caspr-dashboard] .main-content .au-card {
+    padding: 16px;
+  }
+}
+html[data-caspr-dashboard] .main-content .account-dropdown,
+html[data-caspr-dashboard] .main-content .account-dropdown .info,
+html[data-caspr-dashboard] .main-content .account-dropdown__body {
+  background: var(--d-surface) !important;
+  color: var(--d-text) !important;
+  border-color: var(--d-line);
+}
+html[data-caspr-dashboard] .main-content .account-dropdown .name,
+html[data-caspr-dashboard] .main-content .account-dropdown .content h5 {
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard] .main-content .header-feature .item,
+html[data-caspr-dashboard] .main-content .js-item-menu {
+  color: var(--d-text);
+}
+html[data-caspr-dashboard] .puntenboekLeerling td {
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard] .puntenboekLeerling tbody tr {
+  background-color: var(--d-surface) !important;
+  color: var(--d-text);
+}
+html[data-caspr-dashboard] .puntenboekLeerling tbody tr:nth-child(odd) {
+  background-color: var(--d-soft) !important;
+}
+html[data-caspr-dashboard] .puntenboekLeerling .IsTekort > td.text-right {
+  color: #a51d32 !important;
+  font-weight: 700;
+}
+html[data-caspr-dashboard='midnight'] .puntenboekLeerling .IsTekort > td.text-right {
+  color: #ff9bab !important;
+}
+html[data-caspr-dashboard] .puntenboekLeerling .card,
+html[data-caspr-dashboard] .puntenboekLeerling .card p,
+html[data-caspr-dashboard] .puntenboekLeerling .card .row,
+html[data-caspr-dashboard] .puntenboekLeerling .card [class^='col-'] {
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard] .quickHelp {
+  color: var(--d-muted);
+}
+html[data-caspr-dashboard] .select2-container--default .select2-selection--single,
+html[data-caspr-dashboard] .select2-dropdown {
+  background: var(--d-surface) !important;
+  color: var(--d-text);
+  border: 1px solid var(--d-line);
+  border-radius: 10px;
+}
+html[data-caspr-dashboard] .select2-container .select2-selection__rendered,
+html[data-caspr-dashboard] .select2-selection__placeholder,
+html[data-caspr-dashboard] .select2-results__option {
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard] .select2-search__field {
+  background: var(--d-surface);
+  color: var(--d-text);
+  border-color: var(--d-line);
+}
+html[data-caspr-dashboard] .select2-results__option--highlighted[aria-selected] {
+  background: var(--d-accent) !important;
+  color: var(--d-button-text) !important;
+}
+html[data-caspr-dashboard] .fc .fc-button:hover,
+html[data-caspr-dashboard] .fc .fc-button-active {
+  color: var(--d-button-text) !important;
+}
+html[data-caspr-dashboard] .fc .fc-list-day-cushion {
+  background: var(--d-soft);
+}
+html[data-caspr-dashboard] .fc .fc-list-event:hover td {
+  background: var(--d-soft);
+}
+html[data-caspr-dashboard] .modal-content {
+  background: var(--d-surface);
+  color: var(--d-text);
+  border-color: var(--d-line);
+  border-radius: 18px;
+}
+html[data-caspr-dashboard] .modal-title {
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard][data-caspr-page='agenda']
+  .modal
+  .modal-header
+  :is(h3, h4, h5, h6, span),
+html[data-caspr-dashboard][data-caspr-page='agenda'] .modal .modal-header .modal-title * {
+  color: var(--d-text) !important;
+}
+/* The description editor can nest white wrappers beyond the first child. */
+html[data-caspr-dashboard][data-caspr-page='agenda']
+  .modal
+  .card-body
+  :is(div, p, span, pre, blockquote, ul, ol, li, table, tbody, tr, td),
+html[data-caspr-dashboard][data-caspr-page='agenda'] .modal .card-body iframe {
+  background-color: var(--d-surface) !important;
+  color: var(--d-text) !important;
+  border-color: var(--d-line) !important;
+}
+/* Agenda detail cards live outside .main-content and have white vendor bodies. */
+html[data-caspr-dashboard][data-caspr-page='agenda'] .modal .card {
+  background: var(--d-surface) !important;
+  color: var(--d-text) !important;
+  border: 1px solid var(--d-line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+html[data-caspr-dashboard][data-caspr-page='agenda'] .modal .card-header {
+  background: var(--d-soft) !important;
+  color: var(--d-text) !important;
+  border-color: var(--d-line);
+}
+html[data-caspr-dashboard][data-caspr-page='agenda'] .modal .card-body,
+html[data-caspr-dashboard][data-caspr-page='agenda'] .modal .card-body .bg-white,
+html[data-caspr-dashboard][data-caspr-page='agenda'] .modal .card-body > div,
+html[data-caspr-dashboard][data-caspr-page='agenda'] .modal .card-body textarea,
+html[data-caspr-dashboard][data-caspr-page='agenda'] .modal .card-body .form-control {
+  background-color: var(--d-surface) !important;
+  color: var(--d-text) !important;
+  border-color: var(--d-line) !important;
+}
+html[data-caspr-dashboard][data-caspr-page='agenda'] .modal .card-body p,
+html[data-caspr-dashboard][data-caspr-page='agenda'] .modal .card-body li,
+html[data-caspr-dashboard][data-caspr-page='agenda'] .modal .card-body span {
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard] .modal-header,
+html[data-caspr-dashboard] .modal-footer {
+  border-color: var(--d-line);
+}
+html[data-caspr-dashboard] .modal .close {
+  color: var(--d-text);
+  text-shadow: none;
+}
+/* Consistent reading surfaces on every authenticated CASPR page. */
+html[data-caspr-dashboard] .main-content .table-responsive {
+  border: 1px solid var(--d-line);
+  border-radius: 16px;
+  box-shadow: 0 6px 24px #0000000a;
+}
+html[data-caspr-dashboard] .main-content .table {
+  margin-bottom: 0;
+}
+html[data-caspr-dashboard] .main-content .table th,
+html[data-caspr-dashboard] .main-content .table td {
+  padding: 14px 18px;
+  vertical-align: middle;
+}
+html[data-caspr-dashboard] .main-content .table thead th {
+  font-size: 12px;
+  letter-spacing: 0.035em;
+  font-weight: 750;
+}
+html[data-caspr-dashboard] .puntenboekLeerling {
+  font-variant-numeric: tabular-nums;
+}
+html[data-caspr-dashboard] .puntenboekLeerling td.text-right {
+  font-weight: 750;
+  white-space: nowrap;
+  font-size: 16px;
+}
+html[data-caspr-dashboard] .puntenboekLeerling .IsTekort > td:first-child {
+  border-left: 4px solid #a51d32;
+}
+html[data-caspr-dashboard='midnight'] .puntenboekLeerling .IsTekort > td:first-child {
+  border-left-color: #ff9bab;
+}
+html[data-caspr-dashboard] .puntenboekLeerling tbody tr:hover {
+  background-color: color-mix(in srgb, var(--d-accent) 12%, var(--d-surface)) !important;
+}
+html[data-caspr-dashboard] .puntenboekLeerling .card {
+  box-shadow: none;
+  border-radius: 12px;
+  margin: 8px 0;
+}
+html[data-caspr-dashboard] .puntenboekLeerling .card-header {
+  border-radius: 12px 12px 0 0;
+  font-weight: 650;
+  padding: 12px 16px;
+}
+html[data-caspr-dashboard] .puntenboekLeerling .card-body {
+  padding: 16px;
+}
+html[data-caspr-dashboard] .bedieningsPanel {
+  margin: 12px 0 22px;
+}
+html[data-caspr-dashboard] .select2-container {
+  max-width: 100%;
+}
+html[data-caspr-dashboard] .quickHelp {
+  margin: 16px 0;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: var(--d-soft);
+  line-height: 1.6;
+}
+html[data-caspr-dashboard] .main-content .list-group-item {
+  background: var(--d-surface);
+  color: var(--d-text);
+  border-color: var(--d-line);
+}
+html[data-caspr-dashboard] .main-content .nav-tabs {
+  border-color: var(--d-line);
+}
+html[data-caspr-dashboard] .main-content .nav-tabs .nav-link {
+  color: var(--d-muted);
+  border-radius: 10px 10px 0 0;
+}
+html[data-caspr-dashboard] .main-content .nav-tabs .nav-link.active {
+  background: var(--d-soft);
+  color: var(--d-accent);
+  border-color: var(--d-line);
+}
+html[data-caspr-dashboard] .main-content .table-data,
+html[data-caspr-dashboard] .main-content .table-data__tool {
+  background: var(--d-surface);
+  color: var(--d-text);
+  border-radius: 16px;
+}
+html[data-caspr-dashboard] .main-content textarea {
+  background: var(--d-surface);
+  color: var(--d-text);
+  border-color: var(--d-line);
+}
+html[data-caspr-dashboard] .main-content .text-muted {
+  color: var(--d-muted) !important;
+}
+html[data-caspr-dashboard] .main-content .btn-light,
+html[data-caspr-dashboard] .main-content .btn-secondary {
+  background: var(--d-soft);
+  color: var(--d-text);
+  border-color: var(--d-line);
+  border-radius: 10px;
+}
+@media (max-width: 575px) {
+  html[data-caspr-dashboard] .main-content .table th,
+  html[data-caspr-dashboard] .main-content .table td {
+    padding: 10px 12px;
+  }
+}
+html[data-caspr-dashboard] .main-content p {
+  color: var(--d-text);
+}
+html[data-caspr-dashboard]
+  .main-content
+  .table-striped
+  > tbody
+  > tr:nth-of-type(odd):not([style]):not(.table-success):not(.table-danger):not(
+    .table-warning
+  ) {
+  background-color: var(--d-soft);
+}
+html[data-caspr-dashboard]
+  .main-content
+  .table-striped
+  > tbody
+  > tr:nth-of-type(even):not([style]):not(.table-success):not(.table-danger):not(
+    .table-warning
+  ) {
+  background-color: var(--d-surface);
+}
+/* CASPR applies white backgrounds to some nested feedback bodies. */
+html[data-caspr-dashboard] .puntenboekLeerling .card-body,
+html[data-caspr-dashboard] .puntenboekLeerling .card-body.bg-white,
+html[data-caspr-dashboard] .puntenboekLeerling .card-body > .row,
+html[data-caspr-dashboard] .puntenboekLeerling .card-body [class*='col-'] {
+  background-color: var(--d-surface) !important;
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard] .puntenboekLeerling .card-body p,
+html[data-caspr-dashboard] .puntenboekLeerling .card-body li,
+html[data-caspr-dashboard] .puntenboekLeerling .card-body span {
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard] .puntenboekLeerling .card-body {
+  border-radius: 0 0 12px 12px;
+  overflow-wrap: anywhere;
+}
+html[data-caspr-dashboard] .rs-select2--dark,
+html[data-caspr-dashboard] .rs-select2--border {
+  background: transparent !important;
+  border: 0 !important;
+}
+html[data-caspr-dashboard]
+  .rs-select2--dark
+  .select2-container
+  .select2-selection--single,
+html[data-caspr-dashboard] .select2-container .select2-selection__rendered {
+  background: var(--d-surface) !important;
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard] .select2-container .select2-selection--single {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  padding: 0 38px 0 12px;
+}
+html[data-caspr-dashboard] .select2-container .select2-selection__rendered {
+  padding: 0 !important;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+html[data-caspr-dashboard]
+  .select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
+  background: var(--d-soft) !important;
+  height: 100%;
+  right: 0;
+  top: 0;
+  width: 32px;
+  border-radius: 0 9px 9px 0;
+}
+html[data-caspr-dashboard]
+  .select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow
+  b {
+  border-top-color: var(--d-text);
+}

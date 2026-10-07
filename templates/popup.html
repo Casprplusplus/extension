@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="nl" data-caspr-dashboard="aurora">
+  <head>
+    <meta charset="utf-8" />
+    <title>CASPR++</title>
+    <link rel="stylesheet" href="popup-style.css" />
+  </head>
+  <body>
+    <header class="popup-brand">
+      <img src="assets/logo.png" width="52" height="52" alt="" />
+      <div>
+        <h1>CASPR++</h1>
+        <p>Jouw schooldag, jouw stijl.</p>
+      </div>
+    </header>
+    <section class="popup-card">
+      <h2>Uiterlijk</h2>
+      <label><input id="theme-enabled" type="checkbox" />Loginthema inschakelen</label>
+      <label for="theme">Thema</label>
+      <select id="theme">
+        <option value="aurora">Aurora · zacht paars</option>
+        <option value="midnight">Midnight · donker</option>
+        <option value="sunrise">Sunrise · warm</option>
+        <option value="forest">Forest · rustig groen</option>
+      </select>
+      <label><input id="splash-enabled" type="checkbox" />Splashteksten tonen</label>
+    </section>
+    <details class="popup-card">
+      <summary>Dashboard &amp; widgets</summary>
+      <label
+        ><input id="dashboard-enabled" type="checkbox" /> Leerlingthema inschakelen</label
+      >
+      <label
+        ><input id="widgets-enabled" type="checkbox" /> Welkom, klok en
+        snelkoppelingen</label
+      >
+      <fieldset>
+        <legend>Widgets op je startpagina</legend>
+        <label><input id="welcome-enabled" type="checkbox" /> Welkom en humor</label
+        ><label><input id="clock-enabled" type="checkbox" /> Klok en datum</label
+        ><label><input id="shortcuts-enabled" type="checkbox" /> Snelkoppelingen</label>
+      </fieldset>
+      <label
+        ><input id="glass-enabled" type="checkbox" /> Glaseffect (vervaagde
+        achtergrond)</label
+      >
+      <label for="glass-transparency"
+        >Doorzichtigheid:
+        <output id="glass-value" for="glass-transparency">35%</output></label
+      >
+      <input id="glass-transparency" type="range" min="0" max="85" step="5" value="35" />
+      <label for="background-photo">Eigen fotoachtergrond (lokaal opgeslagen)</label>
+      <input id="background-photo" type="file" accept="image/jpeg,image/png,image/webp" />
+      <button id="remove-photo">Foto verwijderen</button>
+      <p id="photo-status"></p>
+    </details>
+    <details class="popup-card">
+      <summary>Les &amp; afteller</summary>
+      <label
+        ><input type="checkbox" id="countdown-enabled" /> Humoristische afteller</label
+      >
+      <label for="countdown-label">Naam van je afteller</label>
+      <input
+        id="countdown-label"
+        type="text"
+        maxlength="60"
+        placeholder="Bijvoorbeeld: vakantie!"
+      />
+      <label for="countdown-target">Doelmoment (leeg = einde laatste les)</label>
+      <input id="countdown-target" type="datetime-local" />
+      <label><input type="checkbox" id="next-lesson-enabled" /> Volgende les</label>
+      <button id="save-time-widgets">Widgets opslaan</button>
+    </details>
+    <footer class="popup-footer">
+      <a href="privacy.html" target="_blank" rel="noopener">Privacy en gegevens</a>
+      <button id="open">CASPR openen</button>
+      <p id="status" role="status">Instellingen worden lokaal bewaard.</p>
+    </footer>
+    <script src="popup.js"></script>
+  </body>
+</html>

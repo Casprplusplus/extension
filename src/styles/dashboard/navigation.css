@@ -1,0 +1,175 @@
+/* Navigation: preserve CASPR's responsive widths and hamburger behavior. */
+html[data-caspr-dashboard]
+  :is(.navbar-sidebar, .navbar-mobile)
+  [data-caspr-nav-hidden='true'] {
+  display: none !important;
+}
+html[data-caspr-dashboard] :is(.navbar-sidebar, .navbar-mobile) a[data-caspr-nav-icon] i {
+  display: none !important;
+}
+.caspr-nav-emoji {
+  display: none;
+}
+html[data-caspr-dashboard] :is(.navbar-sidebar, .navbar-mobile) .caspr-nav-emoji {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  border-radius: 9px;
+  background: var(--d-soft);
+  font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  margin: 0;
+}
+html[data-caspr-dashboard] .navbar-mobile a[data-caspr-nav-icon] {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+html[data-caspr-dashboard] .menu-sidebar {
+  border-right: 1px solid var(--d-line);
+}
+html[data-caspr-dashboard] .navbar-sidebar {
+  padding: 18px 14px;
+}
+html[data-caspr-dashboard] .navbar-sidebar .navbar__list li {
+  margin-bottom: 5px;
+}
+html[data-caspr-dashboard] .navbar-sidebar .navbar__list li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  font-weight: 550;
+  border: 1px solid transparent;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+html[data-caspr-dashboard] .navbar-sidebar .navbar__list li a i {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  margin: 0;
+  border-radius: 9px;
+  background: var(--d-soft);
+  color: var(--d-accent);
+}
+html[data-caspr-dashboard] .navbar-sidebar .navbar__list li a:hover,
+html[data-caspr-dashboard] .navbar-sidebar .navbar__list li a:focus-visible {
+  background: var(--d-soft);
+  border-color: var(--d-line);
+  color: var(--d-accent) !important;
+}
+html[data-caspr-dashboard] .header-desktop {
+  border-bottom: 1px solid var(--d-line);
+}
+/* Give the account its own column instead of shrinking it inside header-button. */
+html[data-caspr-dashboard] .header-desktop .header-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: center;
+}
+html[data-caspr-dashboard] .header-desktop #schoolnaam {
+  margin-left: 0 !important;
+  width: auto !important;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+html[data-caspr-dashboard] .header-desktop .header-button {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  min-width: 0;
+}
+html[data-caspr-dashboard] .header-desktop .account-item > .content > a > span {
+  color: var(--d-muted) !important;
+}
+html[data-caspr-dashboard][data-caspr-glass='true'] .menu-sidebar,
+html[data-caspr-dashboard][data-caspr-glass='true'] .header-desktop,
+html[data-caspr-dashboard][data-caspr-glass='true'] .header-mobile,
+html[data-caspr-dashboard][data-caspr-glass='true'] .navbar-mobile {
+  background: color-mix(in srgb, var(--d-surface) 85%, transparent) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  backdrop-filter: blur(18px) saturate(120%);
+}
+html[data-caspr-dashboard][data-caspr-glass='true'] .menu-sidebar .logo {
+  background: transparent !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-caspr-dashboard] .navbar-sidebar .navbar__list li a {
+    transition: none;
+  }
+}
+
+/* Midnight navigation: cover CASPR's inner panels and dropdown surfaces too. */
+html[data-caspr-dashboard='midnight'] .menu-sidebar__content,
+html[data-caspr-dashboard='midnight'] .navbar-sidebar,
+html[data-caspr-dashboard='midnight'] .header-desktop .section__content,
+html[data-caspr-dashboard='midnight'] .header-mobile .header-mobile__bar {
+  background: transparent !important;
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard='midnight'] .navbar-sidebar .navbar__list li a,
+html[data-caspr-dashboard='midnight'] .navbar-mobile .navbar__list li a {
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard='midnight'] .navbar-sidebar .navbar__list li.active > a,
+html[data-caspr-dashboard='midnight'] .navbar-mobile .navbar__list li.active > a {
+  background: var(--d-soft) !important;
+  color: var(--d-accent) !important;
+}
+html[data-caspr-dashboard='midnight'] .account-item .content > a,
+html[data-caspr-dashboard='midnight'] .account-item .content > a::after,
+html[data-caspr-dashboard='midnight'] .account-dropdown h5,
+html[data-caspr-dashboard='midnight'] .account-dropdown h5 a {
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard='midnight'] .account-item .content .email,
+html[data-caspr-dashboard='midnight'] .account-dropdown .email {
+  color: var(--d-muted) !important;
+}
+html[data-caspr-dashboard='midnight'] .account-dropdown,
+html[data-caspr-dashboard='midnight'] .account-dropdown .info,
+html[data-caspr-dashboard='midnight'] .account-dropdown__body,
+html[data-caspr-dashboard='midnight'] .account-dropdown__footer {
+  background: var(--d-surface) !important;
+  color: var(--d-text) !important;
+  border-color: var(--d-line) !important;
+}
+html[data-caspr-dashboard='midnight'] .account-dropdown::before {
+  border-bottom-color: var(--d-surface) !important;
+}
+html[data-caspr-dashboard='midnight'] .account-dropdown__item a,
+html[data-caspr-dashboard='midnight'] .account-dropdown__footer a {
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard='midnight'] .account-dropdown__item a:hover,
+html[data-caspr-dashboard='midnight'] .account-dropdown__footer a:hover,
+html[data-caspr-dashboard='midnight'] .navbar-mobile .navbar__list li a:hover {
+  background: var(--d-soft) !important;
+  color: var(--d-accent) !important;
+}
+html[data-caspr-dashboard='midnight'] .hamburger-inner,
+html[data-caspr-dashboard='midnight'] .hamburger-inner::before,
+html[data-caspr-dashboard='midnight'] .hamburger-inner::after {
+  background-color: var(--d-text) !important;
+}
+html[data-caspr-dashboard='midnight'] .menu-sidebar .logo img,
+html[data-caspr-dashboard='midnight'] .header-mobile .logo img {
+  background: #f5f7fc;
+  padding: 3px 6px;
+  border-radius: 8px;
+  box-sizing: content-box;
+  width: 124px;
+  height: 52px;
+  max-width: 100%;
+  object-fit: contain;
+}

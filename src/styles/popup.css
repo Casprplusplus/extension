@@ -1,0 +1,212 @@
+@import './dashboard/palette.css';
+.popup-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.popup-brand img {
+  border-radius: 12px;
+  object-fit: contain;
+}
+.popup-brand h1 {
+  margin: 0;
+}
+body {
+  width: 360px;
+  margin: 0;
+  padding: 20px;
+  font: 14px system-ui;
+  color: var(--d-text);
+  background: var(--d-bg);
+}
+h1 {
+  font-size: 22px;
+  margin-top: 0;
+}
+button {
+  padding: 10px 14px;
+  margin: 4px 0;
+  border: 0;
+  border-radius: 8px;
+  background: var(--d-accent);
+  color: var(--d-button-text);
+  cursor: pointer;
+}
+button:focus-visible {
+  outline: 2px solid var(--d-accent);
+  outline-offset: 2px;
+}
+label {
+  display: block;
+  margin: 12px 0 6px;
+}
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--d-line);
+  color: var(--d-text);
+  background: var(--d-bg);
+  border-radius: 8px;
+  font: inherit;
+}
+input[type='range'] {
+  width: 100%;
+  accent-color: var(--d-accent);
+}
+input[type='text'],
+input[type='datetime-local'] {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 9px;
+  border: 1px solid var(--d-line);
+  color: var(--d-text);
+  background: var(--d-bg);
+  border-radius: 8px;
+  font: inherit;
+}
+fieldset {
+  margin: 16px 0;
+  border: 1px solid var(--d-line);
+  border-radius: 12px;
+  padding: 8px 14px 14px;
+}
+legend {
+  font-weight: 650;
+  font-size: 13px;
+  padding: 0 6px;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  width: 400px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.popup-brand {
+  gap: 14px;
+}
+.popup-brand img {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  box-shadow: 0 5px 16px #00000018;
+}
+.popup-brand h1 {
+  font-size: 24px;
+  letter-spacing: -0.7px;
+}
+.popup-brand p {
+  margin: 3px 0 0;
+  color: var(--d-muted);
+  font-size: 12px;
+}
+.popup-card {
+  padding: 16px;
+  margin-bottom: 12px;
+  background: var(--d-card);
+  border: 1px solid var(--d-line);
+  border-radius: 18px;
+}
+h2 {
+  margin: 0 0 14px;
+  font-size: 14px;
+}
+summary {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 2px 0;
+}
+details[open] > summary {
+  margin-bottom: 16px;
+}
+label:has(input[type='checkbox']) {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.5;
+}
+input[type='checkbox'] {
+  margin: 0;
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  accent-color: var(--d-accent);
+}
+input[type='file'] {
+  width: 100%;
+  font: inherit;
+  color: var(--d-muted);
+  font-size: 11px;
+}
+input::file-selector-button {
+  border: 1px solid var(--d-line);
+  border-radius: 8px;
+  padding: 8px;
+  margin-right: 8px;
+  color: var(--d-text);
+  background: var(--d-soft);
+  cursor: pointer;
+}
+button {
+  font: inherit;
+  font-weight: 650;
+  border-radius: 11px;
+}
+button:hover {
+  filter: brightness(0.95);
+}
+button:disabled,
+input:disabled,
+select:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+:is(button, input, select, summary):focus-visible {
+  outline: 2px solid var(--d-accent);
+  outline-offset: 3px;
+}
+#remove-photo {
+  color: var(--d-text);
+  background: var(--d-soft);
+}
+legend {
+  color: var(--d-muted);
+}
+output {
+  font-weight: 700;
+  color: var(--d-accent);
+}
+#photo-status,
+#status {
+  font-size: 11px;
+  color: var(--d-muted);
+  overflow-wrap: anywhere;
+}
+#photo-status:empty {
+  display: none;
+}
+.popup-footer {
+  border-top: 1px solid var(--d-line);
+  padding-top: 6px;
+}
+#open {
+  width: 100%;
+}
+#status {
+  margin: 10px 0 0;
+  min-height: 17px;
+  text-align: center;
+}
+/* Unavailable account controls stay hidden even when cards use a display layout. */
+[hidden] {
+  display: none !important;
+}
+.popup-version {
+  margin: 8px 0 0;
+  font-size: 11px;
+  opacity: 0.7;
+  text-align: center;
+}

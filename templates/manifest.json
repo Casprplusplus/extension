@@ -1,0 +1,64 @@
+{
+  "manifest_version": 3,
+  "name": "CASPR++",
+  "version": "1.2.0",
+  "icons": {
+    "16": "assets/logo.png",
+    "32": "assets/logo.png",
+    "48": "assets/logo.png",
+    "128": "assets/logo.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/logo.png", "privacy.html", "privacy.css"],
+      "matches": ["https://kolvw.caspr.be/*"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "description": "Thema’s, glaseffect en widgets voor CASPR.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://api.casprplusplus.be/*", "https://api.giphy.com/*"],
+  "commands": {
+    "panic-disable": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+X",
+        "mac": "Command+Shift+X"
+      },
+      "description": "Paniekschakelaar: alle CASPR++-aanpassingen uitzetten"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://kolvw.caspr.be/leerlingapp/Uurrooster*",
+        "https://kolvw.caspr.be/LeerlingApp/Uurrooster*"
+      ],
+      "js": ["schedule-capture.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://kolvw.caspr.be/*"],
+      "js": ["dashboard-theme.js"],
+      "css": ["dashboard-theme-style.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://kolvw.caspr.be/Auth/Index*",
+        "https://kolvw.caspr.be/auth/index*",
+        "https://kolvw.caspr.be/Auth/InternalLogin*",
+        "https://kolvw.caspr.be/auth/internallogin*",
+        "https://kolvw.caspr.be/"
+      ],
+      "js": ["login-theme.js"],
+      "css": ["login-theme-style.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_icon": { "16": "assets/logo.png", "32": "assets/logo.png" },
+    "default_popup": "popup.html"
+  }
+}

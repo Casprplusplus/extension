@@ -1,0 +1,9 @@
+node_modules/
+extension/
+*.log
+.chat-preview/
+preview/
+*.pem
+*.crx
+.env
+.env.*

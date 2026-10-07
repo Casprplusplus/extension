@@ -1,0 +1,12 @@
+{
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 90,
+  "tabWidth": 2,
+  "overrides": [
+    {
+      "files": "src/common/themes.ts",
+      "options": { "singleQuote": false }
+    }
+  ]
+}

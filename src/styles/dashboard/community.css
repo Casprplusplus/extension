@@ -1,0 +1,1442 @@
+dialog.caspr-community.caspr-chat {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: 100dvh;
+  border-radius: 0;
+  border: 0;
+  padding: 24px max(20px, calc((100vw - 1100px) / 2));
+  overflow: hidden;
+  background: var(--d-bg);
+}
+.caspr-chat [hidden] {
+  display: none !important;
+}
+.caspr-chat-members {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  color: var(--d-muted);
+  font-size: 12px;
+  max-height: 120px;
+  overflow-y: auto;
+  margin-top: 10px;
+  border: 1px solid var(--d-line);
+  border-radius: 14px;
+  background: var(--d-card);
+}
+.caspr-chat-members summary {
+  cursor: pointer;
+  font-weight: 650;
+  padding: 4px 0;
+  color: var(--d-text);
+}
+.caspr-chat-members p {
+  padding: 8px 0 4px;
+  line-height: 1.8;
+}
+.caspr-chat > header {
+  margin-bottom: 10px;
+}
+.caspr-chat .caspr-community-intro {
+  margin-bottom: 12px !important;
+}
+.caspr-chat .caspr-chat-messages {
+  flex: 1;
+  height: auto;
+  min-height: 0;
+  padding: 20px 6px;
+  margin: 0;
+  scrollbar-width: thin;
+}
+.caspr-chat .caspr-chat-messages li {
+  width: fit-content;
+  max-width: 85%;
+  margin: 0 auto 16px 0;
+  background: var(--d-card);
+  box-shadow: 0 3px 12px #00000008;
+}
+.caspr-chat .caspr-chat-messages li.caspr-chat-own {
+  margin-left: auto;
+  margin-right: 0;
+  background: var(--d-soft);
+  border-radius: 16px 16px 4px 16px;
+}
+.caspr-chat-compose-area {
+  flex-shrink: 0;
+  padding: 14px;
+  border: 1px solid var(--d-line);
+  border-radius: 20px;
+  background: var(--d-card);
+}
+.caspr-chat .caspr-chat-reactions {
+  flex-wrap: wrap;
+}
+.caspr-chat-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.caspr-chat-tools span {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--d-muted);
+}
+.caspr-chat-tools button,
+.caspr-chat-reply-button {
+  background: var(--d-soft) !important;
+  color: var(--d-text) !important;
+  padding: 6px 10px !important;
+  font-size: 12px !important;
+}
+.caspr-chat .caspr-chat-composer {
+  margin-top: 10px;
+}
+.caspr-chat-emoji-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 42px);
+  gap: 6px;
+  width: min(100%, 440px);
+  max-height: 190px;
+  overflow-y: auto;
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid var(--d-line);
+  border-radius: 16px;
+  background: var(--d-bg);
+  box-sizing: border-box;
+}
+.caspr-chat .caspr-chat-emoji-picker button {
+  padding: 0;
+  width: 42px;
+  height: 42px;
+  font-size: 22px;
+  background: transparent;
+  color: var(--d-text);
+  border: 1px solid transparent;
+  border-radius: 10px;
+}
+.caspr-chat .caspr-chat-emoji-picker button:hover {
+  background: var(--d-soft);
+  border-color: var(--d-line);
+  filter: none;
+}
+.caspr-chat-gif-picker {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.caspr-chat-gif-picker p {
+  width: 100%;
+  color: var(--d-muted);
+}
+.caspr-chat-gif-picker {
+  max-height: 35dvh;
+  overflow-y: auto;
+}
+.caspr-gif-results {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 8px;
+}
+.caspr-gif-results button {
+  padding: 0;
+  overflow: hidden;
+  background: var(--d-soft);
+  min-height: 80px;
+}
+.caspr-gif-results img {
+  display: block;
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
+.caspr-chat-gif-picker > details {
+  width: 100%;
+}
+.caspr-chat-gif-picker summary {
+  cursor: pointer;
+  color: var(--d-muted);
+  font-size: 12px;
+}
+.caspr-chat-draft-context {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  border-left: 3px solid var(--d-accent);
+  background: var(--d-soft);
+  border-radius: 8px;
+}
+.caspr-chat-draft-context button {
+  padding: 4px 8px;
+}
+.caspr-chat blockquote {
+  margin: 10px 0;
+  padding: 8px 12px;
+  border-left: 3px solid var(--d-accent);
+  background: var(--d-soft);
+  color: var(--d-muted);
+  font-size: 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.caspr-chat-gif {
+  display: block;
+  max-width: 100%;
+  max-height: 240px;
+  border-radius: 12px;
+  margin: 10px 0;
+}
+.caspr-chat-reply-button {
+  margin-top: 8px;
+}
+@media (max-width: 600px) {
+  dialog.caspr-community.caspr-chat {
+    padding: 12px;
+  }
+  .caspr-chat .caspr-chat-messages li {
+    max-width: 95%;
+  }
+  .caspr-chat-tools span {
+    display: none;
+  }
+  .caspr-chat-compose-area {
+    padding: 10px;
+  }
+}
+.caspr-chat .caspr-chat-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 24px;
+}
+dialog.caspr-community.caspr-chat {
+  flex-direction: row;
+  padding: 0;
+}
+.caspr-chat-main > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+.caspr-chat-sidebar {
+  width: 230px;
+  padding: 24px 16px;
+  background: var(--d-card);
+  border-right: 1px solid var(--d-line);
+  flex-shrink: 0;
+}
+.caspr-chat-sidebar h2 {
+  margin: 0 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 8px 18px;
+  font-size: 23px;
+  letter-spacing: -0.5px;
+}
+.caspr-chat-sidebar h2 img {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px #00000018;
+  flex-shrink: 0;
+}
+.caspr-chat .caspr-chat-sidebar button:focus-visible {
+  outline: 2px solid var(--d-accent);
+  outline-offset: -4px;
+}
+.caspr-chat-sidebar nav {
+  display: grid;
+  gap: 8px;
+}
+.caspr-chat .caspr-chat-sidebar button {
+  width: 100%;
+  text-align: left;
+  padding: 14px;
+  background: transparent;
+  color: var(--d-text);
+  border: 1px solid transparent;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.caspr-chat .caspr-chat-sidebar button:hover {
+  background: var(--d-bg);
+  filter: none;
+}
+.caspr-chat .caspr-chat-sidebar button[aria-pressed='true'] {
+  background: var(--d-soft);
+  border-color: var(--d-accent);
+  color: var(--d-accent);
+  box-shadow: inset 3px 0 0 var(--d-accent);
+}
+.caspr-chat .caspr-chat-sidebar > p {
+  margin-top: 24px;
+  padding: 14px 10px 0;
+  border-top: 1px solid var(--d-line);
+  color: var(--d-muted);
+  font-size: 12px;
+}
+.caspr-chat-sidebar {
+  overflow-y: auto;
+}
+.caspr-chat .caspr-chat-sidebar input {
+  margin: 12px 0;
+  padding: 10px;
+  font-size: 12px;
+}
+.caspr-chat .caspr-chat-sidebar .caspr-pm-hint {
+  border: 0;
+  padding: 0;
+  margin: 12px 0;
+}
+.caspr-pm-contacts {
+  max-height: 45dvh;
+  overflow-y: auto;
+}
+.caspr-contact-row {
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--d-line);
+}
+.caspr-chat .caspr-chat-sidebar .caspr-contact-action {
+  width: auto;
+  font-size: 11px;
+  padding: 6px 8px;
+  color: var(--d-accent);
+  background: var(--d-soft);
+  margin: 3px;
+}
+@media (max-width: 650px) {
+  .caspr-chat-sidebar {
+    max-height: 25dvh;
+  }
+  .caspr-chat-sidebar .caspr-pm-contacts {
+    display: flex;
+    overflow-x: auto;
+    max-height: none;
+  }
+  .caspr-chat .caspr-pm-contacts button {
+    width: auto;
+    white-space: nowrap;
+  }
+}
+.caspr-chat .caspr-chat-connection {
+  padding: 12px 16px;
+  background: var(--d-card);
+  border: 1px solid var(--d-line);
+  border-radius: 14px;
+  color: var(--d-muted);
+}
+.caspr-chat-connection > p:last-child {
+  background: var(--d-soft);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.caspr-settings-modal .caspr-dashboard-controls {
+  margin: 0 0 14px;
+  box-shadow: none;
+  padding: 16px;
+}
+.caspr-settings-modal input[type='checkbox'] {
+  width: auto;
+}
+.caspr-settings-shortcut {
+  margin: 12px 0;
+}
+@media (max-width: 650px) {
+  dialog.caspr-community.caspr-chat {
+    flex-direction: column;
+  }
+  .caspr-chat-sidebar {
+    width: auto;
+    padding: 10px 12px;
+    border-right: 0;
+    border-bottom: 1px solid var(--d-line);
+  }
+  .caspr-chat-sidebar h2,
+  .caspr-chat-sidebar > p {
+    display: none;
+  }
+  .caspr-chat-sidebar nav {
+    display: flex;
+  }
+  .caspr-chat .caspr-chat-main {
+    padding: 12px;
+  }
+}
+.caspr-chat-auth {
+  flex-shrink: 0;
+  max-height: 50dvh;
+  overflow-y: auto;
+  border: 1px solid var(--d-line);
+  border-radius: 18px;
+  padding: 20px;
+  margin: 12px 0;
+  background: var(--d-card);
+}
+.caspr-chat-auth h3 {
+  color: var(--d-text);
+  margin: 0 0 10px;
+}
+.caspr-chat-auth p {
+  color: var(--d-muted);
+  font-size: 12px;
+}
+.caspr-chat .caspr-chat-auth form {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.caspr-chat-account-controls {
+  border-top: 1px solid var(--d-line);
+  padding-top: 12px;
+  margin-top: 20px;
+}
+.caspr-device-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.caspr-device-list li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--d-line);
+}
+dialog.caspr-community:not([open]) {
+  display: none !important;
+}
+dialog.caspr-community[open] {
+  display: flex !important;
+}
+dialog.caspr-community {
+  position: fixed !important;
+  inset: 0 !important;
+  margin: auto !important;
+  box-sizing: border-box;
+  flex-direction: column;
+  width: min(720px, calc(100vw - 32px));
+  height: fit-content;
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  padding: 28px;
+  border: 1px solid var(--d-line, #daddef);
+  border-radius: 24px;
+  background: var(--d-card, #fff);
+  color: var(--d-text, #232742);
+  box-shadow: 0 28px 100px #070b2440;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+}
+dialog.caspr-community::backdrop {
+  background: #080d2066;
+  backdrop-filter: blur(6px);
+}
+.caspr-community > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-shrink: 0;
+}
+.caspr-community-eyebrow {
+  display: block;
+  color: var(--d-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  margin-bottom: 6px;
+}
+.caspr-community h2 {
+  color: inherit;
+  font-size: 25px;
+  font-weight: 750;
+  margin: 0;
+}
+.caspr-community p {
+  margin: 0;
+}
+.caspr-community-intro {
+  color: var(--d-muted);
+  margin-bottom: 20px !important;
+}
+.caspr-community label {
+  display: grid;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--d-muted);
+  margin: 0;
+}
+.caspr-community input,
+.caspr-community textarea,
+.caspr-community button {
+  font: inherit;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--d-line);
+}
+.caspr-community input,
+.caspr-community textarea {
+  color: var(--d-text);
+  background: var(--d-bg);
+  width: 100%;
+  box-sizing: border-box;
+  font-weight: 400;
+}
+.caspr-community textarea {
+  resize: none;
+  min-height: 70px;
+  max-height: 150px;
+}
+.caspr-community input::placeholder,
+.caspr-community textarea::placeholder {
+  color: var(--d-muted);
+}
+.caspr-community button {
+  background: var(--d-accent);
+  color: var(--d-button-text);
+  border-color: transparent;
+  cursor: pointer;
+  font-weight: 650;
+  flex-shrink: 0;
+}
+.caspr-community button:hover {
+  filter: brightness(0.94);
+}
+.caspr-community button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.caspr-community button.caspr-community-close {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: var(--d-soft);
+  color: var(--d-text);
+  border: 1px solid var(--d-line);
+  font-size: 18px;
+}
+.caspr-community :is(input, textarea, button):focus-visible {
+  outline: 3px solid var(--d-accent);
+  outline-offset: 3px;
+}
+.caspr-community form {
+  display: flex;
+  gap: 12px;
+  align-items: end;
+  margin-top: 18px;
+  flex-shrink: 0;
+}
+.caspr-chat-connection {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--d-soft);
+  border-radius: 10px;
+  color: var(--d-muted);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.caspr-chat-connection[data-connected='true'] > p:first-child::before {
+  content: '●';
+  color: #219660;
+  margin-right: 8px;
+}
+.caspr-chat-messages {
+  height: min(42dvh, 360px);
+  min-height: 120px;
+  overflow-y: auto;
+  padding: 16px 4px;
+  margin: 12px 0 0;
+  list-style: none;
+  overscroll-behavior: contain;
+}
+.caspr-chat-messages:empty::before {
+  content: 'Nog geen berichten. Begin het gesprek 👋';
+  display: block;
+  text-align: center;
+  margin: 48px 12px;
+  color: var(--d-muted);
+}
+.caspr-chat-messages li {
+  background: var(--d-bg);
+  border: 1px solid var(--d-line);
+  border-radius: 14px 14px 14px 4px;
+  margin: 0 32px 12px 0;
+  padding: 12px 16px;
+}
+.caspr-chat-messages li.caspr-chat-own {
+  background: var(--d-soft);
+  border-radius: 14px 14px 4px 14px;
+  margin: 0 0 12px 32px;
+}
+.caspr-chat-messages strong {
+  color: var(--d-text);
+  font-size: 13px;
+}
+.caspr-chat-messages time {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 10px;
+  color: var(--d-muted);
+}
+.caspr-chat-messages p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 6px 0 0;
+  font-size: 14px;
+}
+dialog.caspr-unlock {
+  width: min(480px, calc(100vw - 32px));
+}
+.caspr-unlock form {
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 4px;
+}
+.caspr-unlock form button {
+  margin-top: 6px;
+}
+.caspr-unlock [role='status']:not(:empty) {
+  margin-top: 16px;
+  color: var(--d-muted);
+}
+@media (max-width: 520px) {
+  dialog.caspr-community {
+    padding: 20px;
+    border-radius: 18px;
+  }
+  .caspr-community h2 {
+    font-size: 21px;
+  }
+  .caspr-chat form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .caspr-chat-messages {
+    height: 35dvh;
+  }
+}
+.caspr-chat-class {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--d-card);
+  color: var(--d-accent);
+  font-size: 11px;
+  font-weight: 650;
+}
+.caspr-chat-reactions {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+.caspr-community .caspr-chat-reactions button {
+  padding: 3px 8px;
+  font-size: 12px;
+  color: var(--d-text);
+  background: var(--d-card);
+  border: 1px solid var(--d-line);
+}
+.caspr-community .caspr-chat-reactions button[aria-pressed='true'] {
+  border-color: var(--d-accent);
+  background: var(--d-soft);
+}
+.caspr-grades-overview {
+  margin: 0 0 24px;
+  padding: 0;
+  border: 1px solid var(--d-line);
+  border-radius: 18px;
+  background: var(--d-card);
+  color: var(--d-text);
+}
+.caspr-grades-overview h3 {
+  margin-top: 0;
+}
+.caspr-grades-overview p {
+  color: var(--d-muted);
+  font-size: 12px;
+}
+.caspr-grade-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--d-line);
+  border-radius: 12px;
+  background: var(--d-bg);
+}
+.caspr-grade-row progress {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 8px;
+  appearance: none;
+  border: 0;
+  border-radius: 99px;
+  overflow: hidden;
+  background: var(--d-line);
+  accent-color: var(--d-accent);
+}
+.caspr-grade-row[data-shortfall='true'] progress {
+  accent-color: #d45959;
+}
+.caspr-grade-row span {
+  font-size: 12px;
+  color: var(--d-muted);
+}
+.caspr-grades-overview > summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 22px;
+  cursor: pointer;
+  list-style: none;
+}
+.caspr-grades-overview > summary::-webkit-details-marker {
+  display: none;
+}
+.caspr-grades-overview > summary::after {
+  content: '⌄';
+  margin-left: auto;
+  color: var(--d-accent);
+  font-size: 22px;
+  transition: transform 0.15s;
+}
+.caspr-grades-overview[open] > summary::after {
+  transform: rotate(180deg);
+}
+.caspr-grades-overview > summary:focus-visible {
+  outline: 3px solid var(--d-accent);
+  outline-offset: 3px;
+  border-radius: 18px;
+}
+.caspr-grades-title {
+  font-size: 17px;
+  font-weight: 750;
+  color: var(--d-text);
+}
+.caspr-grades-hint {
+  font-size: 12px;
+  color: var(--d-muted);
+}
+.caspr-grades-content {
+  padding: 0 22px 22px;
+}
+.caspr-grades-overview:not([open]) > .caspr-grades-content {
+  display: none !important;
+}
+.caspr-grades-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+.caspr-grade-row strong {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.caspr-grade-row span.caspr-grade-score {
+  font-size: 18px;
+  font-weight: 750;
+  color: var(--d-accent);
+}
+.caspr-grade-row small {
+  grid-column: 1 / -1;
+  color: var(--d-muted);
+  font-size: 11px;
+}
+.caspr-grade-row progress::-webkit-progress-bar {
+  background: var(--d-line);
+  border-radius: 99px;
+}
+.caspr-grade-row progress::-webkit-progress-value {
+  background: var(--d-accent);
+  border-radius: 99px;
+}
+.caspr-grade-row progress::-moz-progress-bar {
+  background: var(--d-accent);
+  border-radius: 99px;
+}
+.caspr-grade-row[data-shortfall='true'] progress::-webkit-progress-value {
+  background: #d45959;
+}
+.caspr-grade-row[data-shortfall='true'] progress::-moz-progress-bar {
+  background: #d45959;
+}
+.caspr-grade-row[data-shortfall='true'] span.caspr-grade-score {
+  color: #d45959;
+}
+.caspr-grades-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.caspr-grades-overview .caspr-refresh-schedule {
+  border: 1px solid var(--d-line);
+  background: var(--d-soft);
+  color: var(--d-text);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+.caspr-grades-overview .caspr-refresh-schedule:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+@media (max-width: 600px) {
+  .caspr-grades-overview > summary {
+    flex-wrap: wrap;
+    gap: 4px 12px;
+  }
+  .caspr-grades-hint {
+    width: calc(100% - 36px);
+    order: 2;
+  }
+}
+.caspr-next-room {
+  color: var(--d-accent) !important;
+  font-weight: 700;
+}
+.caspr-dashboard-controls {
+  padding: 18px 20px;
+  border: 1px solid var(--d-line);
+  border-radius: 18px;
+  background: var(--d-card);
+  margin-bottom: 22px;
+  color: var(--d-text);
+}
+.caspr-dashboard-controls > p {
+  color: var(--d-muted);
+  font-size: 12px;
+  margin: 10px 0;
+}
+.caspr-dashboard-controls button {
+  border: 1px solid var(--d-line);
+  border-radius: 10px;
+  background: var(--d-soft);
+  color: var(--d-text);
+  padding: 9px 13px;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.caspr-dashboard-controls .caspr-focus-toggle {
+  font-size: 14px;
+  font-weight: 700;
+}
+.caspr-dashboard-controls .caspr-focus-toggle[aria-pressed='true'] {
+  background: var(--d-accent);
+  color: var(--d-button-text);
+}
+.caspr-dashboard-controls button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.caspr-layout-editor > summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 650;
+  padding: 8px 0;
+}
+.caspr-layout-editor:not([open]) > :not(summary) {
+  display: none !important;
+}
+.caspr-layout-editor p {
+  font-size: 12px;
+  color: var(--d-muted);
+}
+.caspr-layout-editor ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 14px 0;
+}
+.caspr-layout-editor li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--d-bg);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+.caspr-layout-editor label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  font-size: 12px;
+  margin: 0;
+  min-width: 0;
+}
+.caspr-layout-editor input {
+  accent-color: var(--d-accent);
+  flex-shrink: 0;
+}
+.caspr-layout-editor li button {
+  padding: 4px 10px;
+}
+.caspr-layout-status:empty {
+  display: none;
+}
+html[data-caspr-dashboard] .caspr-custom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+html[data-caspr-dashboard] .caspr-custom-grid > div {
+  max-width: none !important;
+  width: auto !important;
+  padding: 0 !important;
+  margin: 0;
+  min-width: 0;
+}
+html[data-caspr-dashboard] .caspr-custom-grid .leerlingAppTile {
+  margin-bottom: 0;
+  height: 100% !important;
+  box-sizing: border-box;
+}
+html[data-caspr-dashboard] .caspr-custom-grid > [data-caspr-hidden='true'] {
+  display: none !important;
+}
+html[data-caspr-dashboard]
+  .caspr-custom-grid[data-editing='true']
+  > .caspr-custom-column {
+  outline: 2px dashed var(--d-accent);
+  outline-offset: 3px;
+  border-radius: 18px;
+  cursor: grab;
+}
+html[data-caspr-dashboard]
+  .caspr-custom-grid[data-editing='true']
+  .caspr-custom-column
+  .leerlingAppTile {
+  cursor: grab;
+}
+html[data-caspr-focus='true'] .caspr-welcome-widget p {
+  display: none;
+}
+.caspr-dashboard-controls :is(button, summary, input):focus-visible {
+  outline: 3px solid var(--d-accent);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .caspr-custom-grid .leerlingAppTile {
+    transition: none !important;
+  }
+}
+.caspr-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-inline: 6px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--d-soft);
+  color: var(--d-accent);
+}
+.caspr-badge-owner {
+  background: #fff0cf;
+  color: #775100;
+}
+.caspr-badge-dev {
+  background: #e7ddff;
+  color: #55308b;
+}
+.caspr-badge-mod {
+  background: #d5f4e9;
+  color: #166248;
+}
+.caspr-badge-vip {
+  background: #fff0cf;
+  color: #775100;
+  border: 1px solid #e6c56e;
+}
+.caspr-badge-level {
+  background: var(--d-soft);
+  color: var(--d-accent);
+  border: 1px solid var(--d-line);
+  font-variant-numeric: tabular-nums;
+}
+.caspr-social-groups {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--d-line);
+}
+.caspr-social-groups h3 {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.caspr-social-group-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.caspr-social-group-row > button:first-child {
+  width: 100%;
+  text-align: left;
+}
+.caspr-social-groups p {
+  font-size: 12px;
+  color: var(--d-muted);
+}
+.caspr-social-panel {
+  flex: 0 0 auto;
+  max-height: min(36vh, 300px);
+  overflow: auto;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--d-line);
+  background: var(--d-card);
+}
+.caspr-social-panel[hidden] {
+  display: none;
+}
+.caspr-social-toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.caspr-community .caspr-social-toolbar button,
+.caspr-community .caspr-social-groups button {
+  padding: 7px 10px;
+  font-size: 12px;
+  border-radius: 10px;
+  background: var(--d-soft);
+  color: var(--d-text);
+  border: 1px solid var(--d-line);
+}
+.caspr-social-pin,
+.caspr-social-focus {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--d-soft);
+  border-left: 3px solid var(--d-accent);
+}
+.caspr-social-pin p {
+  margin: 6px 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.caspr-social-focus {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.caspr-social-focus strong {
+  font-size: 24px;
+  color: var(--d-accent);
+  font-variant-numeric: tabular-nums;
+}
+.caspr-social-polls {
+  margin-top: 10px;
+}
+.caspr-social-polls summary {
+  cursor: pointer;
+  color: var(--d-muted);
+  font-size: 12px;
+}
+.caspr-social-poll {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--d-line);
+}
+.caspr-social-poll h3 {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+.caspr-community .caspr-social-poll button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 9px 12px;
+  margin: 6px 0;
+  border: 1px solid var(--d-line);
+  border-radius: 10px;
+  color: var(--d-text);
+  background: linear-gradient(
+    to right,
+    var(--d-soft) var(--vote-percent, 0%),
+    var(--d-card) 0
+  );
+}
+.caspr-social-poll button[aria-pressed='true'] {
+  outline: 1px solid var(--d-accent);
+}
+.caspr-social-dialog {
+  width: min(480px, calc(100vw - 32px));
+  max-height: 85vh;
+  overflow: auto;
+}
+.caspr-social-dialog header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.caspr-social-dialog h2 {
+  font-size: 20px;
+}
+.caspr-social-dialog form {
+  display: grid;
+  gap: 12px;
+}
+.caspr-community.caspr-social-dialog label {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  font-size: 12px;
+}
+.caspr-social-dialog input,
+.caspr-social-dialog select {
+  width: 100%;
+  box-sizing: border-box;
+}
+.caspr-social-member {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--d-line);
+}
+.caspr-social-member strong {
+  flex: 1;
+  font-size: 13px;
+}
+.caspr-profile-trigger {
+  cursor: pointer;
+}
+.caspr-profile-trigger:hover {
+  color: var(--d-accent);
+  text-decoration: underline;
+}
+.caspr-profile-trigger:focus-visible {
+  outline: 2px solid var(--d-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.caspr-badge-choices {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+.caspr-report-dialog {
+  width: min(680px, calc(100vw - 32px));
+}
+.caspr-report-row {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--d-line);
+}
+.caspr-report-row > strong,
+.caspr-report-row > small {
+  display: block;
+  margin-bottom: 5px;
+}
+.caspr-report-row small {
+  color: var(--d-muted);
+  font-size: 11px;
+}
+.caspr-report-row blockquote {
+  padding: 12px;
+  border-left: 3px solid var(--d-accent);
+  background: var(--d-soft);
+  border-radius: 8px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.caspr-report-row button {
+  margin: 8px 8px 0 0;
+}
+.caspr-whats-new ul {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0;
+  padding-left: 20px;
+  font-size: 13px;
+  color: var(--d-text);
+}
+.caspr-whats-new h2 {
+  color: var(--d-accent);
+}
+.caspr-community.caspr-group-manager > button,
+.caspr-community.caspr-group-manager .caspr-social-member button {
+  width: auto;
+  padding: 8px 12px;
+  margin-top: 10px;
+  background: var(--d-soft);
+  color: var(--d-text);
+  border: 1px solid var(--d-line);
+  border-radius: 10px;
+  font-size: 12px;
+}
+.caspr-group-manager .caspr-social-member {
+  padding: 12px;
+  background: var(--d-soft);
+  border: 1px solid var(--d-line);
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+.caspr-group-manager > h3 {
+  margin: 22px 0 10px;
+  font-size: 13px;
+}
+.caspr-group-invite-row {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+.caspr-community .caspr-group-invite-row select {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  background: var(--d-card);
+  color: var(--d-text);
+  border: 1px solid var(--d-line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 13px;
+}
+.caspr-community .caspr-group-invite-row button {
+  width: auto;
+  flex: 0 0 auto;
+  margin: 0;
+  font-size: 12px;
+}
+.caspr-group-invite-hint {
+  font-size: 11px;
+  color: var(--d-muted);
+  margin: 8px 0 0;
+}
+.caspr-group-danger {
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid var(--d-line);
+}
+.caspr-community .caspr-group-danger button {
+  width: auto;
+  padding: 8px 12px;
+  background: transparent;
+  color: #e78a8a;
+  border: 1px solid #e78a8a55;
+  border-radius: 10px;
+  font-size: 12px;
+}
+.caspr-badge-choices button {
+  text-align: left;
+}
+.caspr-badge-choices button[aria-pressed='true'] {
+  outline: 2px solid var(--d-accent);
+}
+.caspr-message-search-results article {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--d-line);
+}
+.caspr-message-search-results small {
+  display: block;
+  color: var(--d-muted);
+  font-size: 11px;
+}
+.caspr-message-search-results p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.caspr-group-tasks {
+  margin-top: 12px;
+}
+.caspr-group-tasks summary {
+  cursor: pointer;
+  color: var(--d-muted);
+  font-size: 12px;
+}
+.caspr-task-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--d-line);
+}
+.caspr-task-row > div {
+  flex: 1;
+  min-width: 140px;
+}
+.caspr-task-row small {
+  display: block;
+  color: var(--d-muted);
+  font-size: 11px;
+}
+.caspr-task-row[data-done='true'] strong {
+  text-decoration: line-through;
+  color: var(--d-muted);
+}
+.caspr-chat .caspr-chat-messages li.caspr-mentioned {
+  border-left: 3px solid var(--d-accent);
+}
+.caspr-message-mention {
+  border-radius: 5px;
+  padding: 1px 4px;
+  background: var(--d-soft);
+  color: var(--d-accent);
+  font-weight: 700;
+}
+.caspr-mention-picker {
+  flex: 0 0 100%;
+  max-height: 160px;
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid var(--d-line);
+  border-radius: 12px;
+  background: var(--d-card);
+}
+.caspr-mention-picker[hidden] {
+  display: none !important;
+}
+.caspr-community .caspr-mention-picker button {
+  font-size: 12px;
+  padding: 6px 10px;
+  color: var(--d-text);
+  background: var(--d-soft);
+}
+.caspr-role-manager {
+  width: min(760px, calc(100vw - 32px));
+  max-height: 85vh;
+  overflow: auto;
+}
+.caspr-role-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--d-line);
+}
+.caspr-role-row strong {
+  flex: 1;
+  min-width: 160px;
+}
+.caspr-role-row select {
+  background: var(--d-card);
+  color: var(--d-text);
+  border: 1px solid var(--d-line);
+  border-radius: 8px;
+  padding: 8px;
+}
+.caspr-chat-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.caspr-chat-tools label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+.caspr-chat-tools p {
+  font-size: 12px;
+  color: var(--d-muted);
+  margin: 0;
+}
+.caspr-chat .caspr-chat-typing {
+  font-size: 12px;
+  color: var(--d-muted);
+  min-height: 18px;
+  margin: 0;
+  width: 100%;
+}
+.caspr-read-receipt {
+  display: block;
+  color: var(--d-muted);
+  font-size: 11px;
+  margin-top: 8px;
+}
+.caspr-inbox-badge {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  background: var(--d-accent);
+  color: var(--d-button-text);
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 750;
+}
+.caspr-chair-tile {
+  position: relative;
+}
+.caspr-inbox-badge[hidden] {
+  display: none !important;
+}
+.caspr-chat .caspr-chat-connection > .caspr-chat-typing {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+.caspr-chat .caspr-chat-tools {
+  gap: 10px;
+  padding-top: 8px;
+}
+.caspr-chat .caspr-chat-tools .caspr-chat-sound-toggle {
+  display: inline-flex;
+  justify-content: flex-start;
+  flex: 0 0 auto;
+  width: auto;
+  margin: 0;
+  padding: 7px 10px;
+  gap: 8px;
+  border: 1px solid var(--d-line);
+  border-radius: 999px;
+  background: var(--d-soft);
+  color: var(--d-text);
+  cursor: pointer;
+}
+.caspr-chat .caspr-chat-tools input[type='checkbox'] {
+  appearance: auto;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--d-accent);
+}
+.caspr-chat .caspr-chat-tools > p:empty,
+.caspr-chat .caspr-chat-typing:empty {
+  display: none;
+}

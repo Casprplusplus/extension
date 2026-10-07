@@ -1,0 +1,77 @@
+/* Paint cells, too: CASPR has white vendor rows and an inline !important
+   lightblue background on today's sandwich order. Keep calendar events out. */
+html[data-caspr-dashboard] .main-content .table-earning-customized > tbody > tr {
+  --caspr-row-bg: var(--d-surface);
+}
+html[data-caspr-dashboard]
+  .main-content
+  .table-earning-customized:where(.table-striped)
+  > tbody
+  > tr:nth-of-type(odd) {
+  --caspr-row-bg: var(--d-soft);
+}
+html[data-caspr-dashboard]
+  .main-content
+  .table-earning-customized
+  > tbody
+  > tr.manueleAchtergrondOnevenRijen {
+  --caspr-row-bg: var(--d-soft);
+}
+html[data-caspr-dashboard]
+  .main-content
+  .table-earning-customized
+  > tbody
+  > tr.manueleAchtergrondEvenRijen {
+  --caspr-row-bg: var(--d-surface);
+}
+html[data-caspr-dashboard]
+  .main-content
+  .table-earning-customized
+  > tbody
+  > tr[style*='lightblue'] {
+  --caspr-row-bg: color-mix(in srgb, var(--d-accent) 22%, var(--d-surface));
+}
+html[data-caspr-dashboard]
+  .main-content
+  .table-earning-customized
+  > tbody
+  > tr
+  > :is(td, th) {
+  background-color: var(--caspr-row-bg) !important;
+  color: var(--d-text) !important;
+}
+/* Inline black link labels and vendor gray icons ignore inherited text color. */
+html[data-caspr-dashboard] .main-content .table-earning-customized td a:not(.btn),
+html[data-caspr-dashboard] .main-content .table-earning-customized td > i,
+html[data-caspr-dashboard] .main-content .table-earning-customized td a:not(.btn) > i {
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard] .main-content .table-earning-customized td a:not(.btn):hover {
+  color: var(--d-accent) !important;
+  text-decoration: underline;
+}
+html[data-caspr-dashboard] .main-content .table-earning-customized td a:focus-visible {
+  outline: 2px solid var(--d-accent);
+  outline-offset: 4px;
+}
+/* Preserve the points book's meaningful shortage and non-report colors. */
+html[data-caspr-dashboard] .main-content .puntenboekLeerling .IsTekort > td.text-right {
+  color: #a51d32 !important;
+}
+html[data-caspr-dashboard='midnight']
+  .main-content
+  .puntenboekLeerling
+  .IsTekort
+  > td.text-right {
+  color: #ff9bab !important;
+}
+html[data-caspr-dashboard] .main-content .puntenboekLeerling .IsGeenRapportPunt > td {
+  color: #2354ad !important;
+}
+html[data-caspr-dashboard='midnight']
+  .main-content
+  .puntenboekLeerling
+  .IsGeenRapportPunt
+  > td {
+  color: #a8caff !important;
+}

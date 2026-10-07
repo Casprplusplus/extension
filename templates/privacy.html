@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacyverklaring · CASPR++</title>
+    <link rel="stylesheet" href="privacy.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <span class="brand">CASPR++</span>
+        <h1>Jouw gegevens en privacy</h1>
+        <p>Privacyverklaring voor de nieuwe testversie · bijgewerkt op 5 oktober 2026</p>
+      </header>
+      <section>
+        <h2>Wie beheert CASPR++?</h2>
+        <p>
+          CASPR++ wordt beheerd door Louis D'Haen. Het is een zelfstandige extensie voor
+          thema’s, widgets en chat op CASPR. CASPR++ is geen officiële school- of
+          CASPR-dienst.
+        </p>
+        <p>
+          Voor vragen over privacy, inzage, correctie of verwijdering:
+          <a href="mailto:dhaenlouis2009@gmail.com">dhaenlouis2009@gmail.com</a>.
+        </p>
+      </section>
+      <section>
+        <h2>Wat blijft op je apparaat?</h2>
+        <p>
+          Thema’s, een eventuele achtergrondafbeelding, dashboard- en navigatievoorkeuren,
+          focusmodus, Pomodoro-instellingen en timerstatus worden in de lokale opslag van
+          de extensie bewaard. Timer- en meldingsgeluiden worden door je browser gemaakt;
+          daarvoor wordt geen audio-opname verstuurd.
+        </p>
+        <p>
+          Je lesrooster wordt binnen je bestaande CASPR-sessie opgehaald en tijdelijk
+          lokaal bewaard, gekoppeld aan je schoolaccount. Roostergegevens ouder dan zeven
+          dagen worden niet meer als actueel gebruikt; dat betekent niet dat ze
+          automatisch uit de opslag zijn verwijderd.
+        </p>
+        <p>
+          Je actieve chatsessietoken wordt lokaal bewaard om je aangemeld te houden. De
+          extensie bewaart je chatwachtwoord niet. Het CASPR-wachtwoord wordt niet door
+          CASPR++ naar de chatbackend gestuurd.
+        </p>
+        <p>
+          Wanneer je zelf een activatie- of resetcode aanvraagt, verstuurt de backend die
+          via Resend naar je schoolmail. Resend verwerkt daarvoor je e-mailadres en de
+          inhoud van die e-mail, waaronder de tijdelijke code. Je chatwachtwoord wordt
+          nooit naar Resend gestuurd. De backend bewaart alleen een hash van de code;
+          e-mailcodes zijn 15 minuten geldig, eenmalig te gebruiken en hebben maximaal
+          vijf invoerpogingen. Aanvraaglimieten gebruiken gehashte IP- en
+          e-mailidentificatoren; gegevens ouder dan 24 uur worden bij volgende aanvragen
+          opgeruimd. Verlopen codes worden bij volgende aanvragen opgeruimd. Na een
+          wachtwoordreset worden bestaande chatsessies ingetrokken. Zie ook
+          <a
+            href="https://resend.com/legal/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            >de privacyverklaring van Resend</a
+          >.
+        </p>
+        <p>
+          Conceptberichten (tekst en een eventuele GIF-link) en favoriete chats worden
+          lokaal in je browserprofiel bewaard, apart per schoolaccount en backend. Een
+          concept wordt na succesvol versturen gewist. Concepten worden niet naar de
+          chatbackend gestuurd totdat je ze verstuurt; ze synchroniseren niet tussen
+          apparaten. Je kunt een concept wissen door de tekst en bijgevoegde GIF te
+          verwijderen.
+        </p>
+      </section>
+      <section>
+        <h2>Wat gaat naar de CASPR++-backend?</h2>
+        <p>
+          CASPR++ is bedoeld voor leerlingaccounts waarvan het school-e-mailadres met
+          <code>ll</code> begint. Zolang geen passend account herkenbaar is, blijven de
+          pagina-aanpassingen uit. Bij een accountwissel controleert de extensie dit
+          opnieuw en sluit zij bestaande chatverbindingen. De nieuwe backend controleert
+          ook het e-mailadres van de aangemelde chataccount.
+        </p>
+        <ul>
+          <li>
+            <strong>Account:</strong> naam, school-e-mailadres en klas worden uit CASPR
+            gelezen en voor chatverbindingen gebruikt. De backend bewaart deze gegevens
+            samen met je gebruikers-ID en rol.
+          </li>
+          <li>
+            <strong>Aanmelden:</strong> je chatwachtwoord wordt bij activatie of aanmelden
+            naar de backend gestuurd. Daar wordt een gezouten scrypt-hash bewaard, geen
+            leesbaar wachtwoord. Activatiecodes en sessietokens worden op de server als
+            hashes bewaard.
+          </li>
+          <li>
+            <strong>Sessies:</strong> een apparaatlabel en aanmaak-, verloop- en eventuele
+            intrektijd. Een chatsessie is maximaal dertig dagen geldig. E-mailcodes gelden
+            15 minuten; een handmatig door de beheerder uitgegeven activatiecode maximaal
+            24 uur. Beide zijn eenmalig.
+          </li>
+          <li>
+            <strong>Chat:</strong> tekst, GIF-links, afzender, klasnaam, gesprek/kanaal,
+            tijden, antwoorden, reacties en wijzigingen of verwijdermarkeringen.
+          </li>
+          <li>
+            <strong>Contacten en meldingen:</strong> vriendschapsverzoeken, geaccepteerde
+            vriendschappen, blokkeringen, gelezen-cursors en instellingen voor dempen en
+            geluid.
+          </li>
+          <li>
+            <strong>Privégroepen:</strong> groepsnaam, eigenaar, uitnodigingen en
+            geaccepteerde leden. Een uitnodiging geeft pas na acceptatie toegang tot het
+            groepsgesprek, inclusief eerdere berichten.
+          </li>
+          <li>
+            <strong>Chattools:</strong> vastgezette berichten, pollvragen en opties, je
+            gekozen stem en de eindtijd van een gezamenlijke focustimer worden op de
+            backend bewaard. Polluitslagen tonen aantallen, geen namen; de technisch
+            beheerder kan stemmen in de database aan gebruikers koppelen.
+          </li>
+          <li>
+            <strong>Groepswerk en personalisatie:</strong> taken, maker, toegewezen
+            groepslid, deadline en voltooiingsstatus worden bewaard. Ook je gekozen
+            verdiende chatbadge en de gebruikers-ID's die in berichten worden vermeld
+            worden opgeslagen. Vermeldingen gebruiken dezelfde gelezen-status als de chat.
+            Berichten zoeken doorzoekt alleen je toegankelijke gesprek; de zoekterm wordt
+            niet als profielgegeven opgeslagen.
+          </li>
+          <li>
+            <strong>Berichtmeldingen:</strong> bij rapporteren bewaren we een kopie van
+            het gemelde bericht, afzender, GIF-link, jouw gebruikers-ID, reden, tijd en de
+            afhandeling door Mod of Dev+. Deze kopie kan na wijziging of verwijdering van
+            het oorspronkelijke bericht blijven bestaan; ook hiervoor geldt momenteel geen
+            automatische bewaartermijn.
+          </li>
+          <li>
+            <strong>XP:</strong> de extensie leest rapportresultaten uit de
+            CASPR-puntenaanvraag en berekent een speelse XP-bijdrage. Alleen een
+            herkenningshash en de XP-bijdrage gaan naar de backend, niet de ruwe punten,
+            vaknamen of toetsbeschrijvingen. Levels en beloningsbadges worden daaruit
+            berekend.
+          </li>
+          <li>
+            <strong>Beheer:</strong> rolwijzigingen worden met de uitvoerende en betrokken
+            gebruikers-ID, nieuwe rol en tijd geregistreerd.
+          </li>
+        </ul>
+        <p>
+          Een typindicator stuurt alleen dat je aan het typen bent, niet de inhoud van je
+          conceptbericht. Deze indicator wordt niet in de database opgeslagen.
+          Aanwezigheid wordt afgeleid uit actieve verbindingen.
+        </p>
+        <p>
+          Je IP-adres is technisch zichtbaar voor de backend en wordt tijdelijk gebruikt
+          om te veel aanvragen tegen te houden. Fout- en infrastructuurlogs kunnen
+          technische verbindingsgegevens bevatten. De applicatie bewaart je IP-adres niet
+          als onderdeel van je gebruikersprofiel.
+        </p>
+      </section>
+      <section>
+        <h2>Wie kan gegevens zien?</h2>
+        <p>
+          Globale berichten zijn zichtbaar voor aangemelde chatgebruikers. Klasberichten
+          zijn zichtbaar binnen de opgeslagen klas. In de app zijn PMs alleen toegankelijk
+          voor de twee deelnemers na een geaccepteerde vriendschap. Je naam, klas en rol
+          kunnen in de gebruikerslijst, berichten en reacties zichtbaar zijn; je
+          school-e-mailadres wordt niet in die lijsten getoond.
+        </p>
+        <p>
+          PMs zijn niet end-to-end versleuteld. De technisch beheerder van de backend kan
+          opgeslagen gegevens, inclusief PMs, via de server of database benaderen. Een Mod
+          of Dev krijgt daardoor niet automatisch toegang tot andere PMs. Mod en Dev+
+          kunnen openbare chatberichten modereren; alleen Dev+ kan rollen via het
+          beheerscherm wijzigen.
+        </p>
+        <p>
+          Privégroepen zijn in de app alleen toegankelijk voor geaccepteerde leden. De
+          eigenaar beheert uitnodigingen en leden. Verlaten of verwijderen trekt verdere
+          toegang in; eerder gelezen berichten kunnen niet worden teruggehaald.
+          Groepsberichten zijn ook niet end-to-end versleuteld. Een profielkaartje toont
+          je naam, klas, rol, level, XP en beloningsbadges aan aangemelde chatgebruikers.
+        </p>
+        <p>
+          Profielkaarten tonen ook gemeenschappelijke geaccepteerde vrienden met de
+          kijker, met naam en klas. Ze tonen niet je volledige vriendenlijst. Geblokkeerde
+          relaties worden uitgesloten.
+        </p>
+        <p>
+          Als je een privébericht rapporteert, deel je alleen de kopie van dat bericht, je
+          naam en reden met Mod en Dev+. Dit geeft hen geen toegang tot de rest van het
+          privégesprek. Blokkeren voorkomt nieuwe vriendschaps- en groepsuitnodigingen
+          tussen jullie; het verwijdert niet automatisch jullie deelname aan bestaande
+          gedeelde groepen.
+        </p>
+        <p>
+          De beschreven functies gebruiken geen advertentie- of analytics-tracker.
+          Gegevens worden gebruikt voor de functies van CASPR++, niet voor advertenties of
+          verkoop. De backend bewaart geen algemene browsergeschiedenis.
+        </p>
+      </section>
+      <section>
+        <h2>GIFs en andere diensten</h2>
+        <p>
+          Als je de GIF-kiezer opent of zoekt, doet je browser rechtstreeks aanvragen aan
+          GIPHY. GIPHY ontvangt daarbij onder andere de zoekterm en technische
+          netwerkgegevens zoals je IP-adres. Ook bij het bekijken van een GIF haalt je
+          browser de afbeelding bij GIPHY op. Er worden voor deze functie geen
+          CASPR-wachtwoorden, school-e-mailadressen of chatteksten als zoekgegevens
+          meegestuurd.
+        </p>
+        <p>
+          Voor de verwerking door GIPHY geldt ook
+          <a
+            href="https://support.giphy.com/hc/en-us/articles/360032872931-GIPHY-Privacy-Policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            >de privacyverklaring van GIPHY</a
+          >. De CASPR-aanvragen gebruiken je bestaande schoollogin; de verwerking door
+          CASPR en je school valt onder hun eigen privacyinformatie.
+        </p>
+      </section>
+      <section>
+        <h2>Hoe lang blijven gegevens bewaard?</h2>
+        <p>
+          Accountgegevens, chats, contacten, chatvoorkeuren, XP en rolregistraties hebben
+          momenteel geen automatische bewaartermijn. Ze blijven bewaard totdat ze
+          handmatig worden verwijderd of aangepast. Verlopen of ingetrokken sessierecords
+          worden bij het aanmaken van nieuwe sessies opgeruimd; ze geven na verloop of
+          intrekking geen toegang meer.
+        </p>
+        <p>
+          Bij het verwijderen van een chatbericht worden de tekst vervangen door een
+          verwijdermelding en de GIF-link, antwoordkoppeling en reacties verwijderd.
+          Afzender, bericht-ID en tijden kunnen blijven bestaan. Berichten die anderen al
+          hebben gezien, gekopieerd of vastgelegd kunnen daarmee niet worden teruggehaald.
+          Voor eventuele serverback-ups is nog geen vaste automatische verwijdertermijn
+          ingesteld.
+        </p>
+      </section>
+      <section>
+        <h2>Je keuzes en verzoeken</h2>
+        <p>
+          Je kunt chatapparaten uitloggen, vriendschappen verwijderen, gebruikers
+          blokkeren, chats dempen en geluid uitzetten. Lokale extensiegegevens verdwijnen
+          wanneer je de lokale opslag wist of de extensie verwijdert. Dit verwijdert geen
+          gegevens op de backend.
+        </p>
+        <p>
+          Mail
+          <a href="mailto:dhaenlouis2009@gmail.com">dhaenlouis2009@gmail.com</a>
+          voor inzage, correctie of verwijdering van je backendgegevens. Vermeld je
+          school-e-mailadres, maar stuur geen wachtwoord of sessietoken. De beheerder kan
+          om bevestiging van je identiteit vragen om gegevens niet aan een ander te
+          verstrekken.
+        </p>
+      </section>
+      <section class="notice">
+        <h2>Beveiliging en teststatus</h2>
+        <p>
+          Toegang tot beveiligde chatfuncties vereist een geldige chatsessie. De backend
+          controleert kanaaltoegang en beheerrechten. De verbinding met CASPR gebruikt
+          HTTPS.
+        </p>
+        <p>
+          De nieuwe versie gebruikt standaard HTTPS/WSS via api.casprplusplus.be. Een
+          ontwikkelaar kan voor lokale tests een HTTP-backend instellen; HTTP versleutelt
+          het transport niet.
+        </p>
+      </section>
+      <footer>
+        Vragen?
+        <a href="mailto:dhaenlouis2009@gmail.com">Neem contact op met Louis D'Haen</a>.
+      </footer>
+    </main>
+  </body>
+</html>
