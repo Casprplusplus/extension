@@ -179,7 +179,11 @@ export function mountPomodoro(container: HTMLElement): () => void {
     void save();
   };
   reset.onclick = () => {
-    state = { ...state, endsAt: null, remaining: state.durations[state.phase] * 60 };
+    state = {
+      ...state,
+      endsAt: null,
+      remaining: state.durations[state.phase] * 60,
+    };
     void save();
   };
   next.onclick = () => {

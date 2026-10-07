@@ -53,7 +53,9 @@ export function mountProgression(container: HTMLElement): () => void {
       let current = profile.progression;
       for (let i = 0; i < awards.length; i += 40) {
         if (disposed || accountScope() !== scope) return;
-        const update = await communityRequest('xp', { awards: awards.slice(i, i + 40) });
+        const update = await communityRequest('xp', {
+          awards: awards.slice(i, i + 40),
+        });
         if (!update.ok) throw new Error(update.error);
         current = update.progression;
       }

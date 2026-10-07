@@ -42,7 +42,9 @@ export function mountRoleManager(sidebar: HTMLElement): {
   sidebar.append(button);
   const load = async () => {
     status.textContent = 'Gebruikers ophalen…';
-    const result = await communityRequest('roles', { query: search.value }).catch(() => ({
+    const result = await communityRequest('roles', {
+      query: search.value,
+    }).catch(() => ({
       ok: false,
       error: 'Ophalen mislukt.',
     }));

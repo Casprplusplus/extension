@@ -199,9 +199,11 @@ export function appendSocialExtras(
     const toggle = btn(
       task.done ? '✓' : '○',
       () =>
-        void action({ action: 'task-toggle', taskId: task.id, done: !task.done }).catch(
-          report,
-        ),
+        void action({
+          action: 'task-toggle',
+          taskId: task.id,
+          done: !task.done,
+        }).catch(report),
     );
     toggle.setAttribute(
       'aria-label',

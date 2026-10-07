@@ -40,7 +40,9 @@ export function mountGroupwork(container: HTMLElement): () => void {
           task.deadline &&
           !task.done &&
           task.deadline <
-            new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Brussels' })
+            new Date().toLocaleDateString('sv-SE', {
+              timeZone: 'Europe/Brussels',
+            })
         )
           button.dataset.overdue = 'true';
         button.append(name, detail);

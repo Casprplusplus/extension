@@ -720,7 +720,11 @@ export function mountCommunity(container: HTMLElement): () => void {
           remove.className = 'caspr-chat-reply-button';
           remove.textContent = 'Verwijderen';
           remove.onclick = () =>
-            port?.postMessage({ type: 'mutation', messageId: item.id, action: 'delete' });
+            port?.postMessage({
+              type: 'mutation',
+              messageId: item.id,
+              action: 'delete',
+            });
           row.append(remove);
         }
         if (item.reactions?.some((r) => r.count)) {
@@ -969,7 +973,12 @@ export function mountCommunity(container: HTMLElement): () => void {
       },
       ...contacts
         .filter((c) => c.friendship === 'accepted')
-        .map((c) => ({ key: `pm:${c.id}`, name: c.name, scope: 'pm' as const, peer: c })),
+        .map((c) => ({
+          key: `pm:${c.id}`,
+          name: c.name,
+          scope: 'pm' as const,
+          peer: c,
+        })),
       ...favoriteGroups
         .filter((g) => g.accepted)
         .map((g) => ({

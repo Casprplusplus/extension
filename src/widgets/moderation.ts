@@ -59,7 +59,10 @@ export function mountModeration(sidebar: HTMLElement) {
       more.disabled = true;
       info.textContent = 'Meldingen laden…';
       try {
-        const data = await request('reports', { closed, ...(before ? { before } : {}) });
+        const data = await request('reports', {
+          closed,
+          ...(before ? { before } : {}),
+        });
         if (disposed || !value.isConnected || version !== epoch) return;
         for (const report of data.reports) {
           const row = node('article');

@@ -92,7 +92,10 @@ export function mountChatTools(
       }
       if (data.type === 'typing') {
         if (data.active)
-          typing.set(data.userId, { name: data.name, until: Date.now() + 5000 });
+          typing.set(data.userId, {
+            name: data.name,
+            until: Date.now() + 5000,
+          });
         else typing.delete(data.userId);
       }
       render();

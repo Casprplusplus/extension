@@ -347,9 +347,11 @@ export function mountSocial(
           const choice = button(
             `${option} · ${poll.counts[index]}${poll.choice === index ? ' ✓' : ''}`,
             () =>
-              void action({ action: 'poll-vote', pollId: poll.id, choice: index }).catch(
-                report,
-              ),
+              void action({
+                action: 'poll-vote',
+                pollId: poll.id,
+                choice: index,
+              }).catch(report),
           );
           choice.disabled = !!poll.closed;
           choice.setAttribute('aria-pressed', String(poll.choice === index));
