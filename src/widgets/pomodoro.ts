@@ -15,7 +15,7 @@ export function mountPomodoro(container: HTMLElement): () => void {
   const article = document.createElement('article');
   article.className = 'caspr-pomodoro';
   const title = document.createElement('h3');
-  title.textContent = '🎯 Pomodoro';
+  title.textContent = '🎯 Focustimer';
   const time = document.createElement('div');
   time.className = 'caspr-pomodoro-time';
   const dial = document.createElement('div');
@@ -29,19 +29,20 @@ export function mountPomodoro(container: HTMLElement): () => void {
   start.type = 'button';
   const reset = document.createElement('button');
   reset.type = 'button';
-  reset.textContent = 'Reset ronde';
+  reset.textContent = 'Opnieuw beginnen';
   const next = document.createElement('button');
   next.type = 'button';
   next.textContent = 'Volgende ronde';
   controls.append(start, reset, next);
   const options = document.createElement('details');
   const summary = document.createElement('summary');
-  summary.textContent = 'Timer instellen';
+  summary.textContent = 'Timerinstellingen';
   options.append(summary);
   const soundLabel = document.createElement('label');
+  soundLabel.className = 'caspr-pomodoro-sound';
   const sound = document.createElement('input');
   sound.type = 'checkbox';
-  soundLabel.append(sound, document.createTextNode('Geluid wanneer de ronde klaar is'));
+  soundLabel.append(sound, document.createTextNode('Geluid bij afloop'));
   const testSound = document.createElement('button');
   testSound.type = 'button';
   testSound.textContent = 'Geluid testen';
@@ -50,7 +51,7 @@ export function mountPomodoro(container: HTMLElement): () => void {
   options.append(soundLabel, testSound, audioStatus);
   const soundNote = document.createElement('p');
   soundNote.textContent =
-    'Geluid werkt zolang het dashboard open staat. Een slapend tabblad kan de melding vertragen.';
+    'Laat het dashboard open voor een geluidsmelding. In een slapend tabblad kan die later komen.';
   options.append(soundNote);
   const unlockAudio = async () => {
     audio ||= new AudioContext();
@@ -125,7 +126,7 @@ export function mountPomodoro(container: HTMLElement): () => void {
     status.textContent =
       remaining === 0
         ? 'Ronde klaar! Start de volgende ronde wanneer je klaar bent.'
-        : `${state.phase === 'focus' ? 'Focustijd' : state.phase === 'long' ? 'Lange pauze' : 'Korte pauze'} · ${state.rounds} focusrondes afgerond`;
+        : `${state.phase === 'focus' ? 'Tijd om te focussen' : state.phase === 'long' ? 'Lange pauze' : 'Korte pauze'} · ${state.rounds === 0 ? 'Nog geen sessies afgerond' : `${state.rounds} ${state.rounds === 1 ? 'sessie' : 'sessies'} afgerond`}`;
     start.textContent = state.endsAt !== null && remaining > 0 ? 'Pauzeren' : 'Start';
     start.disabled = remaining === 0;
     next.hidden = remaining !== 0;

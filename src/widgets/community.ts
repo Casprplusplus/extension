@@ -1,7 +1,7 @@
 import { mountModeration } from './moderation';
 import { mountMentions } from './mentions';
 import { mountSocial } from './social';
-import { getCurrentUser, getCurrentClass } from '../common/user';
+import { getCurrentUser, getCurrentClass, isStudentEmail } from '../common/user';
 import { mountFlyingChair } from '../games/flying-chair';
 import { mountChatAccount } from './chat-account';
 import { roleBadge, levelBadge, rewardBadge } from '../common/badges';
@@ -136,6 +136,8 @@ export function mountCommunity(container: HTMLElement): () => void {
     password.focus();
   });
 
+  gameTile.querySelector('button')!.dataset.casprGames = 'true';
+
   games.addEventListener('close', () => {
     password.value = '';
   });
@@ -204,7 +206,10 @@ export function mountCommunity(container: HTMLElement): () => void {
   form.className = 'caspr-chat-composer';
 
   const label = document.createElement('label');
-  label.textContent = 'Bericht';
+  const inputLabel = document.createElement('span');
+  inputLabel.className = 'caspr-composer-label';
+  inputLabel.textContent = 'Bericht';
+  label.append(inputLabel);
 
   const input = document.createElement('textarea');
   input.maxLength = 2000;
@@ -212,6 +217,7 @@ export function mountCommunity(container: HTMLElement): () => void {
   label.append(input);
 
   const send = document.createElement('button');
+  send.type = 'submit';
   send.textContent = 'Versturen';
   send.disabled = input.disabled = true;
   form.append(label, send);
@@ -234,11 +240,15 @@ export function mountCommunity(container: HTMLElement): () => void {
 
   const emojiButton = document.createElement('button');
   emojiButton.type = 'button';
-  emojiButton.textContent = '😊 Emoji’s';
+  emojiButton.textContent = '☺';
+  emojiButton.title = 'Emoji toevoegen';
+  emojiButton.setAttribute('aria-label', 'Emoji toevoegen');
 
   const gifButton = document.createElement('button');
   gifButton.type = 'button';
-  gifButton.textContent = 'GIF toevoegen';
+  gifButton.textContent = 'GIF';
+  gifButton.title = 'GIF toevoegen';
+  gifButton.setAttribute('aria-label', 'GIF toevoegen');
 
   const hint = document.createElement('span');
   hint.textContent = 'Enter verstuurt · Shift+Enter nieuwe regel';
@@ -462,7 +472,8 @@ export function mountCommunity(container: HTMLElement): () => void {
 
   const composer = document.createElement('div');
   composer.className = 'caspr-chat-compose-area';
-  composer.append(context, emojiPicker, gifPicker, tools, form);
+  form.insertBefore(tools, send);
+  composer.append(context, emojiPicker, gifPicker, form);
   const newest = document.createElement('button');
   newest.type = 'button';
   newest.className = 'caspr-chat-newest';
@@ -491,6 +502,85 @@ export function mountCommunity(container: HTMLElement): () => void {
   const messages = new Map<number, Message>();
   const selectedReactions = new Set<string>();
   const pendingReactions = new Set<string>();
+  const reactionDialog = modal('Reacties');
+  reactionDialog.classList.add('caspr-reactions-dialog');
+  const reactionBody = document.createElement('div');
+  reactionBody.className = 'caspr-reactions-body';
+  const reactionTabs = document.createElement('div');
+  reactionTabs.className = 'caspr-reactions-tabs';
+  reactionTabs.setAttribute('role', 'tablist');
+  reactionTabs.setAttribute('aria-label', 'Reacties per emoji');
+  const reactionPeople = document.createElement('div');
+  reactionPeople.className = 'caspr-reactions-people';
+  reactionPeople.id = 'caspr-reactions-people';
+  reactionPeople.setAttribute('role', 'tabpanel');
+  reactionPeople.tabIndex = 0;
+  const reactionStatus = document.createElement('p');
+  reactionStatus.setAttribute('role', 'status');
+  reactionBody.append(reactionTabs, reactionPeople);
+  reactionDialog.append(reactionStatus, reactionBody);
+  let reactionMessageId: number | undefined;
+  let selectedEmoji = '';
+  let peopleByReaction: { emoji: string; name: string }[] = [];
+  const renderReactionPeople = () => {
+    reactionPeople.replaceChildren();
+    for (const tab of reactionTabs.querySelectorAll<HTMLButtonElement>('button')) {
+      const selected = tab.dataset.emoji === selectedEmoji;
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      if (selected) reactionPeople.setAttribute('aria-labelledby', tab.id);
+    }
+    for (const person of peopleByReaction.filter(
+      (person) => person.emoji === selectedEmoji,
+    )) {
+      const row = document.createElement('div');
+      row.className = 'caspr-reaction-person';
+      const avatar = document.createElement('span');
+      avatar.className = 'caspr-contact-avatar';
+      avatar.setAttribute('aria-hidden', 'true');
+      avatar.textContent = person.name
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map((part) => part[0])
+        .join('')
+        .toUpperCase();
+      const name = document.createElement('span');
+      name.textContent = person.name;
+      row.append(avatar, name);
+      reactionPeople.append(row);
+    }
+  };
+  reactionTabs.addEventListener('keydown', (event) => {
+    if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const tabs = Array.from(reactionTabs.querySelectorAll<HTMLButtonElement>('button'));
+    const index = tabs.indexOf(document.activeElement as HTMLButtonElement);
+    const next =
+      event.key === 'Home'
+        ? 0
+        : event.key === 'End'
+          ? tabs.length - 1
+          : (index + (event.key === 'ArrowDown' ? 1 : -1) + tabs.length) % tabs.length;
+    tabs[next]?.click();
+    tabs[next]?.focus();
+  });
+  reactionTabs.setAttribute('aria-orientation', 'vertical');
+  const openReactionPeople = (messageId: number) => {
+    reactionMessageId = messageId;
+    selectedEmoji = '';
+    peopleByReaction = [];
+    reactionTabs.replaceChildren();
+    reactionPeople.replaceChildren();
+    reactionStatus.textContent = 'Reacties laden…';
+    reactionDialog.showModal();
+    if (!port || !connected)
+      reactionStatus.textContent = 'Niet verbonden. Open de chat opnieuw.';
+    else port.postMessage({ type: 'reaction-people', messageId });
+  };
+  reactionDialog.addEventListener('close', () => {
+    reactionMessageId = undefined;
+  });
 
   const render = (message: Message) => {
     const stickToBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 100;
@@ -506,11 +596,56 @@ export function mountCommunity(container: HTMLElement): () => void {
     messages.clear();
 
     list.replaceChildren(
-      ...recent.map((item) => {
+      ...recent.flatMap((item, index) => {
         messages.set(item.id, item);
 
+        const previous = recent[index - 1];
+        const date = new Date(item.createdAt);
+        const previousDate = previous ? new Date(previous.createdAt) : null;
+        const validDate = Number.isFinite(date.getTime());
+        const sameDay = validDate && previousDate?.toDateString() === date.toDateString();
+        const sameAuthor =
+          !!previous &&
+          (item.userId && previous.userId
+            ? item.userId === previous.userId
+            : item.name === previous.name && item.className === previous.className);
+        const elapsed = previousDate ? date.getTime() - previousDate.getTime() : NaN;
+        const grouped =
+          sameDay &&
+          sameAuthor &&
+          elapsed >= 0 &&
+          elapsed < 5 * 60 * 1000 &&
+          !item.reply &&
+          !item.deletedAt &&
+          !previous?.deletedAt;
+        const separator = document.createElement('li');
+        separator.className = 'caspr-chat-day';
+        if (validDate && !sameDay) {
+          const day = document.createElement('time');
+          day.dateTime = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+          day.textContent = date.toLocaleDateString('nl-BE', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          });
+          separator.append(day);
+        }
+
         const row = document.createElement('li');
+        row.classList.toggle('caspr-message-grouped', !!grouped);
         row.dataset.messageId = String(item.id);
+        row.tabIndex = 0;
+        const avatar = document.createElement('span');
+        avatar.className = 'caspr-message-avatar';
+        avatar.setAttribute('aria-hidden', 'true');
+        avatar.textContent =
+          item.name
+            .trim()
+            .split(/\s+/)
+            .slice(0, 2)
+            .map((part) => part[0])
+            .join('')
+            .toUpperCase() || '?';
 
         const author = document.createElement('strong');
         author.textContent = item.name;
@@ -579,7 +714,14 @@ export function mountCommunity(container: HTMLElement): () => void {
         const metadata = document.createElement('div');
         metadata.className = 'caspr-message-header';
         metadata.append(...Array.from(row.childNodes));
+        row.append(avatar);
         row.append(metadata);
+        if (grouped) {
+          avatar.hidden = metadata.hidden = true;
+          row.setAttribute('aria-label', `Bericht van ${item.name}`);
+          time.className = 'caspr-grouped-time';
+          row.append(time);
+        }
 
         if (item.reply) {
           const quote = document.createElement('blockquote');
@@ -622,6 +764,7 @@ export function mountCommunity(container: HTMLElement): () => void {
 
           const count =
             item.reactions?.find((entry) => entry.emoji === value)?.count || 0;
+          react.classList.toggle('caspr-reaction-unused', count === 0);
           react.textContent = `${value}${count ? ` ${count}` : ''}`;
           react.setAttribute('aria-label', `Reageer met ${value}, ${count} reacties`);
 
@@ -732,8 +875,7 @@ export function mountCommunity(container: HTMLElement): () => void {
           people.type = 'button';
           people.className = 'caspr-chat-reply-button';
           people.textContent = 'Wie reageerde?';
-          people.onclick = () =>
-            port?.postMessage({ type: 'reaction-people', messageId: item.id });
+          people.onclick = () => openReactionPeople(item.id);
           row.append(people);
         }
         if (
@@ -750,11 +892,25 @@ export function mountCommunity(container: HTMLElement): () => void {
         }
         const actions = document.createElement('div');
         actions.className = 'caspr-message-actions';
+        actions.id = `caspr-message-actions-${item.id}`;
         actions.append(
           ...Array.from(row.querySelectorAll(':scope > .caspr-chat-reply-button')),
         );
-        if (actions.children.length) row.append(actions);
-        return row;
+        if (actions.children.length) {
+          const menu = document.createElement('button');
+          menu.type = 'button';
+          menu.className = 'caspr-message-menu';
+          menu.textContent = '⋯';
+          menu.setAttribute('aria-label', `Acties voor bericht van ${item.name}`);
+          menu.setAttribute('aria-controls', actions.id);
+          menu.setAttribute('aria-expanded', 'false');
+          menu.onclick = () => {
+            const open = row.classList.toggle('caspr-actions-open');
+            menu.setAttribute('aria-expanded', String(open));
+          };
+          row.append(menu, actions);
+        }
+        return separator.childElementCount ? [separator, row] : [row];
       }),
     );
     list.scrollTop = stickToBottom ? list.scrollHeight : previousScroll;
@@ -762,6 +918,7 @@ export function mountCommunity(container: HTMLElement): () => void {
   };
 
   const disconnect = () => {
+    if (reactionDialog.open) reactionDialog.close();
     clearTimeout(connectTimer);
     clearInterval(heartbeat);
 
@@ -785,6 +942,21 @@ export function mountCommunity(container: HTMLElement): () => void {
 
   const sidebar = document.createElement('aside');
   sidebar.className = 'caspr-chat-sidebar';
+  sidebar.id = 'caspr-chat-navigation';
+
+  const navigationToggle = document.createElement('button');
+  navigationToggle.type = 'button';
+  navigationToggle.className = 'caspr-chat-navigation-toggle';
+  navigationToggle.textContent = '☰ Chats';
+  navigationToggle.setAttribute('aria-controls', sidebar.id);
+  navigationToggle.setAttribute('aria-expanded', 'false');
+  navigationToggle.onclick = () => {
+    const open = chat.dataset.navigationOpen !== 'true';
+    chat.dataset.navigationOpen = String(open);
+    navigationToggle.setAttribute('aria-expanded', String(open));
+    navigationToggle.textContent = open ? '✕ Chats' : '☰ Chats';
+  };
+  chat.querySelector('header')?.prepend(navigationToggle);
 
   const sidebarTitle = document.createElement('h2');
   const brandLogo = document.createElement('img');
@@ -808,13 +980,14 @@ export function mountCommunity(container: HTMLElement): () => void {
 
   const channels = new Map<'global' | 'class', HTMLButtonElement>();
   for (const [scope, label] of [
-    ['global', '🌍 Globale chat'],
-    ['class', `🏫 ${getCurrentClass() || 'Klaschat'}`],
+    ['global', 'Globale chat'],
+    ['class', getCurrentClass() || 'Klaschat'],
   ] as const) {
     const button = document.createElement('button');
     button.type = 'button';
     button.textContent = label;
     button.dataset.label = label;
+    button.className = 'caspr-channel-link';
     button.addEventListener('click', () => openChat(scope));
 
     channels.set(scope, button);
@@ -827,6 +1000,12 @@ export function mountCommunity(container: HTMLElement): () => void {
   const contactList = document.createElement('nav');
   contactList.className = 'caspr-pm-contacts';
   contactList.setAttribute('aria-label', 'Privégesprekken');
+  const invitations = document.createElement('section');
+  invitations.className = 'caspr-chat-invitations';
+  invitations.hidden = true;
+  const invitationsTitle = document.createElement('h3');
+  const invitationsList = document.createElement('div');
+  invitations.append(invitationsTitle, invitationsList);
 
   const contactSearch = document.createElement('input');
   contactSearch.type = 'search';
@@ -862,7 +1041,9 @@ export function mountCommunity(container: HTMLElement): () => void {
 
   const renderContacts = () => {
     contactList.replaceChildren();
+    invitationsList.replaceChildren();
     const incoming = contacts.filter((c) => c.friendship === 'incoming').length;
+    invitationsTitle.textContent = `Vriendschapsverzoeken · ${incoming}`;
     future.textContent = `Privéberichten${incoming ? ` · ${incoming} verzoek${incoming === 1 ? '' : 'en'}` : ''}${unread.size ? ` · ${unread.size} nieuw` : ''}`;
     const filtered = contacts.filter((c) =>
       c.name.toLowerCase().includes(contactSearch.value.toLowerCase()),
@@ -880,9 +1061,35 @@ export function mountCommunity(container: HTMLElement): () => void {
     for (const contact of filtered) {
       const row = document.createElement('div');
       row.className = 'caspr-contact-row';
+      row.dataset.friendship = contact.friendship || 'accepted';
       const button = document.createElement('button');
       button.type = 'button';
       button.textContent = `${unread.has(contact.id) ? '● ' : ''}${contact.name}${pmMentions.get(contact.id) ? ` · @${pmMentions.get(contact.id)}` : ''}`;
+      const avatar = document.createElement('span');
+      avatar.className = 'caspr-contact-avatar';
+      avatar.setAttribute('aria-hidden', 'true');
+      avatar.textContent = contact.name
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map((part) => part[0])
+        .join('')
+        .toUpperCase();
+      const contactName = document.createElement('span');
+      contactName.className = 'caspr-contact-name';
+      contactName.textContent = button.textContent;
+      button.replaceChildren(avatar, contactName);
+      if (contact.friendship && contact.friendship !== 'accepted') {
+        const state = document.createElement('small');
+        state.className = 'caspr-contact-state';
+        state.textContent = {
+          incoming: 'Wil vrienden worden',
+          outgoing: 'Verzoek verzonden',
+          none: 'Nog geen vriend',
+          blocked: 'Geblokkeerd',
+        }[contact.friendship];
+        contactName.append(state);
+      }
 
       button.setAttribute(
         'aria-pressed',
@@ -894,7 +1101,7 @@ export function mountCommunity(container: HTMLElement): () => void {
       button.disabled = !!contact.friendship && contact.friendship !== 'accepted';
       row.append(button);
       const badge = roleBadge(contact.role);
-      if (badge) row.append(badge);
+      if (badge) button.append(badge);
       const actions: [string, string][] =
         contact.friendship === 'none'
           ? [
@@ -920,6 +1127,14 @@ export function mountCommunity(container: HTMLElement): () => void {
                 : contact.friendship === 'blocked'
                   ? [['unblock', 'Deblokkeren']]
                   : [];
+      const contactMenu = document.createElement('details');
+      contactMenu.className = 'caspr-contact-menu';
+      const contactSummary = document.createElement('summary');
+      contactSummary.textContent = '⋯';
+      contactSummary.setAttribute('aria-label', `Opties voor ${contact.name}`);
+      const contactActions = document.createElement('div');
+      contactActions.className = 'caspr-contact-actions';
+      contactMenu.append(contactSummary, contactActions);
       for (const [action, label] of actions) {
         const control = document.createElement('button');
         control.type = 'button';
@@ -930,10 +1145,15 @@ export function mountCommunity(container: HTMLElement): () => void {
           control.disabled = true;
           port.postMessage({ type: 'friend', targetId: contact.id, action });
         };
-        row.append(control);
+        if (contact.friendship === 'incoming' && action !== 'block') {
+          control.classList.add('caspr-invitation-action');
+          row.append(control);
+        } else contactActions.append(control);
       }
-      contactList.append(row);
+      if (contactActions.children.length) row.append(contactMenu);
+      (contact.friendship === 'incoming' ? invitationsList : contactList).append(row);
     }
+    invitations.hidden = !invitationsList.children.length;
     renderFavorites();
   };
 
@@ -944,6 +1164,7 @@ export function mountCommunity(container: HTMLElement): () => void {
     favoritesSection,
     future,
     contactSearch,
+    invitations,
     contactList,
     contactHint,
     findUsers,
@@ -953,6 +1174,153 @@ export function mountCommunity(container: HTMLElement): () => void {
   main.className = 'caspr-chat-main';
   main.append(...Array.from(chat.children));
   chat.append(sidebar, main);
+  const resizeHandle = document.createElement('div');
+  resizeHandle.className = 'caspr-sidebar-resize';
+  resizeHandle.tabIndex = 0;
+  resizeHandle.setAttribute('role', 'separator');
+  resizeHandle.setAttribute('aria-orientation', 'vertical');
+  resizeHandle.setAttribute('aria-label', 'Breedte van de chatzijbalk');
+  resizeHandle.title = 'Sleep om de zijbalk te verbreden · dubbelklik om te herstellen';
+  chat.append(resizeHandle);
+  let sidebarResized = false;
+  let resizePointer: number | undefined;
+  const setSidebarWidth = (width: number) => {
+    const maximum = Math.min(440, Math.floor(window.innerWidth * 0.45));
+    const value = Math.round(Math.max(200, Math.min(maximum, width)));
+    chat.style.setProperty('--chat-sidebar-width', `${value}px`);
+    resizeHandle.setAttribute('aria-valuemin', '200');
+    resizeHandle.setAttribute('aria-valuemax', String(maximum));
+    resizeHandle.setAttribute('aria-valuenow', String(value));
+    return value;
+  };
+  const persistSidebarWidth = () => {
+    sidebarResized = true;
+    void chrome.storage.local
+      .set({ chatSidebarWidth: sidebar.getBoundingClientRect().width })
+      .catch(() => {});
+  };
+  void chrome.storage.local
+    .get('chatSidebarWidth')
+    .then((data) => {
+      if (!disposed && !sidebarResized && typeof data.chatSidebarWidth === 'number')
+        setSidebarWidth(data.chatSidebarWidth);
+    })
+    .catch(() => {});
+  resizeHandle.setAttribute('aria-valuenow', '240');
+  resizeHandle.setAttribute('aria-valuemin', '200');
+  resizeHandle.setAttribute('aria-valuemax', '440');
+  resizeHandle.addEventListener('pointerdown', (event) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    sidebarResized = true;
+    resizePointer = event.pointerId;
+    resizeHandle.setPointerCapture(event.pointerId);
+    resizeHandle.focus();
+    chat.classList.add('caspr-sidebar-resizing');
+  });
+  resizeHandle.addEventListener('pointermove', (event) => {
+    if (resizePointer === event.pointerId)
+      setSidebarWidth(event.clientX - chat.getBoundingClientRect().left);
+  });
+  const finishResize = () => {
+    if (resizePointer === undefined) return;
+    resizePointer = undefined;
+    chat.classList.remove('caspr-sidebar-resizing');
+    persistSidebarWidth();
+  };
+  resizeHandle.addEventListener('pointerup', finishResize);
+  resizeHandle.addEventListener('lostpointercapture', finishResize);
+  resizeHandle.addEventListener('pointercancel', finishResize);
+  resizeHandle.addEventListener('keydown', (event) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const current = sidebar.getBoundingClientRect().width;
+    setSidebarWidth(
+      event.key === 'Home'
+        ? 200
+        : event.key === 'End'
+          ? 440
+          : current + (event.key === 'ArrowRight' ? 16 : -16),
+    );
+    persistSidebarWidth();
+  });
+  resizeHandle.addEventListener('dblclick', () => {
+    setSidebarWidth(240);
+    persistSidebarWidth();
+  });
+  const channelMenu = document.createElement('details');
+  channelMenu.className = 'caspr-channel-menu';
+  const channelSummary = document.createElement('summary');
+  channelSummary.textContent = '⋯';
+  channelSummary.setAttribute('aria-label', 'Kanaalacties en chatinstellingen');
+  const channelMenuBody = document.createElement('div');
+  channelMenuBody.className = 'caspr-channel-menu-body';
+  channelMenuBody.id = 'caspr-channel-options';
+  channelSummary.setAttribute('aria-controls', channelMenuBody.id);
+  channelSummary.setAttribute('aria-expanded', 'false');
+  channelSummary.title = 'Kanaalacties en chatinstellingen';
+  channelMenu.addEventListener('toggle', () => {
+    channelSummary.setAttribute('aria-expanded', String(channelMenu.open));
+  });
+  channelSummary.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      channelMenu.open = true;
+      channelMenuBody
+        .querySelector<HTMLElement>('button:not(:disabled), input:not(:disabled)')
+        ?.focus();
+    }
+  });
+  channelMenuBody.addEventListener('keydown', (event) => {
+    if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+    const controls = Array.from(
+      channelMenuBody.querySelectorAll<HTMLElement>(
+        'button:not(:disabled), input:not(:disabled)',
+      ),
+    ).filter((control) => control.offsetParent !== null);
+    if (!controls.length) return;
+    event.preventDefault();
+    const current = controls.indexOf(document.activeElement as HTMLElement);
+    const next =
+      event.key === 'Home'
+        ? 0
+        : event.key === 'End'
+          ? controls.length - 1
+          : (current + (event.key === 'ArrowDown' ? 1 : -1) + controls.length) %
+            controls.length;
+    controls[next].focus();
+  });
+  channelMenu.addEventListener('focusout', () => {
+    queueMicrotask(() => {
+      if (
+        !channelMenu.contains(document.activeElement) &&
+        document.activeElement !== document.body
+      )
+        channelMenu.open = false;
+    });
+  });
+  const channelActions = document.createElement('div');
+  channelActions.addEventListener('click', (event) => {
+    if (event.target instanceof Element && event.target.closest('button'))
+      channelMenu.open = false;
+  });
+  channelMenuBody.append(identity, channelActions);
+  channelMenu.append(channelSummary, channelMenuBody);
+  main
+    .querySelector('header')!
+    .insertBefore(channelMenu, main.querySelector('.caspr-community-close'));
+  chat.addEventListener('click', (event) => {
+    if (event.target instanceof Node && !channelMenu.contains(event.target))
+      channelMenu.open = false;
+  });
+  chat.addEventListener('cancel', (event) => {
+    if (event.target !== chat) return;
+    if (channelMenu.open) {
+      event.preventDefault();
+      channelMenu.open = false;
+      channelSummary.focus();
+    }
+  });
 
   let activeScope: 'global' | 'class' | 'pm' | 'group' = 'global';
   let activePeer: Contact | undefined;
@@ -1016,6 +1384,9 @@ export function mountCommunity(container: HTMLElement): () => void {
   main
     .querySelector('header')!
     .insertBefore(favoriteCurrent, main.querySelector('header')!.lastElementChild);
+  main
+    .querySelector('header')!
+    .insertBefore(channelMenu, main.querySelector('.caspr-community-close'));
   const unsubscribeFavorites = local.subscribe(() => {
     renderFavorites();
     refreshFavoriteControl();
@@ -1034,9 +1405,17 @@ export function mountCommunity(container: HTMLElement): () => void {
       favoriteGroups = groups;
       renderFavorites();
     },
+    channelActions,
   );
-  const roles = mountRoleManager(sidebar);
-  const moderation = mountModeration(sidebar);
+  const admin = document.createElement('details');
+  admin.className = 'caspr-chat-admin';
+  const adminTitle = document.createElement('summary');
+  adminTitle.textContent = 'Beheer & moderatie';
+  const adminActions = document.createElement('div');
+  admin.append(adminTitle, adminActions);
+  sidebar.append(admin);
+  const roles = mountRoleManager(adminActions);
+  const moderation = mountModeration(adminActions);
   const mentions = mountMentions(input);
   const groupEvent = (event: Event) => {
     const detail = (event as CustomEvent).detail;
@@ -1045,6 +1424,8 @@ export function mountCommunity(container: HTMLElement): () => void {
   };
   window.addEventListener('caspr-open-group', groupEvent);
   const chatTools = mountChatTools(connection, input, () => port);
+  const notificationTools = connection.querySelector('.caspr-chat-tools');
+  if (notificationTools) channelMenuBody.append(notificationTools);
   const markRead = () => {
     if (
       !chat.open ||
@@ -1106,6 +1487,12 @@ export function mountCommunity(container: HTMLElement): () => void {
   list.before(main.lastElementChild!);
 
   const openChat = (scope: 'global' | 'class' | 'pm' | 'group', peer?: Contact) => {
+    if (!isStudentEmail(getCurrentUser()?.email)) {
+      window.alert(
+        'Chat is alleen beschikbaar voor leerlingaccounts met een ll-e-mailadres.',
+      );
+      return;
+    }
     if (chat.open && activeScope === scope && activePeer?.id === peer?.id && port) return;
     if (draftRoom) saveDraft();
     draftRoom =
@@ -1300,12 +1687,30 @@ export function mountCommunity(container: HTMLElement): () => void {
       } else if (data.type === 'action-result') {
         status.textContent = data.ok ? 'Bericht bijgewerkt.' : data.error;
       } else if (data.type === 'reaction-people') {
-        status.textContent =
-          data.error ||
-          data.people
-            .map((p: { emoji: string; name: string }) => `${p.emoji} ${p.name}`)
-            .join(' · ') ||
-          'Nog geen reacties.';
+        if (!reactionDialog.open || data.messageId !== reactionMessageId) return;
+        peopleByReaction = data.people || [];
+        reactionStatus.textContent =
+          data.error || (!peopleByReaction.length ? 'Nog geen reacties.' : '');
+        if (data.error) return;
+        reactionTabs.replaceChildren();
+        for (const [index, emoji] of [
+          ...new Set(peopleByReaction.map((person) => person.emoji)),
+        ].entries()) {
+          const tab = document.createElement('button');
+          tab.type = 'button';
+          tab.id = `caspr-reaction-tab-${index}`;
+          tab.dataset.emoji = emoji;
+          tab.setAttribute('role', 'tab');
+          tab.setAttribute('aria-controls', reactionPeople.id);
+          tab.textContent = `${emoji} ${peopleByReaction.filter((person) => person.emoji === emoji).length}`;
+          tab.onclick = () => {
+            selectedEmoji = emoji;
+            renderReactionPeople();
+          };
+          reactionTabs.append(tab);
+          if (!selectedEmoji) selectedEmoji = emoji;
+        }
+        renderReactionPeople();
       } else if (data.type === 'contacts') {
         ownUserId = data.userId;
         ownRole = data.role || 'member';

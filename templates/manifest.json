@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "CASPR++",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "icons": {
     "16": "assets/logo.png",
     "32": "assets/logo.png",
@@ -19,7 +19,14 @@
   },
   "description": "Thema’s, glaseffect en widgets voor CASPR.",
   "permissions": ["storage"],
-  "host_permissions": ["https://api.casprplusplus.be/*", "https://api.giphy.com/*"],
+  "host_permissions": [
+    "https://api.casprplusplus.be/*",
+    "https://api.giphy.com/*",
+    "https://api.delijn.be/*",
+    "https://api.irail.be/*",
+    "https://api.open-meteo.com/*",
+    "https://geocoding-api.open-meteo.com/*"
+  ],
   "commands": {
     "panic-disable": {
       "suggested_key": {

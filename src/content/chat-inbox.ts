@@ -9,7 +9,9 @@ export function watchChatInbox(): () => void {
   let audio: AudioContext | undefined;
   const heard = new Set<number>();
   const render = () => {
-    for (const button of document.querySelectorAll<HTMLElement>('[data-caspr-chat]')) {
+    for (const button of document.querySelectorAll<HTMLElement>(
+      '[data-caspr-chat], [data-caspr-chat-nav]',
+    )) {
       let badge = button.querySelector<HTMLElement>('.caspr-inbox-badge');
       const count = rooms.reduce((sum, r) => sum + r.unread, 0);
       const mentions = rooms.reduce((sum, r) => sum + (r.mentions || 0), 0);

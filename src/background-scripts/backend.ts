@@ -1,30 +1,8 @@
-import { io } from 'socket.io-client';
+import { authRequest, backendConnectionError, createBackendSocket } from './socket';
 import { BACKEND_URL } from '../common/backend';
 import { isStudentEmail } from '../common/user';
 const sessionKey = (email: string) =>
   `chatSession:${BACKEND_URL}:${email.trim().toLowerCase()}`;
-function authRequest(event: string, payload: unknown): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const connection = io(BACKEND_URL, {
-      auth: { mode: 'auth' },
-      transports: ['websocket'],
-      timeout: 8000,
-      reconnection: false,
-    });
-    connection.once('connect_error', (error) => {
-      connection.disconnect();
-      reject(error);
-    });
-    connection.once('connect', () =>
-      connection.timeout(15000).emit(event, payload, (error: Error | null, data: any) => {
-        connection.disconnect();
-        if (error) reject(new Error('Geen antwoord van de backend.'));
-        else resolve(data);
-      }),
-    );
-  });
-}
-
 const identityTokens = new Map<string, Promise<string>>();
 
 function chatToken(email: string): Promise<string> {
@@ -100,8 +78,7 @@ chrome.runtime.onMessage.addListener((message, sender, reply) => {
     if (!isStudentEmail(message.email)) {
       reply({
         ok: false,
-        error:
-          'CASPR++ is alleen beschikbaar voor leerlingaccounts met een e-mailadres dat begint met ll.',
+        error: 'Chat is alleen beschikbaar voor leerlingaccounts met een ll-e-mailadres.',
       });
       return;
     }
@@ -122,17 +99,20 @@ chrome.runtime.onMessage.addListener((message, sender, reply) => {
       const key = sessionKey(message.email);
       const stored = await chrome.storage.local.get(key);
       if (message.action === 'logout') {
-        if (stored[key]) {
-          const current = await authRequest('auth:sessions', {
-            sessionToken: stored[key],
-          });
-          if (current.ok)
-            await authRequest('auth:revoke', {
+        try {
+          if (stored[key]) {
+            const current = await authRequest('auth:sessions', {
               sessionToken: stored[key],
-              sessionId: current.currentSessionId,
             });
+            if (current.ok)
+              await authRequest('auth:revoke', {
+                sessionToken: stored[key],
+                sessionId: current.currentSessionId,
+              });
+          }
+        } finally {
+          await chrome.storage.local.remove(key);
         }
-        await chrome.storage.local.remove(key);
         return { ok: true };
       }
       const data = await authRequest(`auth:${message.action}`, {
@@ -220,15 +200,17 @@ chrome.runtime.onMessage.addListener((message, sender, reply) => {
     if (!isStudentEmail(message.email)) return;
 
     void chatToken(message.email)
-      .then((authToken) => {
-        const registration = io(BACKEND_URL, {
+      .then(async (authToken) => {
+        const key = sessionKey(message.email);
+        const stored = await chrome.storage.local.get(key);
+        const registration = createBackendSocket({
           auth: {
             name: message.name,
             email: message.email,
             className: message.className,
             authToken,
+            sessionToken: stored[key],
           },
-          transports: ['websocket'],
           timeout: 8000,
           reconnection: false,
         });
@@ -275,8 +257,9 @@ chrome.runtime.onConnect.addListener((port) => {
     return;
   }
 
-  let socket: ReturnType<typeof io> | undefined;
+  let socket: ReturnType<typeof createBackendSocket> | undefined;
   let closed = false;
+  let joining = false;
 
   const post = (message: unknown) => {
     if (!closed) port.postMessage(message);
@@ -288,16 +271,22 @@ chrome.runtime.onConnect.addListener((port) => {
       return;
     }
 
-    if (message.type === 'join' && typeof message.name === 'string' && !socket) {
+    if (
+      message.type === 'join' &&
+      typeof message.name === 'string' &&
+      !socket &&
+      !joining
+    ) {
       if (!isStudentEmail(message.email)) {
         post({
           type: 'status',
           connected: false,
-          text: 'CASPR++ is alleen beschikbaar voor leerlingaccounts (ll-e-mailadres).',
+          text: 'Chat is alleen beschikbaar voor leerlingaccounts met een ll-e-mailadres.',
         });
         port.disconnect();
         return;
       }
+      joining = true;
       try {
         post({ type: 'backend', url: BACKEND_URL });
 
@@ -321,7 +310,20 @@ chrome.runtime.onConnect.addListener((port) => {
             : undefined;
         if (closed) return;
 
-        socket = io(BACKEND_URL, {
+        const requireAuthentication = () => {
+          if (sessionToken) {
+            const key = sessionKey(message.email);
+            void chrome.storage.local
+              .get(key)
+              .then(async (current) => {
+                if (current[key] === sessionToken) await chrome.storage.local.remove(key);
+              })
+              .catch(() => {});
+          }
+          post({ type: 'auth-required' });
+        };
+
+        socket = createBackendSocket({
           auth: {
             name: message.name,
             email: message.email,
@@ -332,7 +334,6 @@ chrome.runtime.onConnect.addListener((port) => {
             sessionToken,
             clientId,
           },
-          transports: ['websocket'],
           timeout: 8000,
           autoConnect: false,
         });
@@ -410,14 +411,15 @@ chrome.runtime.onConnect.addListener((port) => {
         socket.on('chat:online', (data) => post({ type: 'online', count: data.count }));
 
         socket.on('connect_error', (error: Error & { data?: { code?: string } }) => {
-          if (error.data?.code === 'AUTH_REQUIRED') post({ type: 'auth-required' });
+          if (error.data?.code === 'AUTH_REQUIRED') requireAuthentication();
           post({
             type: 'status',
             connected: false,
-            text: error.message || 'Geen verbinding met de server',
+            text:
+              backendConnectionError(error).message || 'Geen verbinding met de server',
           });
         });
-        socket.on('chat:auth-required', () => post({ type: 'auth-required' }));
+        socket.on('chat:auth-required', requireAuthentication);
 
         socket.on('disconnect', () =>
           post({
@@ -431,6 +433,7 @@ chrome.runtime.onConnect.addListener((port) => {
       } catch (error) {
         socket?.disconnect();
         socket = undefined;
+        joining = false;
 
         post({
           type: 'status',
@@ -474,6 +477,7 @@ chrome.runtime.onConnect.addListener((port) => {
           else if (message.type === 'reaction-people')
             post({
               type: 'reaction-people',
+              messageId: message.messageId,
               people: result?.people || [],
               error: error ? 'Geen antwoord ontvangen.' : result?.error,
             });

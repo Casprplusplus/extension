@@ -1,3 +1,6 @@
+import { parseDashboard } from '../common/dashboard';
+import { watchStudio } from '../common/theme-studio';
+watchStudio();
 import {
   defaults,
   parseSettings,
@@ -5,7 +8,6 @@ import {
   type ThemeSettings,
 } from '../common/themes';
 import { renderSplashText } from '../common/splash-text';
-import { getCurrentUser, isStudentEmail } from '../common/user';
 
 function apply(settings: ThemeSettings): void {
   const password = document.querySelector<HTMLInputElement>('#Password');
@@ -15,12 +17,7 @@ function apply(settings: ThemeSettings): void {
   );
 
   const root = document.documentElement;
-  const username = login?.querySelector<HTMLInputElement>(
-    '#Username, #UserName, #Email, input[type="email"], input[name="UserName"], input[name="Username"], input[name="Email"]',
-  );
-  const email = getCurrentUser()?.email || username?.value;
-
-  if (!login || !settings.enabled || !isStudentEmail(email)) {
+  if (!login || !settings.enabled || !extensionEnabled) {
     root.removeAttribute('data-caspr-theme');
 
     document.getElementById('caspr-splash')?.remove();
@@ -62,13 +59,14 @@ function apply(settings: ThemeSettings): void {
 }
 
 let settings: ThemeSettings = defaults;
+let extensionEnabled = false;
 let revision = 0;
-document.addEventListener('input', () => apply(settings));
-
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === 'local' && changes.loginTheme) {
+  if (area === 'local' && (changes.loginTheme || changes.dashboard)) {
     revision++;
-    settings = parseSettings(changes.loginTheme.newValue);
+    if (changes.loginTheme) settings = parseSettings(changes.loginTheme.newValue);
+    if (changes.dashboard)
+      extensionEnabled = parseDashboard(changes.dashboard.newValue).enabled;
 
     apply(settings);
   }
@@ -77,9 +75,12 @@ chrome.storage.onChanged.addListener((changes, area) => {
 const initialRevision = revision;
 
 chrome.storage.local
-  .get('loginTheme')
+  .get(['loginTheme', 'dashboard'])
   .then((data) => {
-    if (revision === initialRevision) settings = parseSettings(data.loginTheme);
+    if (revision === initialRevision) {
+      settings = parseSettings(data.loginTheme);
+      extensionEnabled = parseDashboard(data.dashboard).enabled;
+    }
 
     apply(settings);
   })

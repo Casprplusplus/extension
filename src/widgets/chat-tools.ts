@@ -9,6 +9,8 @@ export function mountChatTools(
   let sound = false;
   let saving = false;
   let error = '';
+  let confirmed = { muted: false, sound: false };
+  let saveTimer: ReturnType<typeof setTimeout> | undefined;
   const typing = new Map<number, { name: string; until: number }>();
   const tools = document.createElement('div');
   tools.className = 'caspr-chat-tools';
@@ -33,7 +35,13 @@ export function mountChatTools(
     soundInput.checked = sound;
     mute.disabled = soundInput.disabled = saving || !room;
     info.textContent =
-      error || (muted ? 'Gedempt: badges blijven zichtbaar, geluid staat stil.' : '');
+      error ||
+      (saving
+        ? 'Opslaan…'
+        : muted
+          ? 'Gedempt: badges blijven zichtbaar, geluid staat stil.'
+          : '');
+    info.hidden = !info.textContent;
     for (const [id, value] of typing) if (value.until < Date.now()) typing.delete(id);
     line.textContent = typing.size
       ? `${[...typing.values()]
@@ -47,13 +55,26 @@ export function mountChatTools(
     const port = getPort();
     if (!port) {
       saving = false;
+      ({ muted, sound } = confirmed);
       error = 'Niet verbonden.';
       render();
       return;
     }
     saving = true;
     render();
-    port.postMessage({ type: 'preferences', muted, sound });
+    const failed = (message: string) => {
+      saving = false;
+      ({ muted, sound } = confirmed);
+      error = message;
+      render();
+    };
+    try {
+      port.postMessage({ type: 'preferences', muted, sound });
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => failed('Geen antwoord. Probeer opnieuw.'), 10000);
+    } catch {
+      failed('Verbinding verbroken. Open de chat opnieuw.');
+    }
   };
   mute.onclick = () => {
     muted = !muted;
@@ -73,14 +94,17 @@ export function mountChatTools(
       if (data.type === 'profile-result' && data.ok) room = data.room || '';
       if ((data.type === 'inbox' || data.type === 'profile-result') && data.rooms) {
         const state = (data.rooms as InboxRoom[]).find((r) => r.room === room);
-        if (state) {
+        if (state && !saving) {
           muted = state.muted;
           sound = state.sound;
+          confirmed = { muted, sound };
         }
       }
       if (data.type === 'preferences-result') {
+        clearTimeout(saveTimer);
         saving = false;
         if (!data.ok) {
+          ({ muted, sound } = confirmed);
           error = data.error || 'Opslaan mislukt.';
           getPort()?.postMessage({ type: 'profile' });
           render();
@@ -89,6 +113,7 @@ export function mountChatTools(
         error = '';
         muted = !!data.state.muted;
         sound = !!data.state.sound;
+        confirmed = { muted, sound };
       }
       if (data.type === 'typing') {
         if (data.active)
@@ -102,6 +127,9 @@ export function mountChatTools(
     },
     reset() {
       room = '';
+      clearTimeout(saveTimer);
+      muted = sound = false;
+      confirmed = { muted, sound };
       saving = false;
       error = '';
       typing.clear();
@@ -109,6 +137,7 @@ export function mountChatTools(
     },
     cleanup() {
       clearInterval(timer);
+      clearTimeout(saveTimer);
       input.removeEventListener('input', inputChanged);
       tools.remove();
       line.remove();

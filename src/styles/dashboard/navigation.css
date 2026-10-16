@@ -173,3 +173,73 @@ html[data-caspr-dashboard='midnight'] .header-mobile .logo img {
   max-width: 100%;
   object-fit: contain;
 }
+
+/* CASPR gives the scrolling navigation its own white background. */
+html[data-caspr-dashboard] .menu-sidebar .menu-sidebar__content,
+html[data-caspr-dashboard] .menu-sidebar .navbar-sidebar,
+html[data-caspr-dashboard] .menu-sidebar .js-scrollbar,
+html[data-caspr-studio] .menu-sidebar .menu-sidebar__content,
+html[data-caspr-studio] .menu-sidebar .navbar-sidebar,
+html[data-caspr-studio] .menu-sidebar .js-scrollbar {
+  background: var(--d-surface, var(--d-bg)) !important;
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard] .menu-sidebar .navbar-sidebar .navbar__list li > a,
+html[data-caspr-studio] .menu-sidebar .navbar-sidebar .navbar__list li > a {
+  color: var(--d-text) !important;
+}
+html[data-caspr-dashboard]
+  .menu-sidebar
+  .navbar-sidebar
+  .navbar__list
+  li
+  > a:is(:hover, :focus-visible, [data-caspr-current]),
+html[data-caspr-studio]
+  .menu-sidebar
+  .navbar-sidebar
+  .navbar__list
+  li
+  > a:is(:hover, :focus-visible, [data-caspr-current]) {
+  background: var(--d-soft) !important;
+  color: var(--d-text) !important;
+}
+
+/* Account dropdown follows every palette, including custom themes. */
+html:is([data-caspr-dashboard], [data-caspr-studio]) .account-dropdown,
+html:is([data-caspr-dashboard], [data-caspr-studio])
+  .account-dropdown
+  :is(
+    .info,
+    .account-dropdown__body,
+    .account-dropdown__footer,
+    .account-dropdown__item
+  ) {
+  background: var(--d-surface) !important;
+  color: var(--d-text) !important;
+  border-color: var(--d-line) !important;
+}
+html:is([data-caspr-dashboard], [data-caspr-studio]) .account-dropdown {
+  border: 1px solid var(--d-line);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px #00000030;
+}
+html:is([data-caspr-dashboard], [data-caspr-studio]) .account-dropdown::before {
+  border-bottom-color: var(--d-surface) !important;
+}
+html:is([data-caspr-dashboard], [data-caspr-studio])
+  .account-dropdown
+  :is(a, h5, .name, i) {
+  color: var(--d-text) !important;
+}
+html:is([data-caspr-dashboard], [data-caspr-studio])
+  .account-dropdown
+  :is(.email, .info p) {
+  color: var(--d-muted) !important;
+}
+html:is([data-caspr-dashboard], [data-caspr-studio])
+  .account-dropdown
+  :is(.account-dropdown__item, .account-dropdown__footer)
+  a:hover {
+  background: var(--d-soft) !important;
+  color: var(--d-text) !important;
+}

@@ -1,4 +1,4 @@
-export const RELEASE_VERSION = '1.2.0';
+export const RELEASE_VERSION = chrome.runtime.getManifest().version;
 export function mountWhatsNew(): () => void {
   let disposed = false;
   let dialog: HTMLDialogElement | undefined;
@@ -20,16 +20,18 @@ export function mountWhatsNew(): () => void {
         title.textContent = `Nieuw in CASPR++ · ${RELEASE_VERSION}`;
         const intro = document.createElement('p');
         intro.textContent =
-          'Je nieuwe schooldag, met meer mogelijkheden voor samen werken.';
+          'Een persoonlijker startscherm en een opgefriste chat. Dit is nieuw in deze update:';
         const list = document.createElement('ul');
         for (const text of [
-          'Privégroepen, polls en vastgezette berichten.',
-          'Groepswerk met taken, deadlines en samen focussen.',
-          'Berichten zoeken en @vermeldingen.',
-          'Levels, VIP en een zelfgekozen beloningsbadge.',
-          'Chatprofielen, favoriete chats en concepten per gesprek.',
-          'Zelf je account activeren en je wachtwoord herstellen via schoolmail.',
-          'Berichten rapporteren en uitnodigingen blokkeren.',
+          'Theme Studio: eigen kleuren en achtergronden op alle CASPR-pagina’s, lokaal opgeslagen.',
+          'Startscherm Studio: widgets verslepen met sleepgrepen, formaat aanpassen en layouts bewaren.',
+          'Nieuwe widgets voor De Lijn en NMBS, met vertragingen en openklikbare ritten met de volgende haltes.',
+          'Een weerwidget met plaatskeuze, temperatuur, neerslag, wind en een verwachting voor drie dagen.',
+          'Opgefriste chat met gegroepeerde berichten, datumscheidingen en een verstelbare zijbalk.',
+          'Een apart reactievenster met emoji-tabs en een overzicht van wie reageerde.',
+          'Duidelijkere vriendschapsverzoeken en groepsuitnodigingen, plus een aparte beheersectie.',
+          'Focusmodus verbergt Chats en Games, ook in de navigatie.',
+          'Een compactere extensiepopup met een hoofdschakelaar die CASPR++ volledig uitzet.',
         ]) {
           const item = document.createElement('li');
           item.textContent = text;

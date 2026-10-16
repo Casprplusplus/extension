@@ -9,7 +9,16 @@ const outputDirectory = resolve(projectRoot, 'extension');
 const watchMode = process.argv.includes('--watch');
 const allowHttp = process.argv.includes('--allow-http');
 const publicBuild = process.argv.includes('--public');
-const backendUrl = new URL(process.env.BACKEND_URL || 'https://api.casprplusplus.be');
+const testBackend = process.argv.includes('--test-backend');
+const devBuild = !publicBuild && (watchMode || process.argv.includes('--dev'));
+const backendUrl = new URL(
+  process.env.BACKEND_URL ||
+    (testBackend
+      ? 'http://127.0.0.1:3000'
+      : devBuild || publicBuild
+        ? 'https://dev-api.casprplusplus.be'
+        : 'https://api.casprplusplus.be'),
+);
 
 if (!['https:', 'http:'].includes(backendUrl.protocol)) {
   throw new Error('BACKEND_URL must use HTTPS or HTTP.');

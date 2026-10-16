@@ -1,3 +1,10 @@
+import { watchAgendaCapture } from './agenda-request';
+import { mountAttribution } from './attribution';
+mountAttribution();
+import { mountNavbarActions } from '../widgets/navbar-actions';
+import { mountHomeStudio } from '../widgets/home-studio';
+import { watchStudio } from '../common/theme-studio';
+watchStudio();
 import { mountWhatsNew } from '../widgets/whats-new';
 import { parseDashboard } from '../common/dashboard';
 import { parseSettings, splashes } from '../common/themes';
@@ -16,24 +23,19 @@ import { mountNavigationLayout } from '../widgets/navigation-layout';
 import {
   getCurrentUser,
   getCurrentClass,
+  watchAccount,
   isStudentEmail,
-  watchStudentAccount,
 } from '../common/user';
 import { mountSettingsModal } from '../widgets/settings-modal';
 import { watchChatInbox } from './chat-inbox';
 
 const page = studentPage(location.pathname);
-chrome.runtime.onMessage.addListener((message, _sender, reply) => {
-  if (message?.type === 'caspr:student-access') {
-    reply({ allowed: isStudentEmail(getCurrentUser()?.email) });
-  }
-});
 let cleanupInbox: (() => void) | undefined;
 let cleanupWhatsNew: (() => void) | undefined;
 let activeAccount = '';
 function syncAccount() {
   const user = getCurrentUser();
-  const email = isStudentEmail(user?.email) ? user!.email : '';
+  const email = dashboard.enabled ? user?.email || '' : '';
   if (email === activeAccount) return;
   activeAccount = email;
   cleanupInbox?.();
@@ -43,16 +45,19 @@ function syncAccount() {
   cancelGradesRequest();
   cancelScheduleRequests();
   if (!email || !page) return;
-  cleanupInbox = watchChatInbox();
+  if (isStudentEmail(email)) cleanupInbox = watchChatInbox();
   if (page === 'dashboard') cleanupWhatsNew = mountWhatsNew();
   const className = getCurrentClass();
-  if (page === 'dashboard' && user && className)
+  if (page === 'dashboard' && user && isStudentEmail(email) && className)
     void chrome.runtime
       .sendMessage({ type: 'users:register', ...user, className })
       .catch(() => {});
 }
 
-if (page === 'agenda') watchAgendaDetails();
+if (page === 'agenda') {
+  watchAgendaDetails();
+  watchAgendaCapture();
+}
 
 let timeOptions = parseTimeOptions(undefined);
 let lessonCache: unknown;
@@ -63,6 +68,8 @@ const tiles = Array.from(
   document.querySelectorAll<HTMLAnchorElement>('.main-content .leerlingAppTile'),
 );
 
+let cleanupNavbar: (() => void) | undefined;
+let cleanupHome: (() => void) | undefined;
 let cleanupWidgets: (() => void) | undefined;
 let cleanupGame: (() => void) | undefined;
 let cleanupGrades: (() => void) | undefined;
@@ -82,10 +89,14 @@ function apply(): void {
   syncAccount();
   if (!content || !page) return;
 
+  cleanupHome?.();
+  cleanupHome = undefined;
   cleanupSettings?.();
   cleanupSettings = undefined;
   cleanupNavigation?.();
   cleanupNavigation = undefined;
+  cleanupNavbar?.();
+  cleanupNavbar = undefined;
   cleanupLayout?.();
   cleanupLayout = undefined;
   cleanupWidgets?.();
@@ -95,7 +106,7 @@ function apply(): void {
   cleanupGrades?.();
   cleanupGrades = undefined;
 
-  if (!dashboard.enabled || !isStudentEmail(getCurrentUser()?.email)) {
+  if (!dashboard.enabled) {
     cancelGradesRequest();
     cancelScheduleRequests();
 
@@ -124,6 +135,7 @@ function apply(): void {
     cleanupGrades = mountGrades(content);
 
   decorateTiles(tiles);
+  cleanupNavbar = mountNavbarActions(layout.focus);
   decorateNavigation();
 
   cleanupNavigation = mountNavigationLayout(content, navigationLayout);
@@ -133,6 +145,7 @@ function apply(): void {
   for (const link of document.querySelectorAll<HTMLAnchorElement>(
     '.navbar-sidebar a, .navbar-mobile a',
   )) {
+    if (link.dataset.casprNavId) continue;
     const target = studentPage(new URL(link.href, location.href).pathname);
 
     if (target === page) link.dataset.casprCurrent = 'true';
@@ -150,33 +163,45 @@ function apply(): void {
     const customized = mountDashboardLayout(content, tiles, layout);
     cleanupLayout = customized.cleanup;
 
-    if (!layout.focus) cleanupGame = mountCommunity(customized.grid);
+    customized.grid.hidden = true;
     cleanupSettings = mountSettingsModal(content, customized.grid);
   } else cleanupSettings = mountSettingsModal(content);
 
-  if (!dashboard.widgets || page !== 'dashboard' || !tiles.length) return;
+  if (!layout.focus) {
+    const host = document.createElement('div');
+    host.hidden = true;
+    document.body.append(host);
+    const cleanup = mountCommunity(host);
+    cleanupGame = () => {
+      cleanup();
+      host.remove();
+    };
+  }
+  if (page !== 'dashboard' || !tiles.length) return;
 
-  cleanupWidgets = mountDashboardWidgets(
-    content,
-    tiles,
-    theme,
-    timeOptions,
-    lessonCache,
-    joke,
-    dashboard,
-  );
+  if (dashboard.widgets) {
+    cleanupWidgets = mountDashboardWidgets(
+      content,
+      tiles,
+      theme,
+      timeOptions,
+      lessonCache,
+      joke,
+      dashboard,
+    );
 
-  if (
-    (timeOptions.nextLesson || (timeOptions.countdown && !timeOptions.target)) &&
-    !document.hidden
-  )
-    void refreshSchedule();
+    if (
+      (timeOptions.nextLesson || (timeOptions.countdown && !timeOptions.target)) &&
+      !document.hidden
+    )
+      void refreshSchedule();
+  }
+  cleanupHome = mountHomeStudio(content);
 }
 
 const refreshVisibleSchedule = () => {
   if (
     page === 'dashboard' &&
-    isStudentEmail(getCurrentUser()?.email) &&
     dashboard.enabled &&
     dashboard.widgets &&
     (timeOptions.nextLesson || (timeOptions.countdown && !timeOptions.target)) &&
@@ -250,7 +275,7 @@ chrome.storage.local
   })
   .catch(() => apply());
 
-const cleanupAccountWatch = watchStudentAccount(apply);
+const cleanupAccountWatch = watchAccount(apply);
 window.addEventListener(
   'pagehide',
   () => {

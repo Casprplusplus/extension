@@ -1,7 +1,6 @@
 import { accountScope } from '../common/account-scope';
 import { parseGradesResponse } from '../common/grades-response';
 import type { Grade } from '../common/grades';
-import { getCurrentUser, isStudentEmail } from '../common/user';
 
 export interface GradeResult {
   grades: Grade[];
@@ -17,10 +16,6 @@ export function cancelGradesRequest(): void {
 }
 
 export function requestGrades(): Promise<GradeResult> {
-  if (!isStudentEmail(getCurrentUser()?.email))
-    return Promise.reject(
-      new Error('CASPR++ is alleen beschikbaar voor leerlingaccounts (ll-e-mailadres).'),
-    );
   const scope = accountScope();
 
   if (location.origin !== 'https://kolvw.caspr.be' || !scope)

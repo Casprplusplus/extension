@@ -20,15 +20,17 @@ export function mountNavigationLayout(
 
       if (!link) return [];
 
+      const customId = link.dataset.casprNavId;
       const url = new URL(link.href, location.href);
 
       if (
-        url.origin !== location.origin ||
-        url.hash ||
-        url.pathname.toLowerCase().startsWith('/auth')
+        !customId &&
+        (url.origin !== location.origin ||
+          Boolean(url.hash) ||
+          url.pathname.toLowerCase().startsWith('/auth'))
       )
         return [];
-      const id = url.pathname.toLowerCase();
+      const id = customId || url.pathname.toLowerCase();
       const copy = link.cloneNode(true) as HTMLElement;
 
       copy.querySelectorAll('i, .caspr-nav-emoji').forEach((icon) => icon.remove());
@@ -62,7 +64,7 @@ export function mountNavigationLayout(
 
   const note = document.createElement('p');
   note.textContent =
-    'Kies wat je ziet in de zijbalk en het mobiele menu. Gebruik de pijlen voor de volgorde. Dashboardtegels hebben hun eigen instellingen.';
+    'Kies wat je ziet in de zijbalk en het mobiele menu. Gebruik de pijlen om de volgorde aan te passen.';
 
   const list = document.createElement('ul');
   const status = document.createElement('p');

@@ -2,9 +2,6 @@ export interface CasprUser {
   name: string;
   email: string;
 }
-export function isStudentEmail(email: unknown): email is string {
-  return typeof email === 'string' && /^ll[^@\s]*@[^@\s]+\.[^@\s]+$/i.test(email.trim());
-}
 
 type UserRoot = Pick<Document, 'querySelector'>;
 
@@ -38,11 +35,11 @@ export function isCurrentUser(email: string, root: UserRoot = document): boolean
   const user = getCurrentUser(root);
   return user !== null && user.email === email.trim().toLowerCase();
 }
-export function watchStudentAccount(changed: () => void): () => void {
+export function watchAccount(changed: () => void): () => void {
   let previous: string | undefined;
   const check = () => {
     const user = getCurrentUser();
-    const current = isStudentEmail(user?.email) ? user!.email : '';
+    const current = user?.email || '';
     if (current !== previous) {
       previous = current;
       changed();
@@ -56,4 +53,12 @@ export function watchStudentAccount(changed: () => void): () => void {
   });
   check();
   return () => observer.disconnect();
+}
+
+export function isEmail(email: unknown): email is string {
+  return typeof email === 'string' && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim());
+}
+
+export function isStudentEmail(email: unknown): email is string {
+  return isEmail(email) && /^ll/i.test(email.trim());
 }

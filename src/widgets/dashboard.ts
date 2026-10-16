@@ -1,10 +1,14 @@
+import { mountAgenda } from './agenda';
+import { mountDeLijn } from './delijn';
+import { mountNMBS } from './nmbs';
+import { mountWeather } from './weather';
+import { emoji } from '../common/emoji';
 import { mountGroupwork } from './groupwork';
 import { addTimeWidgets } from './time';
 import { setText } from '../common/dom';
 import type { ThemeSettings } from '../common/themes';
 import type { TimeOptions } from '../common/time-widgets';
 import type { DashboardSettings } from '../common/dashboard';
-import { emoji } from '../common/emoji';
 import { mountPomodoro } from './pomodoro';
 import { mountProgression } from './progression';
 
@@ -23,26 +27,21 @@ export function mountDashboardWidgets(
 
   const welcome = document.createElement('article');
   welcome.className = 'caspr-welcome-widget';
-
   const eyebrow = document.createElement('span');
   eyebrow.textContent = 'JOUW SCHOOLDAG';
-
   const title = document.createElement('h2');
   const hour = new Date().getHours();
-
   title.append(
     document.createTextNode(
       hour < 12 ? 'Goedemorgen ' : hour < 18 ? 'Goedemiddag ' : 'Goedenavond ',
     ),
-
     emoji(hour < 12 ? '☀️' : hour < 18 ? '✨' : '🌙'),
   );
-
   const line = document.createElement('p');
   line.textContent = joke;
   line.hidden = !theme.splash;
-
   welcome.append(eyebrow, title, line);
+  widgets.append(welcome);
 
   const clock = document.createElement('article');
   clock.className = 'caspr-clock-widget';
@@ -106,7 +105,6 @@ export function mountDashboardWidgets(
     shortcuts.append(link);
   }
 
-  if (dashboard.welcome) widgets.append(welcome);
   if (dashboard.clock) widgets.append(clock);
   if (dashboard.shortcuts) widgets.append(shortcuts);
 
@@ -116,7 +114,10 @@ export function mountDashboardWidgets(
   const cleanupPomodoro = mountPomodoro(widgets);
   const cleanupProgression = mountProgression(widgets);
   const cleanupGroupwork = mountGroupwork(widgets);
-
+  const cleanupAgenda = mountAgenda(widgets);
+  const cleanupDeLijn = mountDeLijn(widgets);
+  const cleanupNMBS = mountNMBS(widgets);
+  const cleanupWeather = mountWeather(widgets);
   content.prepend(widgets);
   if (!widgets.children.length) {
     widgets.remove();
@@ -154,6 +155,10 @@ export function mountDashboardWidgets(
     cleanupPomodoro();
     cleanupProgression();
     cleanupGroupwork();
+    cleanupAgenda();
+    cleanupDeLijn();
+    cleanupNMBS();
+    cleanupWeather();
     stop();
 
     document.removeEventListener('visibilitychange', resume);

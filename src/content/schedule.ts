@@ -1,13 +1,11 @@
 import type { Lesson } from '../common/time-widgets';
 import { accountScope } from '../common/account-scope';
 import { parseDashboard } from '../common/dashboard';
-import { getCurrentUser, isStudentEmail } from '../common/user';
 
 let pending: ReturnType<typeof setTimeout>;
 let lastSignature = '';
 
 async function capture(): Promise<void> {
-  if (!isStudentEmail(getCurrentUser()?.email)) return;
   const settings = await chrome.storage.local.get('dashboard');
   if (!parseDashboard(settings.dashboard).enabled) return;
 
@@ -50,11 +48,7 @@ async function capture(): Promise<void> {
 
   if (lessons.length && scope && signature !== lastSignature) {
     const latest = await chrome.storage.local.get('dashboard');
-    if (
-      !parseDashboard(latest.dashboard).enabled ||
-      !isStudentEmail(getCurrentUser()?.email)
-    )
-      return;
+    if (!parseDashboard(latest.dashboard).enabled) return;
 
     await chrome.storage.local.set({
       lessonCache: { captured: Date.now(), scope, lessons },

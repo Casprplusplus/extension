@@ -1,0 +1,49 @@
+/* Native scrolling stays available, using the active CASPR++ palette. */
+html:is([data-caspr-dashboard], [data-caspr-studio], [data-caspr-theme]),
+html:is([data-caspr-dashboard], [data-caspr-studio], [data-caspr-theme]) * {
+  scrollbar-width: thin;
+  scrollbar-color: var(--d-line, var(--ct-muted, #68708a)) transparent;
+}
+html:is(
+    [data-caspr-dashboard],
+    [data-caspr-studio],
+    [data-caspr-theme]
+  )::-webkit-scrollbar,
+html:is([data-caspr-dashboard], [data-caspr-studio], [data-caspr-theme])
+  *::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+html:is(
+    [data-caspr-dashboard],
+    [data-caspr-studio],
+    [data-caspr-theme]
+  )::-webkit-scrollbar-track,
+html:is([data-caspr-dashboard], [data-caspr-studio], [data-caspr-theme])
+  *::-webkit-scrollbar-track {
+  background: transparent;
+}
+html:is(
+    [data-caspr-dashboard],
+    [data-caspr-studio],
+    [data-caspr-theme]
+  )::-webkit-scrollbar-thumb,
+html:is([data-caspr-dashboard], [data-caspr-studio], [data-caspr-theme])
+  *::-webkit-scrollbar-thumb {
+  background: var(--d-line, var(--ct-muted, #68708a));
+  border-radius: 10px;
+}
+html:is([data-caspr-dashboard], [data-caspr-studio], [data-caspr-theme])
+  *::-webkit-scrollbar-thumb:hover {
+  background: var(--d-muted, var(--ct-muted, #68708a));
+}
+html:is([data-caspr-dashboard], [data-caspr-studio], [data-caspr-theme])
+  *::-webkit-scrollbar-corner {
+  background: transparent;
+}
+@media (forced-colors: active) {
+  html:is([data-caspr-dashboard], [data-caspr-studio], [data-caspr-theme]),
+  html:is([data-caspr-dashboard], [data-caspr-studio], [data-caspr-theme]) * {
+    scrollbar-color: auto;
+  }
+}

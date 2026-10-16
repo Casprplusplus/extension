@@ -1,0 +1,150 @@
+html[data-caspr-studio][data-caspr-dashboard] body,
+html[data-caspr-studio][data-caspr-theme] body {
+  font-family: var(--studio-font) !important;
+}
+html[data-caspr-studio][data-caspr-dashboard] .page-container,
+html[data-caspr-studio][data-caspr-theme] body {
+  background: var(--studio-background) !important;
+}
+html[data-caspr-studio][data-caspr-dashboard] .leerlingAppTile,
+html[data-caspr-studio][data-caspr-dashboard] #caspr-dashboard-widgets article,
+html[data-caspr-studio][data-caspr-dashboard] .main-content .col-md-12:has(> h3),
+html[data-caspr-studio][data-caspr-theme] .login-content {
+  background: var(--d-card) !important;
+  border-radius: var(--studio-radius) !important;
+  box-shadow: var(--studio-shadow) !important;
+  backdrop-filter: blur(var(--studio-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--studio-blur)) !important;
+}
+html[data-caspr-studio][data-caspr-dashboard] button,
+html[data-caspr-studio][data-caspr-theme] input,
+html[data-caspr-studio][data-caspr-theme] button {
+  font-family: inherit;
+}
+.caspr-studio-dialog {
+  width: min(920px, 94vw);
+  max-height: 90vh;
+  overflow: auto;
+}
+.caspr-studio-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.caspr-studio-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--d-text);
+}
+.caspr-studio-fields input[type='color'] {
+  width: 100%;
+  height: 40px;
+  padding: 2px;
+}
+.caspr-studio-fields input[type='checkbox'] {
+  width: 24px;
+  height: 24px;
+}
+.caspr-studio-fields input[type='range'] {
+  width: 100%;
+}
+.caspr-studio-fields input[type='text'],
+.caspr-studio-fields select {
+  width: 100%;
+  padding: 9px;
+  background: var(--d-card);
+  color: var(--d-text);
+  border: 1px solid var(--d-line);
+  border-radius: 8px;
+}
+.caspr-studio-actions,
+.caspr-studio-saved {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+.caspr-studio-library > button {
+  margin: 4px;
+}
+.caspr-studio-dialog button {
+  padding: 9px 12px;
+}
+
+/* Apply the saved canvas on every CASPR route, including pages without widgets. */
+html[data-caspr-studio] {
+  min-height: 100%;
+  background: var(--studio-background) !important;
+  color-scheme: var(--studio-color-scheme, normal);
+}
+html[data-caspr-studio] body {
+  min-height: 100vh;
+  background: transparent !important;
+  color: var(--d-text);
+  font-family: var(--studio-font) !important;
+}
+html[data-caspr-studio]
+  :is(.page-wrapper, .page-container, .page-content, .main-content, .login-wrap) {
+  background: transparent !important;
+}
+html[data-caspr-studio] :is(.main-content .card, .main-content .au-card, .login-content) {
+  background: var(--d-card) !important;
+  color: var(--d-text);
+  border-color: var(--d-line);
+  border-radius: var(--studio-radius);
+  box-shadow: var(--studio-shadow);
+  backdrop-filter: blur(var(--studio-blur));
+}
+.caspr-studio-dialog .caspr-studio-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.caspr-studio-fields fieldset {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  min-width: 0;
+  margin: 0;
+  padding: 18px;
+  border: 1px solid var(--d-line);
+  border-radius: 12px;
+}
+.caspr-studio-fields legend {
+  float: none;
+  width: auto;
+  padding: 0 8px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--d-text);
+}
+.caspr-studio-color {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.caspr-studio-fields .caspr-studio-color input[type='color'] {
+  width: 44px;
+  height: 38px;
+  flex: 0 0 44px;
+  cursor: pointer;
+  border: 1px solid var(--d-line);
+  border-radius: 8px;
+}
+.caspr-studio-fields .caspr-studio-color input[type='text'] {
+  min-width: 0;
+  font-family: Consolas, monospace;
+  letter-spacing: 0.02em;
+}
+.caspr-studio-fields .caspr-studio-color input:invalid {
+  outline: 2px solid #d85067;
+}
+@media (max-width: 520px) {
+  .caspr-studio-fields fieldset {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 12px;
+  }
+}

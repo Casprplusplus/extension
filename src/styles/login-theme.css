@@ -1,3 +1,5 @@
+@import './theme-studio.css';
+@import './scrollbars.css';
 html[data-caspr-theme] {
   --ct-bg: #ecf1ff;
   --ct-card: #ffffffed;

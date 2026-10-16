@@ -15,20 +15,23 @@ export function mountProgression(container: HTMLElement): () => void {
   level.className = 'caspr-progression-level';
   const detail = document.createElement('p');
   const bar = document.createElement('progress');
+  bar.hidden = true;
   bar.setAttribute('aria-label', 'XP naar volgend level');
   const badges = document.createElement('div');
   badges.className = 'caspr-reward-badges';
   const note = document.createElement('p');
   note.textContent =
-    'Een speelse beloning voor je resultaten: 10–100 XP per resultaat. Dit verandert je schoolpunten niet.';
+    'Verdien 10–100 XP per resultaat en speel badges vrij. Je schoolpunten blijven hetzelfde.';
   const status = document.createElement('p');
   status.setAttribute('role', 'status');
   const refresh = document.createElement('button');
   refresh.type = 'button';
-  refresh.textContent = 'XP bijwerken';
+  refresh.textContent = 'Voortgang vernieuwen';
+  refresh.className = 'caspr-refresh-schedule';
   const render = (data: Progression) => {
     level.textContent = `Level ${data.level}`;
     detail.textContent = `${data.xp} XP · nog ${data.nextLevel - data.xp} XP tot level ${data.level + 1}`;
+    bar.hidden = false;
     bar.max = data.nextLevel - data.levelStart;
     bar.value = data.xp - data.levelStart;
     badges.replaceChildren(

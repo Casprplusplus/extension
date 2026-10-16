@@ -4,12 +4,13 @@ import { requestGrades, cancelGradesRequest } from '../content/grades-request';
 export function mountGrades(content: HTMLElement): () => void {
   const panel = document.createElement('details');
   panel.className = 'caspr-grades-overview';
+  panel.open = true;
   panel.setAttribute('aria-label', 'Puntenoverzicht');
 
   const summary = document.createElement('summary');
   const title = document.createElement('span');
   title.className = 'caspr-grades-title';
-  title.textContent = '📊 Jouw puntenoverzicht';
+  title.textContent = '📊 Resultaten';
 
   const hint = document.createElement('span');
   hint.className = 'caspr-grades-hint';

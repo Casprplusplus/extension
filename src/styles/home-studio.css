@@ -1,0 +1,1462 @@
+.caspr-home-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 8px;
+  grid-auto-flow: dense;
+  align-items: start;
+  gap: 12px;
+  margin: 14px 0;
+}
+.caspr-home-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 12px 0;
+}
+.caspr-home-toolbar p {
+  width: 100%;
+  margin: 0;
+}
+.caspr-home-card {
+  min-width: 0;
+}
+.caspr-home-card[hidden] {
+  display: none !important;
+}
+.caspr-home-card > article,
+.caspr-home-card > details {
+  background: var(--d-card);
+  border: 1px solid var(--d-line);
+  color: var(--d-text);
+  border-radius: var(--studio-radius, 20px);
+  padding: 24px;
+  height: 100%;
+  box-sizing: border-box;
+  box-shadow: var(--studio-shadow, 0 8px 28px #00000008);
+  overflow: auto;
+}
+.caspr-home-card > div {
+  width: 100% !important;
+  max-width: none !important;
+  padding: 0 !important;
+  height: 100%;
+}
+.caspr-home-card .leerlingAppTile {
+  height: 100%;
+  min-height: 150px;
+}
+.caspr-home-card img {
+  width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: inherit;
+}
+.caspr-home-card h2,
+.caspr-home-card h3 {
+  color: inherit;
+}
+.caspr-home-card p {
+  color: var(--d-muted);
+}
+.caspr-home-card time {
+  font-size: 38px;
+}
+.caspr-home-card[data-framed='false'] > article,
+.caspr-home-card[data-framed='false'] > details,
+.caspr-home-card[data-framed='false'] .leerlingAppTile {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+.caspr-home-grid[data-editing='true'] .caspr-home-card {
+  outline: 2px dashed var(--d-accent);
+  outline-offset: 2px;
+  cursor: grab;
+}
+.caspr-home-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--d-line);
+}
+.caspr-home-row strong {
+  flex-basis: 100%;
+}
+.caspr-home-row label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+html[data-caspr-studio][data-caspr-dashboard] .caspr-home-grid {
+  font-family: var(--studio-font);
+}
+html[data-caspr-studio][data-caspr-dashboard] .caspr-home-card > article {
+  background: var(--d-card) !important;
+  border-radius: var(--studio-radius);
+  box-shadow: var(--studio-shadow);
+  backdrop-filter: blur(var(--studio-blur));
+}
+html[data-caspr-studio][data-caspr-dashboard]
+  .caspr-home-card[data-framed='false']
+  > article {
+  background: transparent !important;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+@media (max-width: 900px) {
+  .caspr-home-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .caspr-home-card {
+    grid-column: span 2 !important;
+  }
+}
+@media (max-width: 560px) {
+  .caspr-home-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .caspr-home-card {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+  }
+}
+
+.caspr-home-toolbar {
+  padding: 14px 16px;
+  background: var(--d-card);
+  border: 1px solid var(--d-line);
+  border-radius: 16px;
+}
+.caspr-home-toolbar button {
+  padding: 10px 15px;
+  border: 1px solid var(--d-line);
+  border-radius: 10px;
+  background: var(--d-soft);
+  color: var(--d-text);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.caspr-home-toolbar button:first-of-type {
+  background: var(--d-accent);
+  color: var(--d-button-text);
+  border-color: transparent;
+  font-weight: 600;
+}
+.caspr-home-toolbar button:hover {
+  filter: brightness(1.12);
+}
+.caspr-home-toolbar button:focus-visible {
+  outline: 3px solid var(--d-accent);
+  outline-offset: 3px;
+}
+.caspr-home-toolbar p:empty {
+  display: none;
+}
+.caspr-home-card > article {
+  grid-column: auto;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+.caspr-home-card .caspr-clock-widget time {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.caspr-home-card .caspr-pomodoro-dial {
+  max-width: 100%;
+}
+.caspr-home-card .caspr-today-lessons {
+  grid-template-columns: minmax(0, 1fr);
+}
+.caspr-home-card .caspr-today-lessons li {
+  min-width: 0;
+}
+
+.caspr-home-card .caspr-today-lessons time {
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: normal;
+  font-weight: 500;
+}
+.caspr-home-card .caspr-today-lessons li {
+  padding: 10px 12px;
+  gap: 5px;
+}
+
+/* Measure natural card height so tall widgets do not stretch entire rows. */
+.caspr-home-card > article,
+.caspr-home-card > details {
+  height: auto !important;
+  margin: 0 !important;
+  padding: 18px;
+}
+.caspr-home-card > div {
+  height: auto;
+}
+.caspr-home-card .leerlingAppTile {
+  height: auto;
+  min-height: 110px;
+  margin: 0;
+}
+.caspr-home-card .caspr-today-lessons {
+  max-height: 260px;
+  overflow-y: auto;
+}
+@media (max-width: 560px) {
+  .caspr-home-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .caspr-home-card {
+    width: 100%;
+  }
+}
+
+html[data-caspr-dashboard] .caspr-custom-grid[hidden],
+html[data-caspr-dashboard] .caspr-settings-shortcut[hidden] {
+  display: none !important;
+}
+html[data-caspr-dashboard] .caspr-navbar-action a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.caspr-navbar-action .caspr-inbox-badge {
+  margin-left: auto;
+}
+.caspr-studio-header {
+  position: sticky;
+  top: -24px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  background: var(--d-surface, var(--d-bg));
+  border-bottom: 1px solid var(--d-line);
+  margin-bottom: 12px;
+}
+.caspr-studio-header h2 {
+  margin: 0;
+}
+.caspr-studio-header .caspr-community-close {
+  flex-shrink: 0;
+}
+
+html[data-caspr-dashboard][data-caspr-page='dashboard']
+  .main-content
+  .col-md-12:has(> h3) {
+  display: none !important;
+}
+
+.caspr-agenda-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0;
+}
+.caspr-agenda-tabs button {
+  border: 1px solid var(--d-line);
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: var(--d-text);
+  background: var(--d-soft);
+  font: inherit;
+  font-size: 12px;
+}
+.caspr-agenda-tabs button[aria-pressed='true'] {
+  background: var(--d-accent);
+  color: var(--d-button-text);
+}
+.caspr-agenda-list {
+  display: grid;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.caspr-home-card .caspr-agenda-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px;
+  border: 1px solid var(--d-line);
+  border-left: 3px solid #37bf8c;
+  border-radius: 10px;
+  background: var(--d-soft);
+  color: var(--d-text);
+}
+.caspr-home-card .caspr-agenda-item[data-kind='test'] {
+  border-left-color: #f6a642;
+}
+.caspr-agenda-item small {
+  color: var(--d-muted);
+  font-size: 12px;
+}
+.caspr-home-card .caspr-grades-content {
+  max-height: 360px;
+  overflow-y: auto;
+}
+.caspr-home-card .caspr-grades-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.caspr-home-card .caspr-grades-overview summary {
+  cursor: pointer;
+}
+.caspr-home-card .caspr-grades-hint {
+  display: block;
+  margin-top: 5px;
+}
+
+/* The standard Schoolday layout uses aligned rows rather than masonry. */
+.caspr-home-grid[data-default='true'] {
+  grid-auto-rows: auto;
+  grid-auto-flow: row;
+  grid-template-areas: 'welcome welcome welcome clock' 'today today agenda agenda' 'grades grades weather weather';
+  gap: 16px;
+  align-items: stretch;
+}
+.caspr-home-grid[data-default='true'] > .caspr-home-card {
+  grid-row: auto !important;
+}
+.caspr-home-grid[data-default='true'] > [data-widget='widget:caspr-welcome-widget'] {
+  grid-area: welcome !important;
+}
+.caspr-home-grid[data-default='true'] > [data-widget='widget:caspr-clock-widget'] {
+  grid-area: clock !important;
+}
+.caspr-home-grid[data-default='true'] > [data-widget='widget:caspr-agenda-widget'] {
+  grid-area: agenda !important;
+}
+.caspr-home-grid[data-default='true'] > [data-widget='widget:caspr-today-widget'] {
+  grid-area: today !important;
+}
+.caspr-home-grid[data-default='true'] > [data-widget='widget:grades'] {
+  grid-area: grades !important;
+}
+.caspr-home-grid[data-default='true'] > [data-widget='widget:caspr-weather-widget'] {
+  grid-area: weather !important;
+}
+.caspr-home-grid[data-default='true'] .caspr-home-card > article,
+.caspr-home-grid[data-default='true'] .caspr-home-card > details {
+  height: 100% !important;
+}
+.caspr-home-grid[data-default='true'] .caspr-grades-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+@media (max-width: 900px) {
+  .caspr-home-grid[data-default='true'] {
+    grid-template-areas: 'welcome clock' 'today today' 'agenda agenda' 'grades grades' 'weather weather';
+  }
+}
+@media (max-width: 560px) {
+  .caspr-home-grid[data-default='true'] .caspr-home-card > article,
+  .caspr-home-grid[data-default='true'] .caspr-home-card > details {
+    height: auto !important;
+  }
+}
+
+.caspr-home-toolbar,
+.caspr-home-grid {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.caspr-home-toolbar:not([data-editing='true']) > button:not(:first-of-type) {
+  display: none;
+}
+.caspr-home-toolbar:not([data-editing='true']) {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  justify-content: flex-end;
+}
+.caspr-home-card .caspr-grades-overview:not([open]) {
+  min-height: 90px;
+}
+
+.caspr-home-card .caspr-grades-title,
+.caspr-home-card .caspr-grades-hint {
+  letter-spacing: normal;
+  text-transform: none;
+}
+.caspr-home-card .caspr-grades-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+.caspr-home-card .caspr-grades-hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--d-muted);
+}
+.caspr-home-card > [hidden] {
+  display: none !important;
+}
+
+.caspr-home-card h3 {
+  font-size: 18px;
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+.caspr-home-card p {
+  font-size: 13px;
+  line-height: 1.55;
+}
+.caspr-home-card .caspr-agenda-item strong {
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 600;
+}
+.caspr-home-card .caspr-agenda-item small {
+  font-size: 12px;
+  line-height: 1.5;
+}
+.caspr-home-card .caspr-grades-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+.caspr-home-card .caspr-refresh-schedule {
+  border: 1px solid var(--d-line);
+  border-radius: 9px;
+  padding: 9px 12px;
+  background: var(--d-soft);
+  color: var(--d-text);
+  font: inherit;
+  font-size: 13px;
+}
+.caspr-home-card .caspr-grades-overview summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+.caspr-home-card .caspr-grades-hint {
+  margin-top: 0;
+}
+.caspr-home-card .caspr-agenda-list {
+  margin-bottom: 10px;
+}
+
+/* Editing follows document order; gap filling must not move drop targets. */
+.caspr-home-grid[data-editing='true'] {
+  grid-auto-flow: row;
+}
+.caspr-home-grid[data-editing='true'] .caspr-home-card {
+  transition: none;
+}
+
+.caspr-home-card .caspr-shortcuts-widget {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-content: start;
+}
+.caspr-home-card .caspr-shortcuts-widget h3 {
+  flex-basis: 100%;
+}
+.caspr-home-card .caspr-shortcuts-widget a {
+  margin: 0;
+  padding: 8px 12px;
+  color: var(--d-text);
+}
+.caspr-home-card .caspr-pomodoro label.caspr-pomodoro-sound {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0;
+}
+.caspr-home-card .caspr-pomodoro-sound input {
+  flex: 0 0 auto;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+}
+.caspr-home-card .caspr-pomodoro details {
+  text-align: left;
+}
+.caspr-home-card .caspr-pomodoro details summary {
+  font-size: 13px;
+}
+.caspr-home-card .caspr-pomodoro details p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--d-muted);
+}
+.caspr-home-card .caspr-pomodoro-controls {
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.caspr-home-card .caspr-next-lesson-widget .caspr-grades-actions a {
+  padding: 8px 0;
+}
+.caspr-home-card .caspr-progression progress {
+  display: block;
+  width: 100%;
+  height: 8px;
+  border: 0;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 14px 0;
+  background: var(--d-soft);
+}
+.caspr-home-card .caspr-progression progress[hidden] {
+  display: none;
+}
+.caspr-home-card .caspr-progression progress::-webkit-progress-bar {
+  background: var(--d-soft);
+  border-radius: 999px;
+}
+.caspr-home-card .caspr-progression progress::-webkit-progress-value {
+  background: var(--d-accent);
+  border-radius: 999px;
+}
+.caspr-home-card .caspr-progression progress::-moz-progress-bar {
+  background: var(--d-accent);
+  border-radius: 999px;
+}
+.caspr-home-card .caspr-progression p {
+  margin: 10px 0;
+}
+
+/* A calmer editor, separate from the theme designer. */
+dialog.caspr-community.caspr-home-studio-dialog {
+  width: min(780px, calc(100vw - 24px));
+  max-height: 90dvh;
+  padding: 0 22px 22px;
+  border-radius: 18px;
+  background: var(--d-surface, var(--d-bg));
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: var(--d-line) transparent;
+}
+.caspr-home-studio-dialog .caspr-studio-header {
+  top: 0;
+  margin: 0 -22px 16px;
+  padding: 16px 22px;
+  background: var(--d-surface, var(--d-bg));
+}
+.caspr-home-studio-dialog .caspr-studio-header h2 {
+  font-size: 18px;
+}
+.caspr-home-studio-note {
+  margin: 0 0 12px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--d-muted);
+}
+.caspr-home-studio-dialog .caspr-studio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding: 12px 0 18px;
+  margin: 0 0 6px;
+  border-bottom: 1px solid var(--d-line);
+}
+.caspr-home-studio-dialog .caspr-studio-actions button {
+  min-height: 34px;
+  padding: 7px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  background: var(--d-soft);
+  color: var(--d-text);
+}
+.caspr-home-studio-dialog .caspr-studio-actions > button:first-child {
+  background: var(--d-accent);
+  color: var(--d-button-text);
+}
+.caspr-home-settings-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+.caspr-home-studio-dialog .caspr-home-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.3fr 1.3fr auto;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--d-line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--d-card) 65%, var(--d-surface));
+}
+.caspr-home-studio-dialog .caspr-home-row > strong {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  color: var(--d-text);
+  overflow-wrap: anywhere;
+}
+.caspr-home-studio-dialog .caspr-home-row label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 7px;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+}
+.caspr-home-studio-dialog .caspr-home-row input[type='checkbox'] {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--d-accent);
+}
+.caspr-home-studio-dialog .caspr-home-row select {
+  min-width: 48px;
+  width: 100%;
+  padding: 7px;
+  border: 1px solid var(--d-line);
+  border-radius: 7px;
+  background: var(--d-bg);
+  color: var(--d-text);
+  font: inherit;
+}
+.caspr-home-order {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.caspr-home-studio-dialog .caspr-home-order button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 7px;
+}
+@media (max-width: 620px) {
+  .caspr-home-studio-dialog .caspr-home-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .caspr-home-studio-dialog .caspr-home-order {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+  }
+}
+
+.caspr-home-studio-dialog .caspr-home-row-identity {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.caspr-home-row-identity strong {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.caspr-home-studio-dialog .caspr-home-row-grip {
+  padding: 2px 7px;
+  min-width: 28px;
+  background: transparent;
+  color: var(--d-muted);
+  cursor: grab;
+  font-size: 20px;
+  letter-spacing: -4px;
+  touch-action: none;
+}
+.caspr-home-row-grip:active {
+  cursor: grabbing;
+}
+.caspr-home-row.caspr-home-dragging {
+  opacity: 0.5;
+}
+.caspr-home-row[data-drop='before'] {
+  box-shadow: 0 -3px 0 var(--d-accent);
+}
+.caspr-home-row[data-drop='after'] {
+  box-shadow: 0 3px 0 var(--d-accent);
+}
+.caspr-home-grid[data-editing='true'] .caspr-home-card {
+  position: relative;
+}
+.caspr-home-card-grip {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  padding: 5px 9px;
+  border: 1px solid var(--d-line);
+  border-radius: 7px;
+  background: var(--d-surface);
+  color: var(--d-text);
+  font:
+    11px/1.4 system-ui,
+    sans-serif;
+  z-index: 2;
+  cursor: grab;
+  user-select: none;
+}
+
+/* Shared rhythm for dashboard cards, with the active theme kept intact. */
+.caspr-home-card > :is(article, details),
+#caspr-dashboard-widgets > article {
+  padding: 20px;
+  border: 1px solid color-mix(in srgb, var(--d-line) 72%, transparent);
+  box-shadow: var(--studio-shadow, 0 4px 18px #00000008);
+}
+.caspr-home-card h3,
+#caspr-dashboard-widgets > article h3 {
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  margin-bottom: 12px;
+}
+.caspr-home-card p {
+  line-height: 1.6;
+}
+.caspr-home-card .caspr-transit-widget h3,
+#caspr-dashboard-widgets .caspr-transit-widget h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.caspr-transit-widget .caspr-transit-header {
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.caspr-transit-widget .caspr-transit-header button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border-color: transparent;
+  border-radius: 9px;
+  font-size: 18px;
+  color: var(--d-muted);
+}
+.caspr-transit-widget .caspr-transit-header button:hover {
+  color: var(--d-text);
+  background: var(--d-soft);
+}
+.caspr-transit-widget .caspr-transit-stop {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--d-text);
+  margin: 5px 0 3px;
+}
+.caspr-transit-widget [role='status'] {
+  margin: 0;
+  font-size: 11px;
+  min-height: 18px;
+  line-height: 1.6;
+}
+.caspr-transit-widget .caspr-transit-departures {
+  display: grid;
+  gap: 7px;
+  margin: 16px 0;
+}
+.caspr-transit-widget .caspr-transit-departures li {
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid color-mix(in srgb, var(--d-line) 65%, transparent);
+  border-left: 3px solid var(--d-line);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--d-bg) 38%, transparent);
+}
+.caspr-transit-widget .caspr-transit-departures [data-transit-status='delayed'],
+.caspr-transit-widget .caspr-transit-departures [data-transit-status='cancelled'] {
+  border-left-color: #d32b45;
+}
+.caspr-transit-widget .caspr-transit-departures [data-transit-status='ontime'] {
+  border-left-color: #219357;
+}
+.caspr-transit-widget .caspr-transit-line {
+  min-width: 38px;
+  max-width: 64px;
+  justify-self: start;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: normal;
+  font-weight: 750;
+}
+.caspr-delijn-widget .caspr-transit-line {
+  color: #202020;
+}
+.caspr-nmbs-widget .caspr-transit-line {
+  color: #fff;
+}
+.caspr-transit-widget .caspr-transit-departures strong {
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 650;
+}
+.caspr-transit-widget .caspr-transit-departures small {
+  margin-top: 5px;
+  font-size: 11px;
+  line-height: 1.8;
+}
+.caspr-transit-widget .caspr-transit-departures small span {
+  letter-spacing: normal;
+  font-size: inherit;
+  color: inherit;
+  font-weight: 500;
+}
+.caspr-transit-widget .caspr-transit-departures .caspr-transit-status {
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.5;
+  padding: 2px 6px;
+}
+.caspr-transit-widget
+  .caspr-transit-departures
+  [data-transit-status='delayed']
+  .caspr-transit-status,
+.caspr-transit-widget
+  .caspr-transit-departures
+  [data-transit-status='cancelled']
+  .caspr-transit-status {
+  color: #b4142a;
+}
+.caspr-transit-widget
+  .caspr-transit-departures
+  [data-transit-status='ontime']
+  .caspr-transit-status {
+  color: #146338;
+}
+.caspr-transit-widget .caspr-transit-departures .caspr-transit-platform-changed {
+  color: #764400;
+  font-weight: 700;
+}
+.caspr-home-card .caspr-transit-widget .caspr-transit-departures time,
+.caspr-transit-widget .caspr-transit-departures time {
+  font-size: 16px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.025em;
+  align-self: start;
+  padding-top: 2px;
+}
+.caspr-transit-widget .caspr-transit-settings {
+  border-top: 0;
+  padding-top: 0;
+}
+.caspr-transit-widget .caspr-transit-settings > summary {
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+.caspr-transit-widget .caspr-transit-settings > summary:hover,
+.caspr-transit-widget .caspr-transit-settings[open] > summary {
+  background: var(--d-soft);
+  color: var(--d-text);
+}
+.caspr-transit-widget .caspr-transit-settings[open] {
+  padding: 0 0 10px;
+}
+.caspr-transit-widget .caspr-transit-credit {
+  display: block;
+  padding: 0;
+  margin: 10px 0 0;
+  font-size: 10px;
+  color: var(--d-muted);
+  text-decoration: none;
+  text-align: right;
+}
+@media (max-width: 520px) {
+  .caspr-home-card > :is(article, details) {
+    padding: 16px;
+  }
+  .caspr-transit-widget .caspr-transit-departures li {
+    grid-template-columns: 48px minmax(0, 1fr) auto;
+    gap: 8px;
+    padding: 10px 8px;
+  }
+  .caspr-transit-widget .caspr-transit-line {
+    max-width: 48px;
+    font-size: 10px;
+    padding: 4px 5px;
+  }
+  .caspr-transit-widget .caspr-transit-departures strong {
+    font-size: 12px;
+  }
+}
+
+.caspr-home-card > :is(article, details),
+#caspr-dashboard-widgets > article,
+.caspr-transit-widget {
+  font-family: var(--studio-font, system-ui, sans-serif);
+}
+
+/* Matching settings panels for transit and the focus timer. */
+.caspr-transit-widget .caspr-transit-settings,
+.caspr-pomodoro > details {
+  margin-top: 12px;
+  padding: 0;
+  border: 1px solid var(--d-line);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--d-bg) 35%, transparent);
+  text-align: left;
+  overflow: hidden;
+}
+.caspr-transit-widget .caspr-transit-settings > summary,
+.caspr-pomodoro > details > summary {
+  padding: 11px 12px;
+  margin: 0;
+  font: 600 12px/1.5 var(--studio-font, system-ui, sans-serif);
+  color: var(--d-text);
+  border-radius: 0;
+  cursor: pointer;
+}
+.caspr-transit-widget .caspr-transit-settings[open],
+.caspr-pomodoro > details[open] {
+  padding: 0 12px 12px;
+}
+.caspr-transit-widget .caspr-transit-settings[open] > summary,
+.caspr-pomodoro > details[open] > summary {
+  margin: 0 -12px 12px;
+  border-bottom: 1px solid var(--d-line);
+  background: var(--d-soft);
+}
+.caspr-transit-settings > label,
+.caspr-pomodoro > details > label {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+  margin: 14px 0 8px;
+  color: var(--d-muted);
+  font-size: 11px;
+  font-weight: 500;
+}
+.caspr-transit-settings input,
+.caspr-pomodoro > details input[type='number'] {
+  width: 100%;
+  min-height: 38px;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 9px 10px;
+  border: 1px solid var(--d-line);
+  border-radius: 7px;
+  background: var(--d-bg);
+  color: var(--d-text);
+  font: 13px/1.4 var(--studio-font, system-ui, sans-serif);
+}
+.caspr-transit-settings input:focus-visible,
+.caspr-pomodoro > details input:focus-visible {
+  outline: 2px solid var(--d-accent);
+  outline-offset: 2px;
+}
+.caspr-transit-settings > button,
+.caspr-pomodoro > details > button {
+  min-height: 34px;
+  margin: 2px 0 4px;
+  padding: 7px 11px;
+  border: 1px solid var(--d-line);
+  border-radius: 7px;
+  background: var(--d-soft);
+  color: var(--d-text);
+  font: 600 12px/1.4 var(--studio-font, system-ui, sans-serif);
+  cursor: pointer;
+}
+.caspr-pomodoro > details > label.caspr-pomodoro-sound {
+  display: flex;
+  justify-content: flex-start;
+  gap: 9px;
+  color: var(--d-text);
+  font-size: 12px;
+}
+.caspr-pomodoro > details input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  margin: 0;
+  flex: 0 0 16px;
+}
+.caspr-pomodoro > details > label:has(input[type='number']) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 76px;
+  align-items: center;
+}
+.caspr-pomodoro > details > p,
+.caspr-transit-settings > small {
+  margin: 8px 0;
+  color: var(--d-muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.caspr-pomodoro > details > p:empty {
+  display: none;
+}
+.caspr-transit-settings .caspr-transit-search-results {
+  gap: 5px;
+  margin-top: 10px;
+}
+.caspr-transit-settings .caspr-transit-search-results > button {
+  padding: 10px;
+  background: var(--d-bg);
+  border-radius: 7px;
+  font-size: 12px;
+}
+
+.caspr-transit-clickable {
+  cursor: pointer;
+  transition: background 120ms;
+}
+.caspr-transit-widget .caspr-transit-clickable:hover {
+  background: var(--d-soft);
+}
+.caspr-transit-clickable:focus-visible {
+  outline: 2px solid var(--d-accent);
+  outline-offset: 2px;
+}
+dialog.caspr-community.caspr-route-dialog {
+  width: min(540px, calc(100vw - 24px));
+  max-height: 85dvh;
+  padding: 22px;
+  overflow-y: auto;
+  font-family: var(--studio-font, system-ui, sans-serif);
+}
+.caspr-route-dialog > header {
+  position: sticky;
+  top: -22px;
+  background: var(--d-surface, var(--d-bg));
+  padding: 12px 0;
+  z-index: 1;
+}
+.caspr-route-dialog > header h2 {
+  font-size: 17px;
+}
+.caspr-route-dialog > [role='status'] {
+  font-size: 12px;
+  color: var(--d-muted);
+}
+.caspr-route-stops {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+}
+.caspr-route-stops li {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  padding: 0 0 20px 24px;
+  margin-left: 5px;
+  border-left: 2px solid var(--d-line);
+}
+.caspr-route-stops li:last-child {
+  border-left-color: transparent;
+  padding-bottom: 0;
+}
+.caspr-route-stops li::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--d-muted);
+  border-radius: 50%;
+  background: var(--d-surface, var(--d-bg));
+}
+.caspr-route-stops [data-current='true']::before {
+  background: var(--d-accent);
+  border-color: var(--d-accent);
+}
+.caspr-route-stops [data-passed='true'] {
+  opacity: 0.6;
+}
+.caspr-route-stops strong {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.caspr-route-stops small {
+  display: block;
+  font-size: 11px;
+  color: var(--d-muted);
+  margin: 4px 0;
+}
+.caspr-route-stops time {
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.caspr-route-status {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 750;
+}
+.caspr-route-stops [data-state='ontime'] .caspr-route-status {
+  color: #146338;
+  background: #ddf7e7;
+}
+.caspr-route-stops [data-state='delayed'] .caspr-route-status,
+.caspr-route-stops [data-state='cancelled'] .caspr-route-status {
+  color: #b4142a;
+  background: #ffe3e7;
+}
+.caspr-route-stops [data-state='scheduled'] .caspr-route-status {
+  color: var(--d-muted);
+  background: var(--d-soft);
+}
+@media (prefers-reduced-motion: reduce) {
+  .caspr-transit-clickable {
+    transition: none;
+  }
+}
+
+.caspr-weather-now {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 0;
+}
+.caspr-weather-icon {
+  font-size: 52px;
+  line-height: 1.2;
+}
+.caspr-weather-widget .caspr-weather-temperature {
+  font-size: 42px;
+  font-weight: 750;
+  letter-spacing: -0.05em;
+  line-height: 1.2;
+}
+.caspr-weather-widget .caspr-weather-now p {
+  margin: 4px 0 0;
+  font-size: 13px;
+}
+.caspr-weather-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--d-line);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--d-bg) 35%, transparent);
+}
+.caspr-weather-metrics small {
+  display: block;
+  font-size: 10px;
+  color: var(--d-muted);
+  margin-bottom: 5px;
+}
+.caspr-weather-metrics strong {
+  font-size: 12px;
+  font-weight: 650;
+}
+.caspr-weather-days {
+  margin: 12px 0;
+}
+.caspr-weather-days > div {
+  display: grid;
+  grid-template-columns: 70px 28px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--d-line);
+}
+.caspr-weather-days strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+.caspr-weather-widget .caspr-weather-days span {
+  font-size: 12px;
+  letter-spacing: normal;
+  font-weight: 500;
+  color: var(--d-text);
+}
+.caspr-weather-days small {
+  font-size: 11px;
+  color: var(--d-muted);
+}
+@media (max-width: 520px) {
+  .caspr-weather-days > div {
+    gap: 5px;
+    grid-template-columns: 60px 24px minmax(0, 1fr) auto;
+  }
+}
+
+/* Use a drawn chevron instead of a font-dependent arrow glyph. */
+.caspr-grades-overview > summary::after {
+  content: '';
+  display: block;
+  flex: 0 0 8px;
+  width: 8px;
+  height: 8px;
+  margin: 0 3px 4px auto;
+  border-right: 2px solid var(--d-accent);
+  border-bottom: 2px solid var(--d-accent);
+  transform: rotate(45deg);
+  transition: transform 150ms;
+}
+.caspr-grades-overview[open] > summary::after {
+  transform: rotate(225deg);
+  margin-bottom: -4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .caspr-grades-overview > summary::after {
+    transition: none;
+  }
+}
+
+/* A collapsed results card must not stretch to its neighbour's forecast height. */
+.caspr-home-grid[data-default='true'] > [data-widget='widget:grades'] {
+  align-self: start;
+}
+.caspr-home-grid[data-default='true'] .caspr-grades-overview:not([open]) {
+  height: auto !important;
+  min-height: 0;
+}
+
+.caspr-home-card .caspr-grades-overview[open] {
+  display: flex;
+  flex-direction: column;
+  height: 460px !important;
+  max-height: 70dvh;
+  overflow: hidden;
+}
+.caspr-home-card .caspr-grades-overview[open] > summary {
+  flex-shrink: 0;
+}
+.caspr-home-card .caspr-grades-overview[open] > .caspr-grades-content {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.caspr-home-studio-dialog .caspr-home-filters {
+  padding: 14px;
+  margin-top: 16px;
+  border: 1px solid var(--d-line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--d-bg) 45%, transparent);
+}
+.caspr-home-search-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 140px;
+  gap: 10px;
+}
+.caspr-home-studio-dialog .caspr-home-search-row :is(input, select) {
+  min-width: 0;
+  width: 100%;
+  height: 38px;
+  padding: 8px 10px;
+  border: 1px solid var(--d-line);
+  border-radius: 8px;
+  background: var(--d-surface, var(--d-bg));
+  color: var(--d-text);
+  font: 12px/1.5 var(--studio-font, system-ui, sans-serif);
+}
+.caspr-home-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.caspr-home-studio-dialog .caspr-home-categories button {
+  padding: 6px 9px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--d-muted);
+  font-size: 11px;
+}
+.caspr-home-studio-dialog .caspr-home-categories button[aria-pressed='true'] {
+  background: var(--d-soft);
+  border-color: var(--d-accent);
+  color: var(--d-text);
+}
+.caspr-home-studio-dialog .caspr-home-filter-count {
+  margin: 10px 0 0;
+  font-size: 10px;
+  color: var(--d-muted);
+}
+.caspr-home-studio-dialog .caspr-home-row[hidden],
+.caspr-home-studio-dialog .caspr-home-filter-empty[hidden] {
+  display: none !important;
+}
+.caspr-home-filter-empty {
+  padding: 24px 14px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--d-muted);
+}
+@media (max-width: 520px) {
+  .caspr-home-search-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.caspr-home-studio-dialog .caspr-home-row-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  border-radius: 8px;
+  background: var(--d-soft);
+  font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: normal;
+}
+
+/* General settings: focus, navigation and appearance. */
+dialog.caspr-community.caspr-settings-modal {
+  width: min(680px, calc(100vw - 24px));
+  max-height: 88dvh;
+  padding: 22px;
+  border-radius: 16px;
+  background: var(--d-surface, var(--d-bg));
+  font-family: var(--studio-font, system-ui, sans-serif);
+}
+.caspr-settings-modal > header {
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+}
+.caspr-settings-modal > header h2 {
+  font-size: 18px;
+}
+.caspr-settings-modal > .caspr-community-intro {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-bottom: 18px !important;
+}
+.caspr-settings-modal .caspr-dashboard-controls {
+  padding: 16px;
+  margin: 0 0 14px;
+  border: 1px solid var(--d-line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--d-bg) 30%, transparent);
+  box-shadow: none;
+}
+.caspr-settings-modal .caspr-dashboard-controls > p {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+.caspr-settings-modal .caspr-navigation-editor > summary {
+  padding: 0;
+  font-size: 13px;
+}
+.caspr-settings-modal .caspr-navigation-editor ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  margin: 14px 0;
+  padding: 0;
+}
+.caspr-settings-modal .caspr-navigation-editor li {
+  min-width: 0;
+  padding: 9px;
+  gap: 5px;
+  border: 1px solid var(--d-line);
+  border-radius: 8px;
+  background: var(--d-surface, var(--d-bg));
+}
+.caspr-settings-modal .caspr-navigation-editor label {
+  font-size: 12px;
+  font-weight: 500;
+  gap: 8px;
+}
+.caspr-settings-modal .caspr-navigation-editor input[type='checkbox'] {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  padding: 0;
+  flex: 0 0 15px;
+  accent-color: var(--d-accent);
+}
+.caspr-settings-modal .caspr-navigation-editor li button {
+  width: 27px;
+  height: 27px;
+  padding: 0;
+  border-radius: 6px;
+}
+.caspr-settings-modal > .caspr-focus-toggle {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 14px;
+  border-radius: 9px;
+  background: var(--d-accent);
+  color: var(--d-button-text);
+  font-size: 13px;
+}
+@media (max-width: 520px) {
+  .caspr-settings-modal .caspr-navigation-editor ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+html[data-caspr-dashboard]
+  .caspr-home-grid
+  .caspr-home-card
+  > .caspr-grades-overview[open] {
+  display: flex;
+  flex-direction: column;
+  height: 460px !important;
+  max-height: 75dvh;
+  min-height: 0;
+  border-radius: var(--studio-radius, 18px);
+  overflow: hidden;
+  container-type: inline-size;
+}
+.caspr-home-grid .caspr-grades-overview[open] > .caspr-grades-content {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 4px 14px 16px;
+}
+.caspr-home-grid .caspr-grades-overview .caspr-grades-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.caspr-home-grid .caspr-grade-row {
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  padding: 14px;
+  gap: 9px;
+}
+.caspr-home-grid .caspr-grade-row > strong {
+  grid-column: 1 / -1;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: auto;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.caspr-home-grid .caspr-grade-row > span.caspr-grade-score {
+  font-size: 20px;
+  line-height: 1.25;
+  letter-spacing: normal;
+  font-variant-numeric: tabular-nums;
+}
+@container (max-width: 380px) {
+  .caspr-home-grid .caspr-grades-overview .caspr-grades-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Chromium wraps <details> contents in its own box; constrain that box too. */
+.caspr-home-grid .caspr-grades-overview[open]::details-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+}
+@supports not selector(::details-content) {
+  .caspr-home-grid .caspr-grades-overview[open] > .caspr-grades-content {
+    flex: none;
+    height: calc(min(460px, 75dvh) - 120px);
+    max-height: calc(min(460px, 75dvh) - 120px);
+  }
+}

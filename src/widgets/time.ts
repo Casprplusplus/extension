@@ -95,7 +95,10 @@ export function addTimeWidgets(
         'Ophalen lukt niet. Controleer je verbinding of meld opnieuw aan bij CASPR.';
   });
 
-  lesson.append(lessonTitle, subject, room, detail, note, refresh, link);
+  const lessonActions = document.createElement('div');
+  lessonActions.className = 'caspr-grades-actions';
+  lessonActions.append(refresh, link);
+  lesson.append(lessonTitle, subject, room, detail, note, lessonActions);
   if (options.nextLesson) container.append(lesson);
   const today = document.createElement('article');
   today.className = 'caspr-today-widget';
@@ -126,7 +129,7 @@ export function addTimeWidgets(
           : 'Na het weekend'
         : 'Vandaag';
       todayNote.textContent = dayLessons.lessons.length
-        ? `${dayLessons.lessons.length} lessen · ${dayLessons.weekend ? 'Geniet eerst van je weekend.' : `${dayLessons.lessons.filter((l) => l.end > current).length} nog te gaan`}`
+        ? `${dayLessons.lessons.length} lessen · ${dayLessons.weekend ? 'Geniet eerst van je weekend.' : dayLessons.lessons.every((l) => l.end <= current) ? 'Je schooldag zit erop' : `${dayLessons.lessons.filter((l) => l.end > current).length} nog te gaan`}`
         : fresh && stillFresh
           ? 'Geen lessen gevonden voor deze dag. Vernieuw je rooster als dit niet klopt.'
           : 'Haal je rooster op om je lessen en lokalen te zien.';
@@ -178,7 +181,9 @@ export function addTimeWidgets(
           ? 'Het is weekend 🎉'
           : seconds === undefined
             ? 'Rooster nodig'
-            : `${seconds.toLocaleString('nl-BE')} seconden`,
+            : seconds === 0
+              ? 'Schooldag voorbij'
+              : `${seconds.toLocaleString('nl-BE')} seconden`,
       );
       setText(
         goal,
@@ -237,10 +242,40 @@ export function addTimeWidgets(
         : 'Volgende les',
     );
 
+    const minutes = upcoming
+      ? Math.max(0, Math.ceil((upcoming.start - current) / 60000))
+      : 0;
+    const dateKey = (stamp: number) =>
+      new Date(stamp).toLocaleDateString('sv-SE', { timeZone: 'Europe/Brussels' });
+    const tomorrow = new Date(current);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const when = upcoming
+      ? dateKey(upcoming.start) === dateKey(current)
+        ? 'Vandaag'
+        : dateKey(upcoming.start) === dateKey(tomorrow.getTime())
+          ? 'Morgen'
+          : new Date(upcoming.start).toLocaleDateString('nl-BE', {
+              weekday: 'long',
+              day: 'numeric',
+              month: 'long',
+              timeZone: 'Europe/Brussels',
+            })
+      : '';
+    const timeLabel = upcoming
+      ? new Date(upcoming.start).toLocaleTimeString('nl-BE', {
+          hour: '2-digit',
+          minute: '2-digit',
+          timeZone: 'Europe/Brussels',
+        })
+      : '';
+    const wait =
+      minutes < 60
+        ? `Over ${minutes} min`
+        : `Over ${Math.floor(minutes / 60)} uur${minutes % 60 ? ` en ${minutes % 60} min` : ''}`;
     setText(
       detail,
       upcoming
-        ? `${new Date(upcoming.start).toLocaleString('nl-BE', { weekday: 'long', day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Brussels' })} · ${upcoming.start - current < 86400000 ? `over ${Math.ceil((upcoming.start - current) / 60000)} min` : 'na het weekend / op de volgende lesdag'}`
+        ? `${when} om ${timeLabel}${dateKey(upcoming.start) === dateKey(current) ? ` · ${wait}` : ''}`
         : fresh && cache?.source === 'request'
           ? 'Geen komende les gevonden in het opgehaalde rooster. Je kunt opnieuw vernieuwen.'
           : 'Het rooster wordt automatisch opgehaald. Je kunt het ook zelf vernieuwen.',

@@ -27,7 +27,7 @@ export function mountDashboardLayout(
 
   const toolbar = document.createElement('section');
   toolbar.className = 'caspr-dashboard-controls';
-  toolbar.setAttribute('aria-label', 'Dashboard aanpassen en focusmodus');
+  toolbar.setAttribute('aria-label', 'Focusmodus');
 
   const focus = document.createElement('button');
   focus.type = 'button';
@@ -38,7 +38,7 @@ export function mountDashboardLayout(
   const description = document.createElement('p');
   description.textContent = preferences.focus
     ? 'Even rust: chat en games zijn verborgen.'
-    : 'Maak je dashboard persoonlijk, of zet afleiding even uit.';
+    : 'Verberg Chats en Games om je op schoolwerk te concentreren.';
 
   const status = document.createElement('p');
   status.className = 'caspr-layout-status';
@@ -61,7 +61,7 @@ export function mountDashboardLayout(
   reset.textContent = 'Standaardindeling herstellen';
 
   editor.append(summary, instructions, list, reset);
-  toolbar.append(focus, description, editor, status);
+  toolbar.append(focus, description, status);
   content.prepend(toolbar);
 
   const grid = document.createElement('div');

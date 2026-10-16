@@ -1,5 +1,8 @@
 import { defaults } from '../common/themes';
 import './backend';
+import './delijn';
+import './nmbs';
+import './weather';
 import { parseDashboard } from '../common/dashboard';
 
 async function initializeSettings(): Promise<void> {

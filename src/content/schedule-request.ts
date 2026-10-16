@@ -1,6 +1,5 @@
 import { accountScope } from '../common/account-scope';
 import { parseScheduleResponse } from '../common/schedule-response';
-import { getCurrentUser, isStudentEmail } from '../common/user';
 
 let inFlight: Promise<boolean> | undefined;
 let activeController: AbortController | undefined;
@@ -29,7 +28,6 @@ function titleParts(html: string): { subject: string; room: string } {
 }
 
 export function refreshSchedule(force = false): Promise<boolean> {
-  if (!isStudentEmail(getCurrentUser()?.email)) return Promise.resolve(false);
   const scope = accountScope();
   if (location.origin !== 'https://kolvw.caspr.be' || !scope)
     return Promise.resolve(false);

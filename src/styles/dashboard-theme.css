@@ -8,3 +8,9 @@
 @import './dashboard/game.css';
 @import './dashboard/community.css';
 @import './dashboard/chat-appearance.css';
+@import './dashboard/chat-layout.css';
+
+@import './theme-studio.css';
+
+@import './home-studio.css';
+@import './scrollbars.css';

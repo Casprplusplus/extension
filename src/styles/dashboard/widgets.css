@@ -1,11 +1,11 @@
-#caspr-dashboard-widgets {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) {
   display: grid;
   grid-template-columns: 1.7fr 1fr 1fr;
   gap: 18px;
   margin-bottom: 30px;
   font-family: system-ui, sans-serif;
 }
-#caspr-dashboard-widgets article {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) article {
   background: var(--d-card);
   color: var(--d-text);
   border: 1px solid var(--d-line);
@@ -13,49 +13,49 @@
   padding: 24px;
   box-shadow: 0 8px 28px #00000008;
 }
-#caspr-dashboard-widgets span {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) span {
   font-size: 10px;
   letter-spacing: 0.16em;
   font-weight: 750;
   color: var(--d-accent);
 }
-#caspr-dashboard-widgets h2 {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) h2 {
   font-size: 25px;
   color: inherit;
   margin: 12px 0;
 }
-#caspr-dashboard-widgets p {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) p {
   color: var(--d-muted);
   font-size: 13px;
   line-height: 1.6;
   margin: 10px 0 0;
 }
-#caspr-dashboard-widgets time {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) time {
   display: block;
   font-size: 38px;
   font-weight: 700;
   letter-spacing: -0.04em;
 }
-#caspr-dashboard-widgets h3 {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) h3 {
   font-size: 14px;
   margin: 0 0 12px;
 }
-#caspr-dashboard-widgets a {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) a {
   display: block;
   color: var(--d-accent);
   font-size: 13px;
   padding: 5px 0;
 }
 @media (max-width: 1200px) {
-  #caspr-dashboard-widgets {
+  :where(#caspr-dashboard-widgets, .caspr-home-grid) {
     grid-template-columns: 1fr 1fr;
   }
-  #caspr-dashboard-widgets article:first-child {
+  :where(#caspr-dashboard-widgets, .caspr-home-grid) article:first-child {
     grid-column: 1 / -1;
   }
 }
 @media (max-width: 575px) {
-  #caspr-dashboard-widgets {
+  :where(#caspr-dashboard-widgets, .caspr-home-grid) {
     grid-template-columns: 1fr;
   }
   html[data-caspr-dashboard] .leerlingAppTile {
@@ -71,7 +71,7 @@
   }
 }
 
-#caspr-dashboard-widgets .caspr-seconds {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-seconds {
   display: block;
   font-size: clamp(19px, 2vw, 28px);
   color: var(--d-accent);
@@ -79,36 +79,38 @@
   font-variant-numeric: tabular-nums;
 }
 /* Balanced widget rows, including individually hidden widgets. */
-#caspr-dashboard-widgets {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) {
   grid-template-columns: repeat(12, minmax(0, 1fr));
   align-items: stretch;
 }
-#caspr-dashboard-widgets article {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) article {
   grid-column: span 6;
   min-width: 0;
 }
-#caspr-dashboard-widgets .caspr-welcome-widget {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-welcome-widget {
   grid-column: span 6;
 }
-#caspr-dashboard-widgets .caspr-clock-widget,
-#caspr-dashboard-widgets .caspr-shortcuts-widget {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-clock-widget,
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-shortcuts-widget {
   grid-column: span 3;
 }
-#caspr-dashboard-widgets .caspr-shortcuts-widget a {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-shortcuts-widget a {
   margin: 5px 0;
   padding: 8px 12px;
   border-radius: 9px;
   background: var(--d-soft);
   text-decoration: none;
 }
-#caspr-dashboard-widgets .caspr-shortcuts-widget a:hover {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-shortcuts-widget a:hover {
   box-shadow: inset 0 0 0 1px var(--d-accent);
 }
-#caspr-dashboard-widgets .caspr-countdown-widget .caspr-seconds {
+:where(#caspr-dashboard-widgets, .caspr-home-grid)
+  .caspr-countdown-widget
+  .caspr-seconds {
   font-size: clamp(24px, 2.6vw, 36px);
   letter-spacing: -0.03em;
 }
-#caspr-dashboard-widgets .caspr-next-lesson-widget > strong {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-next-lesson-widget > strong {
   display: block;
   font-size: 24px;
   color: var(--d-accent);
@@ -116,55 +118,55 @@
   overflow-wrap: anywhere;
 }
 @media (max-width: 1200px) {
-  #caspr-dashboard-widgets {
+  :where(#caspr-dashboard-widgets, .caspr-home-grid) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  #caspr-dashboard-widgets article,
-  #caspr-dashboard-widgets .caspr-clock-widget,
-  #caspr-dashboard-widgets .caspr-shortcuts-widget {
+  :where(#caspr-dashboard-widgets, .caspr-home-grid) article,
+  :where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-clock-widget,
+  :where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-shortcuts-widget {
     grid-column: span 1;
   }
-  #caspr-dashboard-widgets .caspr-welcome-widget {
+  :where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-welcome-widget {
     grid-column: 1 / -1;
   }
 }
 @media (max-width: 575px) {
-  #caspr-dashboard-widgets {
+  :where(#caspr-dashboard-widgets, .caspr-home-grid) {
     grid-template-columns: minmax(0, 1fr);
   }
-  #caspr-dashboard-widgets article,
-  #caspr-dashboard-widgets .caspr-welcome-widget {
+  :where(#caspr-dashboard-widgets, .caspr-home-grid) article,
+  :where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-welcome-widget {
     grid-column: 1;
     padding: 20px;
   }
 }
-#caspr-dashboard-widgets {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) {
   width: 100%;
   box-sizing: border-box;
 }
-#caspr-dashboard-widgets article {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) article {
   box-sizing: border-box;
   overflow-wrap: anywhere;
 }
-#caspr-dashboard-widgets h2 {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) h2 {
   font-size: clamp(21px, 2vw, 27px);
   line-height: 1.35;
 }
-#caspr-dashboard-widgets .caspr-emoji {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-emoji {
   font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
   font-size: 1em;
   letter-spacing: normal;
   color: inherit;
   font-weight: normal;
 }
-#caspr-dashboard-widgets .caspr-next-lesson-widget > strong {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-next-lesson-widget > strong {
   font-size: clamp(18px, 1.8vw, 25px);
   line-height: 1.4;
 }
-#caspr-dashboard-widgets article p {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) article p {
   max-width: 100%;
 }
-#caspr-dashboard-widgets .caspr-refresh-schedule {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-refresh-schedule {
   margin-top: 12px;
   padding: 7px 12px;
   border: 1px solid var(--d-line);
@@ -175,11 +177,11 @@
   font-size: 13px;
   cursor: pointer;
 }
-#caspr-dashboard-widgets .caspr-refresh-schedule:disabled {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-refresh-schedule:disabled {
   opacity: 0.65;
   cursor: wait;
 }
-#caspr-dashboard-widgets .caspr-refresh-schedule:focus-visible {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-refresh-schedule:focus-visible {
   outline: 2px solid var(--d-accent);
   outline-offset: 3px;
 }
@@ -189,37 +191,37 @@
   color: var(--d-accent);
   font-variant-numeric: tabular-nums;
 }
-#caspr-dashboard-widgets {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) {
   align-items: start;
   gap: 16px;
 }
-#caspr-dashboard-widgets .caspr-welcome-widget,
-#caspr-dashboard-widgets .caspr-clock-widget,
-#caspr-dashboard-widgets .caspr-shortcuts-widget,
-#caspr-dashboard-widgets .caspr-countdown-widget,
-#caspr-dashboard-widgets .caspr-next-lesson-widget {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-welcome-widget,
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-clock-widget,
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-shortcuts-widget,
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-countdown-widget,
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-next-lesson-widget {
   align-self: stretch;
   padding: 20px;
   border-radius: 16px;
 }
-#caspr-dashboard-widgets .caspr-today-widget {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-today-widget {
   padding: 20px;
   border-radius: 16px;
 }
-#caspr-dashboard-widgets .caspr-shortcuts-widget a {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-shortcuts-widget a {
   padding: 6px 10px;
   margin: 4px 0;
 }
-#caspr-dashboard-widgets .caspr-next-lesson-widget > strong {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-next-lesson-widget > strong {
   margin-top: 8px;
 }
-#caspr-dashboard-widgets .caspr-pomodoro,
-#caspr-dashboard-widgets .caspr-progression {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-pomodoro,
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-progression {
   grid-column: span 3;
   padding: 20px;
   border-radius: 16px;
 }
-#caspr-dashboard-widgets .caspr-pomodoro {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-pomodoro {
   text-align: center;
 }
 .caspr-pomodoro-dial {
@@ -324,7 +326,7 @@
 .caspr-today-lessons li > time {
   grid-column: 1 / -1;
 }
-#caspr-dashboard-widgets .caspr-today-lessons time {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-today-lessons time {
   font-size: 12px;
   letter-spacing: normal;
   font-weight: 500;
@@ -347,7 +349,7 @@
   background: var(--d-accent);
   color: var(--d-button-text);
 }
-#caspr-dashboard-widgets .caspr-today-lessons span {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-today-lessons span {
   font-size: 12px;
   letter-spacing: normal;
 }
@@ -372,14 +374,14 @@
   background: var(--d-soft);
   color: var(--d-text);
 }
-#caspr-dashboard-widgets .caspr-progression .caspr-badge {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-progression .caspr-badge {
   letter-spacing: normal;
   font-size: 12px;
 }
 .caspr-reward-badges {
   margin-top: 12px;
 }
-#caspr-dashboard-widgets .caspr-groupwork-widget {
+:where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-groupwork-widget {
   grid-column: span 6;
   padding: 20px;
   border-radius: 16px;
@@ -411,7 +413,7 @@
   border-left: 3px solid #dd8460;
 }
 @media (max-width: 1200px) {
-  #caspr-dashboard-widgets .caspr-groupwork-widget {
+  :where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-groupwork-widget {
     grid-column: span 1;
   }
 }
@@ -424,8 +426,191 @@
   }
 }
 @media (max-width: 1200px) {
-  #caspr-dashboard-widgets .caspr-pomodoro,
-  #caspr-dashboard-widgets .caspr-progression {
+  :where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-pomodoro,
+  :where(#caspr-dashboard-widgets, .caspr-home-grid) .caspr-progression {
     grid-column: span 1;
   }
+}
+
+.caspr-transit-widget .caspr-transit-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.caspr-transit-widget h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.caspr-transit-widget button {
+  padding: 7px 10px;
+  border: 1px solid var(--d-line);
+  border-radius: 8px;
+  background: var(--d-soft);
+  color: var(--d-text);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.caspr-transit-widget button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.caspr-transit-widget :is(button, input, summary):focus-visible {
+  outline: 2px solid var(--d-accent);
+  outline-offset: 2px;
+}
+.caspr-transit-widget .caspr-transit-stop {
+  margin: 8px 0;
+  font-size: 12px;
+}
+.caspr-transit-widget [role='status'] {
+  font-size: 11px;
+  color: var(--d-muted);
+}
+.caspr-transit-departures {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+}
+.caspr-transit-departures li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--d-line);
+}
+.caspr-transit-line {
+  min-width: 32px;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 7px;
+  background: #ffd600;
+  color: #202020;
+  font-size: 12px;
+  font-weight: 700;
+}
+.caspr-transit-departures strong {
+  display: block;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.caspr-transit-departures small {
+  display: block;
+  font-size: 10px;
+  color: var(--d-muted);
+  margin-top: 3px;
+}
+.caspr-home-card .caspr-transit-departures time,
+.caspr-transit-departures time {
+  font:
+    650 13px/1.4 system-ui,
+    sans-serif;
+  color: var(--d-text);
+  white-space: nowrap;
+}
+.caspr-transit-departures [data-cancelled='true'] strong {
+  text-decoration: line-through;
+}
+.caspr-transit-departures [data-cancelled='true'] small {
+  color: #d65768;
+}
+.caspr-transit-settings {
+  border-top: 1px solid var(--d-line);
+  padding-top: 10px;
+}
+.caspr-transit-settings summary {
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--d-muted);
+}
+.caspr-transit-settings label {
+  display: grid;
+  gap: 6px;
+  margin: 12px 0 6px;
+  font-size: 11px;
+  color: var(--d-muted);
+}
+.caspr-transit-settings input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  border: 1px solid var(--d-line);
+  border-radius: 7px;
+  padding: 8px;
+  background: var(--d-bg);
+  color: var(--d-text);
+  font: inherit;
+  font-size: 12px;
+}
+.caspr-transit-settings > small {
+  display: block;
+  color: var(--d-muted);
+  font-size: 10px;
+  margin-top: 10px;
+}
+.caspr-transit-search-results {
+  display: grid;
+  gap: 5px;
+  max-height: 180px;
+  overflow-y: auto;
+  margin-top: 8px;
+}
+.caspr-transit-search-results button {
+  text-align: left;
+}
+.caspr-transit-credit {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 10px;
+  color: var(--d-muted);
+}
+
+.caspr-nmbs-widget .caspr-transit-line {
+  background: #145ca8;
+  color: #fff;
+  min-width: 44px;
+  max-width: 72px;
+  overflow-wrap: anywhere;
+  font-size: 10px;
+}
+
+.caspr-transit-departures .caspr-transit-status {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+.caspr-transit-departures [data-transit-status='delayed'] .caspr-transit-status,
+.caspr-transit-departures [data-transit-status='cancelled'] .caspr-transit-status {
+  color: #b4142a;
+  background: #ffe3e7;
+}
+.caspr-transit-departures [data-transit-status='ontime'] .caspr-transit-status {
+  color: #146338;
+  background: #ddf7e7;
+}
+.caspr-transit-departures [data-transit-status='scheduled'] .caspr-transit-status {
+  color: var(--d-muted);
+  background: var(--d-soft);
+  font-weight: 500;
+}
+.caspr-transit-departures .caspr-transit-platform-changed {
+  color: #764400;
+  background: #fff0c2;
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-weight: 700;
+}
+.caspr-transit-departures [data-transit-status='delayed'],
+.caspr-transit-departures [data-transit-status='cancelled'] {
+  border-left: 3px solid #d32b45;
+  padding-left: 8px;
+}
+.caspr-transit-departures [data-transit-status='ontime'] {
+  border-left: 3px solid #219357;
+  padding-left: 8px;
 }

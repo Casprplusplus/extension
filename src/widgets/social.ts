@@ -19,6 +19,7 @@ export function mountSocial(
   openGroup: (id: number, name: string) => void,
   onState: () => void,
   onGroups?: (groups: { id: number; name: string; accepted: boolean }[]) => void,
+  toolbarHost?: HTMLElement,
 ) {
   let disposed = false;
   let room = '';
@@ -28,6 +29,7 @@ export function mountSocial(
   let groupsEpoch = 0;
   let unread: Record<string, number> = {};
   let mentionCounts: Record<string, number> = {};
+  let toolbarKey = '';
   const dialogs = new Set<HTMLDialogElement>();
   const groups = element('section');
   const ownProfile = button('👤 Mijn profiel', () => {
@@ -133,7 +135,9 @@ export function mountSocial(
         enter.disabled = !group.accepted;
         enter.setAttribute('aria-pressed', String(room === `group:${group.id}`));
         row.append(enter);
-        if (!group.accepted)
+        if (!group.accepted) {
+          row.classList.add('caspr-group-invitation');
+          row.append(element('small', 'Uitnodiging voor een privégroep'));
           row.append(
             button(
               'Accepteren',
@@ -146,6 +150,7 @@ export function mountSocial(
                 .catch(report);
             }),
           );
+        }
         groupsList.append(row);
       }
       if (!data.groups.length)
@@ -261,6 +266,9 @@ export function mountSocial(
     node.append(error);
   };
   const render = () => {
+    const pollsOpen =
+      panel.querySelector<HTMLDetailsElement>('.caspr-social-polls')?.open;
+    const scrollTop = panel.scrollTop;
     panel.replaceChildren();
     if (!state) return;
     const toolbar = element('div');
@@ -296,7 +304,7 @@ export function mountSocial(
           ),
         );
     }
-    panel.append(toolbar);
+    if (!toolbarHost) panel.append(toolbar);
     appendSocialExtras(toolbar, panel, state, {
       room,
       ownId,
@@ -305,6 +313,13 @@ export function mountSocial(
       dialog,
       report,
     });
+    if (toolbarHost) {
+      const key = JSON.stringify([room, ownId, role, state.group || null]);
+      if (key !== toolbarKey || !toolbarHost.children.length) {
+        toolbarHost.replaceChildren(toolbar);
+        toolbarKey = key;
+      }
+    }
     if (state.pin) {
       const pin = element('div');
       pin.className = 'caspr-social-pin';
@@ -337,6 +352,7 @@ export function mountSocial(
     if (state.polls.length) {
       const details = element('details');
       details.className = 'caspr-social-polls';
+      details.open = pollsOpen || false;
       details.append(element('summary', `Polls · ${state.polls.length}`));
       for (const poll of state.polls) {
         const card = element('article');
@@ -375,6 +391,8 @@ export function mountSocial(
       }
       panel.append(details);
     }
+    panel.hidden = panel.children.length === 0;
+    panel.scrollTop = scrollTop;
   };
   let role = 'member';
   const canPin = () =>
@@ -516,6 +534,7 @@ export function mountSocial(
         for (const node of dialogs) node.close();
         state = undefined;
         panel.hidden = true;
+        toolbarHost?.replaceChildren();
       }
       room = value;
       ownId = userId;
